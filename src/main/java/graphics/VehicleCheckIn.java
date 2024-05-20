@@ -57,10 +57,8 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         vehiclesEntryOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vehiclesEntryOwnerID.setText("Cedula propietario");
 
         vehiclesEntryCarPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vehiclesEntryCarPlate.setText("Placa");
 
         vehiclesEntryButton.setText("INGRESAR");
         vehiclesEntryButton.addActionListener(new java.awt.event.ActionListener() {

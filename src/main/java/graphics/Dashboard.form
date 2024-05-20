@@ -124,6 +124,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="BUSCAR FACTURA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardSearchInvoiceButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="dashboardShowLogsButton">
       <Properties>
@@ -161,6 +164,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="CALCULADORA"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardCalculatorButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="developerLabel">
       <Properties>

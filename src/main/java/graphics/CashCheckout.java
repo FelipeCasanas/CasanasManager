@@ -4,9 +4,6 @@
  */
 package graphics;
 
-import processes.Accounting;
-import processes.VehiclesManagment;
-
 /**
  *
  * @author Felipe
@@ -18,7 +15,6 @@ public class CashCheckout extends javax.swing.JFrame {
      */
     public CashCheckout() {
         initComponents();
-        showVehiclesQuantities();
     }
 
     /**
@@ -31,182 +27,212 @@ public class CashCheckout extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
-        graphicsPane = new javax.swing.JPanel();
-        vehiclesCounterLabel = new javax.swing.JLabel();
-        carCounterLabel = new javax.swing.JLabel();
-        motorcycleCounterLabel = new javax.swing.JLabel();
-        bikeCounterLabel = new javax.swing.JLabel();
-        totalCounterLabel = new javax.swing.JLabel();
-        carCounter = new javax.swing.JLabel();
-        motorcycleCounter = new javax.swing.JLabel();
-        bikeCounter = new javax.swing.JLabel();
-        totalCounter = new javax.swing.JLabel();
-        generatedCashLabel = new javax.swing.JLabel();
-        carCashLabel = new javax.swing.JLabel();
-        motorcycleCashLabel = new javax.swing.JLabel();
-        bikeCashLabel = new javax.swing.JLabel();
-        totalCashLabel = new javax.swing.JLabel();
-        carCash = new javax.swing.JLabel();
-        motorcycleCash = new javax.swing.JLabel();
-        bikeCash = new javax.swing.JLabel();
-        totalCash = new javax.swing.JLabel();
         developerLabel = new javax.swing.JLabel();
+        leftContainer = new javax.swing.JPanel();
+        counterTitleLabel = new javax.swing.JLabel();
+        counterCarLabel = new javax.swing.JLabel();
+        counterMotorcycleLabel = new javax.swing.JLabel();
+        counterBikeLabel = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        rightContainer = new javax.swing.JPanel();
+        incomeTitleLabel = new javax.swing.JLabel();
+        carIncomeLabel = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        bikeIncomeLabel = new javax.swing.JLabel();
+        incomeMotorcycleLabel = new javax.swing.JLabel();
+        goBackButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(656, 434));
         setResizable(false);
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("CUADRE DE CAJA");
 
-        javax.swing.GroupLayout graphicsPaneLayout = new javax.swing.GroupLayout(graphicsPane);
-        graphicsPane.setLayout(graphicsPaneLayout);
-        graphicsPaneLayout.setHorizontalGroup(
-            graphicsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
-        graphicsPaneLayout.setVerticalGroup(
-            graphicsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
-
-        vehiclesCounterLabel.setText("CONTEO VEHICULOS");
-
-        carCounterLabel.setText("AUTOS:");
-
-        motorcycleCounterLabel.setText("MOTOS:");
-
-        bikeCounterLabel.setText("BICICLETAS:");
-
-        totalCounterLabel.setText("TOTAL:");
-
-        generatedCashLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        generatedCashLabel.setText("DINERO GENERADO");
-
-        carCashLabel.setText("AUTOS:");
-
-        motorcycleCashLabel.setText("MOTOS:");
-
-        bikeCashLabel.setText("BICICLETAS:");
-
-        totalCashLabel.setText("TOTAL:");
-
-        carCash.setText("50000");
-
-        motorcycleCash.setText("10000");
-
-        bikeCash.setText("1000");
-
-        totalCash.setText("61000");
-
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+
+        counterTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        counterTitleLabel.setText("CONTEO");
+
+        counterCarLabel.setText("CARROS");
+
+        counterMotorcycleLabel.setText("MOTOS");
+
+        counterBikeLabel.setText("BICICLETAS");
+
+        jLabel7.setText("4");
+
+        jLabel8.setText("2");
+
+        jLabel6.setText("6");
+
+        javax.swing.GroupLayout leftContainerLayout = new javax.swing.GroupLayout(leftContainer);
+        leftContainer.setLayout(leftContainerLayout);
+        leftContainerLayout.setHorizontalGroup(
+            leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftContainerLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(counterTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(leftContainerLayout.createSequentialGroup()
+                            .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(counterBikeLabel)
+                                .addComponent(counterCarLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(counterMotorcycleLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(0, 57, Short.MAX_VALUE)))
+                    .addContainerGap()))
+        );
+        leftContainerLayout.setVerticalGroup(
+            leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addContainerGap())
+            .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(leftContainerLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(counterTitleLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(counterCarLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(counterMotorcycleLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(counterBikeLabel)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        incomeTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        incomeTitleLabel.setText("DINERO GENERADO");
+
+        carIncomeLabel.setText("CARROS");
+
+        jLabel10.setText("30.000");
+
+        jLabel11.setText("12000");
+
+        jLabel12.setText("5500");
+
+        bikeIncomeLabel.setText("BICICLETAS");
+
+        incomeMotorcycleLabel.setText("MOTOS");
+
+        javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
+        rightContainer.setLayout(rightContainerLayout);
+        rightContainerLayout.setHorizontalGroup(
+            rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(rightContainerLayout.createSequentialGroup()
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+            .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rightContainerLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(incomeTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
+                        .addGroup(rightContainerLayout.createSequentialGroup()
+                            .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bikeIncomeLabel)
+                                .addComponent(carIncomeLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(incomeMotorcycleLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()))
+        );
+        rightContainerLayout.setVerticalGroup(
+            rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
+                .addContainerGap(40, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel12)
+                .addContainerGap())
+            .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(rightContainerLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(incomeTitleLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(carIncomeLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(incomeMotorcycleLabel)
+                    .addGap(18, 18, 18)
+                    .addComponent(bikeIncomeLabel)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        goBackButton.setText("<-");
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(graphicsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(bikeCounterLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(bikeCounter)
-                                .addGap(3, 3, 3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(vehiclesCounterLabel)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(carCounterLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(carCounter))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(motorcycleCounterLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(motorcycleCounter)))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(totalCounterLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(totalCounter)))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(carCashLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bikeCash, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(carCash, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bikeCashLabel)
-                                    .addComponent(motorcycleCashLabel)
-                                    .addComponent(totalCashLabel))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(88, 118, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(motorcycleCash)
-                                    .addComponent(totalCash)))
-                            .addComponent(generatedCashLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(26, 26, 26))
-                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(leftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addComponent(rightContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(graphicsPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vehiclesCounterLabel)
-                            .addComponent(generatedCashLabel))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(carCounterLabel)
-                            .addComponent(carCashLabel)
-                            .addComponent(carCounter)
-                            .addComponent(carCash))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(motorcycleCounterLabel)
-                            .addComponent(motorcycleCashLabel)
-                            .addComponent(motorcycleCounter)
-                            .addComponent(motorcycleCash))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bikeCounterLabel)
-                            .addComponent(bikeCashLabel)
-                            .addComponent(bikeCounter)
-                            .addComponent(bikeCash))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(totalCounterLabel)
-                            .addComponent(totalCashLabel)
-                            .addComponent(totalCounter)
-                            .addComponent(totalCash))))
+                .addContainerGap()
+                .addComponent(ratesTitleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(developerLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(10, 10, 10)
-                    .addComponent(ratesTitleLabel)
-                    .addContainerGap(324, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(leftContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(goBackButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        Dashboard dashboard = new Dashboard();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -242,46 +268,26 @@ public class CashCheckout extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    protected void showVehiclesQuantities() {
-        VehiclesManagment vehiclesManagment = new VehiclesManagment();
-        carCounter.setText(String.valueOf(vehiclesManagment.getCarsQuantity()));
-        motorcycleCounter.setText(String.valueOf(vehiclesManagment.getMotorcyclesQuantity()));
-        bikeCounter.setText(String.valueOf(vehiclesManagment.getBikesQuantity()));
-        totalCounter.setText(String.valueOf(vehiclesManagment.getTotalVehicles()));
-    }
-    
-    protected void showIncomes() {
-        Accounting accounting = new Accounting();
-        carCash.setText(String.valueOf(accounting.getCarsIncome()));
-        motorcycleCash.setText(String.valueOf(accounting.getMotorcyclesIncome()));
-        bikeCash.setText(String.valueOf(accounting.getBikesIncome()));
-        //totalCash.setText(String.valueOf(accounting.getTotalIncome()));
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel bikeCash;
-    private javax.swing.JLabel bikeCashLabel;
-    private javax.swing.JLabel bikeCounter;
-    private javax.swing.JLabel bikeCounterLabel;
-    private javax.swing.JLabel carCash;
-    private javax.swing.JLabel carCashLabel;
-    private javax.swing.JLabel carCounter;
-    private javax.swing.JLabel carCounterLabel;
+    private javax.swing.JLabel bikeIncomeLabel;
+    private javax.swing.JLabel carIncomeLabel;
+    private javax.swing.JLabel counterBikeLabel;
+    private javax.swing.JLabel counterCarLabel;
+    private javax.swing.JLabel counterMotorcycleLabel;
+    private javax.swing.JLabel counterTitleLabel;
     private javax.swing.JLabel developerLabel;
-    private javax.swing.JLabel generatedCashLabel;
-    private javax.swing.JPanel graphicsPane;
-    private javax.swing.JLabel motorcycleCash;
-    private javax.swing.JLabel motorcycleCashLabel;
-    private javax.swing.JLabel motorcycleCounter;
-    private javax.swing.JLabel motorcycleCounterLabel;
+    private javax.swing.JButton goBackButton;
+    private javax.swing.JLabel incomeMotorcycleLabel;
+    private javax.swing.JLabel incomeTitleLabel;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel leftContainer;
     private javax.swing.JLabel ratesTitleLabel;
-    private javax.swing.JLabel totalCash;
-    private javax.swing.JLabel totalCashLabel;
-    private javax.swing.JLabel totalCounter;
-    private javax.swing.JLabel totalCounterLabel;
-    private javax.swing.JLabel vehiclesCounterLabel;
+    private javax.swing.JPanel rightContainer;
     // End of variables declaration//GEN-END:variables
 }

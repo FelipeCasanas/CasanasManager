@@ -68,6 +68,11 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         dashboardSearchInvoiceButton.setText("BUSCAR FACTURA");
+        dashboardSearchInvoiceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardSearchInvoiceButtonActionPerformed(evt);
+            }
+        });
 
         dashboardShowLogsButton.setText("MOSTRAR REGISTROS");
         dashboardShowLogsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +103,11 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         dashboardCalculatorButton.setText("CALCULADORA");
+        dashboardCalculatorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardCalculatorButtonActionPerformed(evt);
+            }
+        });
 
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
@@ -158,7 +168,10 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dashboardSearchVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardSearchVehicleButtonActionPerformed
-        // TODO add your handling code here:
+        SearchVehicle searchVehicle = new SearchVehicle();
+        searchVehicle.setVisible(true);
+        searchVehicle.setLocationRelativeTo(null);
+        this.setVisible(false);
     }//GEN-LAST:event_dashboardSearchVehicleButtonActionPerformed
 
     private void dashboardEntryVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardEntryVehicleButtonActionPerformed
@@ -202,6 +215,20 @@ public class Dashboard extends javax.swing.JFrame {
         cashCheckout.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_dashboardTodayRecordsButtonActionPerformed
+
+    private void dashboardCalculatorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardCalculatorButtonActionPerformed
+        Calculator calculator = new Calculator();
+        calculator.setVisible(true);
+        calculator.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_dashboardCalculatorButtonActionPerformed
+
+    private void dashboardSearchInvoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardSearchInvoiceButtonActionPerformed
+        SearchInvoice searchInvoice = new SearchInvoice();
+        searchInvoice.setVisible(true);
+        searchInvoice.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_dashboardSearchInvoiceButtonActionPerformed
 
     /**
      * @param args the command line arguments

@@ -38,6 +38,8 @@ public class VehicleLogs extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         vehicleLogsTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         vehicleLogsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
