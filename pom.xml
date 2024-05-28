@@ -11,5 +11,15 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.casanassoftware.administrativemanager.AdministrativeManager</exec.mainClass>
     </properties>
+    
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
+    </dependencies>
+    
     <name>CasanasManager</name>
 </project>

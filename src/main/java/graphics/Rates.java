@@ -5,7 +5,7 @@
 package graphics;
 
 import javax.swing.JOptionPane;
-import processes.RatesManagment;
+import managmentCore.RatesManagment;
 
 /**
  *

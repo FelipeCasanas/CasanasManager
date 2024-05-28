@@ -4,8 +4,13 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import processes.EmptyPlaces;
+import managmentCore.UserManagment;
+import utilities.EmptyPlaces;
+import utilities.FormatDate;
 
 /**
  *
@@ -152,14 +157,36 @@ public class VehicleCheckIn extends javax.swing.JFrame {
             boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleData, places, this, 5);
 
             if (!isEmpty) {
-                int checkIn = JOptionPane.showConfirmDialog(this, "Esta seguro que desea hacer el ingreso?");
+                //Realiza consulta de busqueda en base de datos
+                //Valida si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
+                QueryManagment queryManagment = new QueryManagment();
+                boolean vehicleExists = queryManagment.vehicleStillHere(vehicleData[4]);
+                
+                if (vehicleExists) {
+                    JOptionPane.showMessageDialog(this, "El vehiculo ya se encuentra en el parqueadero");
+                } else {
+                    int checkIn = JOptionPane.showConfirmDialog(this, "Esta seguro que desea hacer el ingreso?");
 
-                if (checkIn == 0) {
-                    //Realiza consulta de busqueda en base de datos
-                    //Valida si existe una coincidencia de vehiculo
-                    //Obtiene  la hora de entrada
-                    //Realiza insercion entrada en base de datos
+                    if (checkIn == 0) {
+                        //Obtiene el id del trabajador en turno
+                        UserManagment userManagment = new UserManagment();
+                        int userId = userManagment.getId();
+                        
+                        //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
+                        FormatDate formatter = new FormatDate();
+                        String formattedDate = formatter.format();
+                        
+                        //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
+                        boolean vehicleInserted = queryManagment.insertVehicle(vehicleData, userId, formattedDate);
+                        
+                        if(vehicleInserted) {
+                            JOptionPane.showMessageDialog(this, "Se realizo el ingreso");
+                        } else {
+                            JOptionPane.showMessageDialog(this, "ERROR, no se pudo ingresar el vehiculo");
+                        }
+                    }
                 }
+
             }
 
         } catch (Exception e) {

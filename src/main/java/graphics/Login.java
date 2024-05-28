@@ -4,6 +4,8 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+
 /**
  *
  * @author Felipe
@@ -93,15 +95,13 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(loginLabel)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(loginButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(loginExitButtom)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginExitButtom))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginButton))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(developerLabel)
                 .addContainerGap())
@@ -115,14 +115,14 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_loginEmailFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        QueryManagment queryManagment = new QueryManagment();
         String email = loginEmailField.getText().toString().toLowerCase().trim();
         String password = loginPasswordField.getText().toString().trim();
         
-        boolean logged = true;
+        boolean logged = queryManagment.loginQuery(this, email, password);
         
         try {
             if(logged) {
-                System.out.println("Inicio de sesion completado");
                 Dashboard dashboard = new Dashboard();
                 dashboard.setVisible(true);
                 dashboard.setLocationRelativeTo(null);
