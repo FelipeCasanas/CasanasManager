@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import managmentCore.UserManagment;
 import utilities.EmptyPlaces;
 import utilities.FormatDate;
+import utilities.ParseUserInputs;
 
 /**
  *
@@ -55,11 +56,11 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("INGRESO VEHICULAR");
 
-        vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carro", "Moto", "Bicicleta"}));
 
-        vehiclesEntryVehicleColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vehiclesEntryVehicleColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanco", "Gris", "Negro", "Rojo", "Azul", "Otro" }));
 
-        vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Rayon(es)", "Golpe(s)", "Desconocido" }));
 
         vehiclesEntryOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -93,8 +94,7 @@ public class VehicleCheckIn extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(3, 3, 3)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(76, 76, 76))
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(vehiclesEntryVehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -105,8 +105,8 @@ public class VehicleCheckIn extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(vehiclesEntryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(vehiclesEntryCarPlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(vehiclesEntryOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addComponent(vehiclesEntryOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,50 +143,70 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
+    private String [] getAndParseComboboxData() {
+        ParseUserInputs parseUserInputs = new ParseUserInputs();
+        String[] vehicleInputData = new String[5];
+
+        //Obtiene el valor del combo box y lo parsea a su codigo
+        String type = vehiclesEntryVehicleType.getSelectedItem().toString();
+        vehicleInputData[0] = parseUserInputs.parseVehicleTypeToCode(type);
+
+        String color= vehiclesEntryVehicleColor.getSelectedItem().toString();
+        vehicleInputData[1] = parseUserInputs.parseVehicleColorToCode(color);
+        
+        String state = vehiclesEntryVehicleState.getSelectedItem().toString();
+        vehicleInputData[2] = parseUserInputs.parseVehicleStateToCode(state);
+        
+        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
+        vehicleInputData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
+        
+        return vehicleInputData;
+    }
+
     private void vehiclesEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesEntryButtonActionPerformed
-        EmptyPlaces emptyPlaces = new EmptyPlaces();
-        String[] vehicleData = new String[5], places = {"tipo", "color", "estado", "cedula", "placa"};
-
-        vehicleData[0] = vehiclesEntryVehicleType.getSelectedItem().toString();
-        vehicleData[1] = vehiclesEntryVehicleColor.getSelectedItem().toString();
-        vehicleData[2] = vehiclesEntryVehicleState.getSelectedItem().toString();
-        vehicleData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
-        vehicleData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
-
+        //El array places se usa en empty places para devolver un mensaje con el nombre del campo vacio, en caso de que lo haya
+        //vehicleInputData obtiene los datos del combobox parseados del español al valor que tendran en la base de datos
+        String [] places = {"tipo", "color", "estado", "cedula", "placa"};
+        String [] vehicleInputData = getAndParseComboboxData();
+        
         try {
-            boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleData, places, this, 5);
-
+            EmptyPlaces emptyPlaces = new EmptyPlaces();
+            boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleInputData, places, this, 5);
+            
+            //Si no hay campos vacios se ejecuta
             if (!isEmpty) {
-                //Realiza consulta de busqueda en base de datos
-                //Valida si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
+                //Busca en DB si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
                 QueryManagment queryManagment = new QueryManagment();
-                boolean vehicleExists = queryManagment.vehicleStillHere(vehicleData[4]);
-                
-                if (vehicleExists) {
-                    JOptionPane.showMessageDialog(this, "El vehiculo ya se encuentra en el parqueadero");
-                } else {
+                boolean vehicleExists = queryManagment.vehicleStillHere(vehicleInputData[4]);
+
+                //Ejecuta si el vehiculo no se encuentra en el parqueadero
+                if (!vehicleExists) {
                     int checkIn = JOptionPane.showConfirmDialog(this, "Esta seguro que desea hacer el ingreso?");
 
+                    //Se inicia proceso para ingresar el vehiculo
                     if (checkIn == 0) {
                         //Obtiene el id del trabajador en turno
                         UserManagment userManagment = new UserManagment();
-                        int userId = userManagment.getId();
-                        
+                        int workerId = userManagment.getId();
+
                         //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
                         FormatDate formatter = new FormatDate();
                         String formattedDate = formatter.format();
-                        
+
                         //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
-                        boolean vehicleInserted = queryManagment.insertVehicle(vehicleData, userId, formattedDate);
-                        
-                        if(vehicleInserted) {
+                        boolean vehicleInserted = queryManagment.insertVehicle(vehicleInputData, workerId, formattedDate);
+
+                        if (vehicleInserted) {
                             JOptionPane.showMessageDialog(this, "Se realizo el ingreso");
                         } else {
                             JOptionPane.showMessageDialog(this, "ERROR, no se pudo ingresar el vehiculo");
                         }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(this, "El vehiculo ya se encuentra en el parqueadero");
                 }
-
+            } else {
+                JOptionPane.showMessageDialog(this, "Hay campos vacios");
             }
 
         } catch (Exception e) {

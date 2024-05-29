@@ -43,7 +43,7 @@ public class SearchInvoice extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR FACTURA");
 
-        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
 
         searchMethodField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 

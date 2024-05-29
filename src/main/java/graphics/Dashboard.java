@@ -97,7 +97,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        dashboardEntryVehicleButton.setText("INGRESAR VEHICULO");
+        dashboardEntryVehicleButton.setText("ENTRADA VEHICULO");
         dashboardEntryVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardEntryVehicleButtonActionPerformed(evt);

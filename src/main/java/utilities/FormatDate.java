@@ -15,7 +15,7 @@ public class FormatDate {
 
     public String format() {
         Date date = new Date();
-        SimpleDateFormat doFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        SimpleDateFormat doFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String formatedDate = doFormat.format(date);
 
         return formatedDate;

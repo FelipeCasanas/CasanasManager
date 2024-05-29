@@ -9,6 +9,7 @@ managmentCore\UserManagment.class
 graphics\Dashboard$5.class
 managmentCore\RatesManagment.class
 graphics\VehicleLogs.class
+utilities\ParseUserInputs.class
 graphics\Calculator$3.class
 graphics\Calculator.class
 graphics\Login$3.class
@@ -25,6 +26,7 @@ graphics\Calculator$5.class
 utilities\EmptyPlaces.class
 graphics\Login$1.class
 graphics\CashCheckout$2.class
+graphics\SearchVehicle$4.class
 graphics\Dashboard$7.class
 graphics\Dashboard.class
 graphics\Rates$2.class
@@ -46,7 +48,6 @@ graphics\Dashboard$10.class
 graphics\Dashboard$8.class
 graphics\SearchInvoice.class
 graphics\SearchInvoice$3.class
-graphics\VehicleCheckOut$4.class
 graphics\Rates$1.class
 graphics\Dashboard$3.class
 graphics\VehicleCheckIn.class

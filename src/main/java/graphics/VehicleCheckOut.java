@@ -4,9 +4,14 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import managmentCore.RatesManagment;
+import managmentCore.UserManagment;
 import utilities.EmptyPlaces;
+import utilities.FormatDate;
+import utilities.ParseUserInputs;
 
 /**
  *
@@ -49,18 +54,13 @@ public class VehicleCheckOut extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("SALIDA VEHICULAR");
 
-        vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Rayon(es)", "Golpe(s)", "Desconocido" }));
 
         vehiclesDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         vehiclesDepartureCarPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        vehiclesDepartureCarPlate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vehiclesDepartureCarPlateActionPerformed(evt);
-            }
-        });
 
-        vehiclesDepartureButton.setText("INGRESAR");
+        vehiclesDepartureButton.setText("DAR SALIDA");
         vehiclesDepartureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 vehiclesDepartureButtonActionPerformed(evt);
@@ -125,82 +125,83 @@ public class VehicleCheckOut extends javax.swing.JFrame {
 
     private void vehiclesDepartureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesDepartureButtonActionPerformed
         EmptyPlaces emptyPlaces = new EmptyPlaces();
-        String[] vehicleData = new String[3], places = {"estado", "cedula", "placa"};;
+        ParseUserInputs parseUserInputs = new ParseUserInputs();
+        String[] vehicleInputData = new String[3], places = {"estado", "cedula", "placa"};;
 
-        vehicleData[0] = vehiclesDepartureVehicleState.getSelectedItem().toString();
-        vehicleData[1] = vehiclesDepartureOwnerID.getText().toString().toLowerCase().trim();
-        vehicleData[2] = vehiclesDepartureCarPlate.getText().toString().toLowerCase().trim();
+        //Obtiene datos del vehiculo  ingresados en el formulario (Parsea vehicleState)
+        String state = vehiclesDepartureVehicleState.getSelectedItem().toString();    // ESTA LINEA CAUSA ERROR, DA PARAMETRO BUENO EN LUGAR DE SU NUMERO
+        vehicleInputData[0] = parseUserInputs.parseVehicleStateToCode(state);
+
+        vehicleInputData[1] = vehiclesDepartureOwnerID.getText().toString().toLowerCase().trim();
+        vehicleInputData[2] = vehiclesDepartureCarPlate.getText().toString().toLowerCase().trim();
 
         try {
-            boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleData, places, this, 3);
+            //Valida que campos no esten vacios; Vacio/Incompleto = true, No vacio = false
+            boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleInputData, places, this, 3);
 
             if (!isEmpty) {
-                searchVehicleToDeparture(vehicleData[2]);
-                //confirmDeparture(resultData);
+                //Instancia clase manejo DB y pregunta si vehiculo sigue en parqueadero (Busqieda por placa)
+                QueryManagment queryManagment = new QueryManagment();
+                boolean stillHere = queryManagment.vehicleStillHere(vehicleInputData[2]);
+
+                //Si sigue en parqueadero sigue proceso; Si no, muestra mensaje que vehiculo ya salio del parquedero
+                if (stillHere) {
+                    //Pide la informacion del vehiculo(TIPO VEHICULO) y lo envia a confirmDeparture()
+                    String[] vehicleData = queryManagment.searchVehicle("plate", vehicleInputData[2]);
+                    confirmDeparture(vehicleData, vehicleInputData);
+                } else {
+                    JOptionPane.showMessageDialog(this, "El vehiculo no se encuentra en el parqueadero");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Hay campos vacios");
             }
         } catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_vehiclesDepartureButtonActionPerformed
 
-    private String[] getVehicleDataToDeparture(String plate) {
-        String[] vehicleData = new String[6];
- 
-        /*
-        vehicleData[0] = rs.getString("vehicle_type");
-        vehicleData[1] = rs.getString("vehicle_color");
-        vehicleData[2] = rs.getString("vehicle_state");
-        vehicleData[3] = rs.getString("vehicle_owner_id");
-        vehicleData[4] = rs.getString("vehicle_plate");
-        vehicleData[5] = rs.getString("checkout");
-        */
-        
-        return vehicleData;
-    }
-    
-    private void searchVehicleToDeparture(String plate) {
-        boolean vehicleExists = true;
-        String vehicleCheckout = null;
-        /*
-        Busca la placa del vehiculo en la base de datos; Si hay coincidencia obtiene todos los datos del vehiculo 
-        (ESPECIALMENTE EL TIPO DE VEHICULO Y HORA DE ENTRADA)
-        */
-        
-        if(vehicleExists) {
-            String [] vehicleData = getVehicleDataToDeparture(plate);
-            if(vehicleData[5] != null) {
-                confirmDeparture(vehicleData);
-            } else {
-                JOptionPane.showMessageDialog(this, "El vehiculo ya no esta en el parqueadero");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "El vehiculo no fue encontrado");
-        }
-    }
-    
-    private void confirmDeparture(String [] vehicleData) {
-        double parkingPrice;
+    private void confirmDeparture(String[] vehicleData, String[] vehicleInputData) throws SQLException {
+        //Instancia  Double y pregunta si va a cobrar tarifa regular
+        double parkingPrice = 0;
         int rateType = JOptionPane.showConfirmDialog(this, "Desea cobrar la tarifa regular?");
-        
+
+        //Cobra tarifa regular 
         if (rateType == 0) {
             RatesManagment ratesManagment = new RatesManagment();
-            
-            if(vehicleData[0].equals("carro")) {
+
+            //Obtiene desde parametros el tipo de vehiculo, en base al tipo de vehiculo establece su tarifa regular y la guarda en parkingPrice
+            //Car = 1, Motorcycle = 2, Bike = 3
+            if (vehicleData[1].equals("1")) {
                 parkingPrice = ratesManagment.getCarRate();
-            } else if(vehicleData[0].equals("moto")) {
+            } else if (vehicleData[1].equals("2")) {
                 parkingPrice = ratesManagment.getMotorcycle();
-            } else if(vehicleData[0].equals("bicicleta")) {
+            } else if (vehicleData[1].equals("3")) {
                 parkingPrice = ratesManagment.getBikeRate();
             }
         } else if (rateType == 1) {
             parkingPrice = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor a cobrar"));
         }
-        
-        
-        //Obtiene la hora de salida
-        //Crea la factura con todos los datos
-        //Realiza insercion salida en base de datos
-            
+
+        //Obtiene la fecha y hora parseada a String
+        FormatDate formattedDate = new FormatDate();
+        String date = formattedDate.format();
+
+        //Instancia  UserManagment y QueryManagment
+        UserManagment userManagment = new UserManagment();
+        QueryManagment queryManagment = new QueryManagment();
+
+        //Obtiene el ID del trabajador que tiene sesion iniciada y lo convierte a String
+        String userId = String.valueOf(userManagment.getId());
+
+        //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)
+        boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], vehicleInputData[0], userId, date, parkingPrice);
+
+        if (checkout) {
+            //Crea la factura con todos los datos
+            JOptionPane.showMessageDialog(this, "SALIDA COMPLETADA");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se pudo realizar la salida, intentelo de nuevo");
+        }
     }
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
@@ -209,10 +210,6 @@ public class VehicleCheckOut extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
-
-    private void vehiclesDepartureCarPlateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesDepartureCarPlateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_vehiclesDepartureCarPlateActionPerformed
 
     /**
      * @param args the command line arguments

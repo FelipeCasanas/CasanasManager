@@ -4,6 +4,8 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+
 /**
  *
  * @author Felipe
@@ -53,7 +55,7 @@ public class SearchVehicle extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR VEHICULO");
 
-        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
 
         searchParam.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchParam.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +65,11 @@ public class SearchVehicle extends javax.swing.JFrame {
         });
 
         searchButton.setText("BUSCAR");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         goBack.setText("VOLVER");
         goBack.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +226,28 @@ public class SearchVehicle extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        //Obtiene el metodo de busqueda y el criterio
+        String searchBy = searchDiscriminant.getSelectedItem().toString();
+        String search = searchParam.getText().toLowerCase().trim();
+
+        //Busca la informacion del vehiculo en la base de datos
+        QueryManagment queryManagment = new QueryManagment();
+        String[] vehicleData = queryManagment.searchVehicle(searchBy, search);
+
+        //Valida que el array tenga informacion; Si no la tiene imprime mensaje indicando que no se entrontro coincidencia
+        if (vehicleData[0] != null) {
+            //Imprime la informacion obtenida del vehiculo
+            vehicleType.setText(vehicleData[1]);
+            vehiclePlate.setText(vehicleData[8]);
+            vehicleOwner.setText(vehicleData[7]);
+            vehicleState.setText(vehicleData[3]);
+            inParking.setText(vehicleData[6]);
+        } else {
+            itsNotLabel.setText("NO SE ENCONTRO COINCIDENCIA");
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
 
     /**
      * @param args the command line arguments

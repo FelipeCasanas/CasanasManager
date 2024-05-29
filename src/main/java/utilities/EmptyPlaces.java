@@ -13,12 +13,12 @@ import javax.swing.JOptionPane;
  */
 public class EmptyPlaces {
 
-    public boolean validateEmptyPlaces(String[] vehicleData, String[] places, Component component, int limit) {
+    public boolean validateEmptyPlaces(String[] vehicleInputData, String[] places, Component component, int limit) {
         String accumulator = "";
         int range = 0;
 
         do {
-            if (vehicleData[range].isEmpty()) {
+            if (vehicleInputData[range].isEmpty()) {
                 if (accumulator.isEmpty()) {
                     accumulator += places[range];
                 } else {
