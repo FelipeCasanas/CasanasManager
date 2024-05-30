@@ -54,7 +54,7 @@ public class VehicleCheckOut extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("SALIDA VEHICULAR");
 
-        vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Rayon(es)", "Golpe(s)", "Desconocido" }));
+        vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
 
         vehiclesDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
@@ -174,7 +174,7 @@ public class VehicleCheckOut extends javax.swing.JFrame {
             if (vehicleData[1].equals("1")) {
                 parkingPrice = ratesManagment.getCarRate();
             } else if (vehicleData[1].equals("2")) {
-                parkingPrice = ratesManagment.getMotorcycle();
+                parkingPrice = ratesManagment.getMotorcycleRate();
             } else if (vehicleData[1].equals("3")) {
                 parkingPrice = ratesManagment.getBikeRate();
             }

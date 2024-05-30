@@ -56,11 +56,11 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("INGRESO VEHICULAR");
 
-        vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carro", "Moto", "Bicicleta"}));
+        vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARRO", "MOTO", "BICICLETA"}));
 
-        vehiclesEntryVehicleColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Blanco", "Gris", "Negro", "Rojo", "Azul", "Otro" }));
+        vehiclesEntryVehicleColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLANCO", "GRIS", "NEGRO", "ROJO", "AZUL", "OTRO" }));
 
-        vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Rayon(es)", "Golpe(s)", "Desconocido" }));
+        vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
 
         vehiclesEntryOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 

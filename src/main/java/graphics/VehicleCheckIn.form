@@ -116,7 +116,7 @@
     <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleType">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Carro&quot;, &quot;Moto&quot;, &quot;Bicicleta&quot;})" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;CARRO&quot;, &quot;MOTO&quot;, &quot;BICICLETA&quot;})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -126,7 +126,7 @@
     <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleColor">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Blanco&quot;, &quot;Gris&quot;, &quot;Negro&quot;, &quot;Rojo&quot;, &quot;Azul&quot;, &quot;Otro&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;BLANCO&quot;, &quot;GRIS&quot;, &quot;NEGRO&quot;, &quot;ROJO&quot;, &quot;AZUL&quot;, &quot;OTRO&quot; })" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -136,7 +136,7 @@
     <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Bueno&quot;, &quot;Rayon(es)&quot;, &quot;Golpe(s)&quot;, &quot;Desconocido&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;OK&quot;, &quot;RAYON(ES)&quot;, &quot;GOLPE(S)&quot;, &quot;DESCONOCIDO&quot; })" type="code"/>
         </Property>
       </Properties>
       <AuxValues>

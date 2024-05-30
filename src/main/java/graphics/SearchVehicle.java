@@ -5,6 +5,7 @@
 package graphics;
 
 import connection.QueryManagment;
+import utilities.ParseUserInputs;
 
 /**
  *
@@ -29,21 +30,25 @@ public class SearchVehicle extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
+        inputsContainer = new javax.swing.JPanel();
         searchDiscriminant = new javax.swing.JComboBox<>();
         searchParam = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         goBack = new javax.swing.JButton();
         resultContainer = new javax.swing.JPanel();
+        resultCategoryContainer = new javax.swing.JPanel();
         vehicleTypeLabel = new javax.swing.JLabel();
         vehiclePlateLabel = new javax.swing.JLabel();
         vehicleOwnerLabel = new javax.swing.JLabel();
         vehicleStateLabel = new javax.swing.JLabel();
         inParkingLabel = new javax.swing.JLabel();
+        resultPlaceContainer = new javax.swing.JPanel();
         vehicleType = new javax.swing.JLabel();
         vehiclePlate = new javax.swing.JLabel();
         vehicleOwner = new javax.swing.JLabel();
         vehicleState = new javax.swing.JLabel();
         inParking = new javax.swing.JLabel();
+        itsNotContainer = new javax.swing.JPanel();
         itsNotLabel = new javax.swing.JLabel();
         developerLabel = new javax.swing.JLabel();
 
@@ -56,6 +61,7 @@ public class SearchVehicle extends javax.swing.JFrame {
         ratesTitleLabel.setText("BUSCAR VEHICULO");
 
         searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
+        searchDiscriminant.setEnabled(false);
 
         searchParam.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchParam.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +84,34 @@ public class SearchVehicle extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout inputsContainerLayout = new javax.swing.GroupLayout(inputsContainer);
+        inputsContainer.setLayout(inputsContainerLayout);
+        inputsContainerLayout.setHorizontalGroup(
+            inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inputsContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(searchParam)
+                        .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(goBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        inputsContainerLayout.setVerticalGroup(
+            inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inputsContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchParam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(searchButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(goBack)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
         vehicleTypeLabel.setText("TIPO:");
 
         vehiclePlateLabel.setText("PLACA:");
@@ -88,75 +122,109 @@ public class SearchVehicle extends javax.swing.JFrame {
 
         inParkingLabel.setText("EN PARQUEADERO:");
 
-        vehicleType.setText("CARRO");
+        javax.swing.GroupLayout resultCategoryContainerLayout = new javax.swing.GroupLayout(resultCategoryContainer);
+        resultCategoryContainer.setLayout(resultCategoryContainerLayout);
+        resultCategoryContainerLayout.setHorizontalGroup(
+            resultCategoryContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(vehiclePlateLabel)
+            .addComponent(vehicleTypeLabel)
+            .addComponent(vehicleStateLabel)
+            .addComponent(inParkingLabel)
+            .addComponent(vehicleOwnerLabel)
+        );
+        resultCategoryContainerLayout.setVerticalGroup(
+            resultCategoryContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(resultCategoryContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(vehicleTypeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehiclePlateLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehicleOwnerLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehicleStateLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inParkingLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        vehiclePlate.setText("FTG154");
+        vehicleType.setText("------------");
 
-        vehicleOwner.setText("1112388257");
+        vehiclePlate.setText("------------");
 
-        vehicleState.setText("RAYONES");
+        vehicleOwner.setText("------------");
 
-        inParking.setText("SI");
+        vehicleState.setText("------------");
 
-        itsNotLabel.setForeground(new java.awt.Color(255, 0, 0));
-        itsNotLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        itsNotLabel.setText("NO SE ENCONTRO COINCIDENCIA");
+        inParking.setText("------------");
+
+        javax.swing.GroupLayout resultPlaceContainerLayout = new javax.swing.GroupLayout(resultPlaceContainer);
+        resultPlaceContainer.setLayout(resultPlaceContainerLayout);
+        resultPlaceContainerLayout.setHorizontalGroup(
+            resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(resultPlaceContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(vehiclePlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleOwner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inParking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        resultPlaceContainerLayout.setVerticalGroup(
+            resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(resultPlaceContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(vehicleType)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehiclePlate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehicleOwner)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(vehicleState)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inParking)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout resultContainerLayout = new javax.swing.GroupLayout(resultContainer);
         resultContainer.setLayout(resultContainerLayout);
         resultContainerLayout.setHorizontalGroup(
             resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultContainerLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultContainerLayout.createSequentialGroup()
-                        .addComponent(vehicleOwnerLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vehicleOwner))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultContainerLayout.createSequentialGroup()
-                        .addComponent(vehiclePlateLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vehiclePlate))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, resultContainerLayout.createSequentialGroup()
-                        .addComponent(vehicleTypeLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(vehicleType))
-                    .addGroup(resultContainerLayout.createSequentialGroup()
-                        .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vehicleStateLabel)
-                            .addComponent(inParkingLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(vehicleState, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(inParking, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addGap(20, 20, 20))
-            .addComponent(itsNotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(resultCategoryContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resultPlaceContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         resultContainerLayout.setVerticalGroup(
             resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(resultContainerLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehicleTypeLabel)
-                    .addComponent(vehicleType))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehiclePlateLabel)
-                    .addComponent(vehiclePlate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehicleOwnerLabel)
-                    .addComponent(vehicleOwner))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehicleStateLabel)
-                    .addComponent(vehicleState))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inParkingLabel)
-                    .addComponent(inParking))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(itsNotLabel))
+                .addContainerGap()
+                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(resultPlaceContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(resultCategoryContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
+        );
+
+        itsNotLabel.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        itsNotLabel.setForeground(new java.awt.Color(255, 0, 0));
+        itsNotLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        itsNotLabel.setText("-");
+
+        javax.swing.GroupLayout itsNotContainerLayout = new javax.swing.GroupLayout(itsNotContainer);
+        itsNotContainer.setLayout(itsNotContainerLayout);
+        itsNotContainerLayout.setHorizontalGroup(
+            itsNotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(itsNotContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(itsNotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        itsNotContainerLayout.setVerticalGroup(
+            itsNotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(itsNotLabel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -166,51 +234,37 @@ public class SearchVehicle extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(searchParam)
-                                .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(goBack, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(resultContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(inputsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(resultContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(itsNotContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                    .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(resultContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchParam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(searchButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(goBack)
-                        .addGap(25, 25, 25)))
+                    .addComponent(inputsContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resultContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(itsNotContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(developerLabel)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(ratesTitleLabel)
-                    .addContainerGap(241, Short.MAX_VALUE)))
+                    .addContainerGap(218, Short.MAX_VALUE)))
         );
 
         pack();
@@ -238,13 +292,31 @@ public class SearchVehicle extends javax.swing.JFrame {
 
         //Valida que el array tenga informacion; Si no la tiene imprime mensaje indicando que no se entrontro coincidencia
         if (vehicleData[0] != null) {
+            ParseUserInputs parseUserInputs = new ParseUserInputs();
+            
+            //Quita mensaje de no se encontro coincidencia
+            itsNotLabel.setText("-");
+            
             //Imprime la informacion obtenida del vehiculo
-            vehicleType.setText(vehicleData[1]);
-            vehiclePlate.setText(vehicleData[8]);
+            vehicleType.setText(parseUserInputs.parseVehicleTypeToLetters(vehicleData[1]));
+            vehiclePlate.setText(vehicleData[8].toUpperCase());
             vehicleOwner.setText(vehicleData[7]);
-            vehicleState.setText(vehicleData[3]);
-            inParking.setText(vehicleData[6]);
+            vehicleState.setText(parseUserInputs.parseVehicleStateToLetters(vehicleData[3]));
+            
+            
+            //CORREGIR
+            if(vehicleData[6] == null) {
+                inParking.setText("SI");
+            } else {
+                inParking.setText("NO");
+            }
+            
         } else {
+            vehicleType.setText("------------");
+            vehiclePlate.setText("------------");
+            vehicleOwner.setText("------------");
+            vehicleState.setText("------------");
+            inParking.setText("------------");
             itsNotLabel.setText("NO SE ENCONTRO COINCIDENCIA");
         }
     }//GEN-LAST:event_searchButtonActionPerformed
@@ -289,9 +361,13 @@ public class SearchVehicle extends javax.swing.JFrame {
     private javax.swing.JButton goBack;
     private javax.swing.JLabel inParking;
     private javax.swing.JLabel inParkingLabel;
+    private javax.swing.JPanel inputsContainer;
+    private javax.swing.JPanel itsNotContainer;
     private javax.swing.JLabel itsNotLabel;
     private javax.swing.JLabel ratesTitleLabel;
+    private javax.swing.JPanel resultCategoryContainer;
     private javax.swing.JPanel resultContainer;
+    private javax.swing.JPanel resultPlaceContainer;
     private javax.swing.JButton searchButton;
     private javax.swing.JComboBox<String> searchDiscriminant;
     private javax.swing.JTextField searchParam;

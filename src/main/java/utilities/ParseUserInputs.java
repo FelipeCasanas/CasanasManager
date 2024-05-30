@@ -13,13 +13,13 @@ public class ParseUserInputs {
     //Comparan el valor del combo box y retorna el numero equivalente al vehiculo
     public String parseVehicleTypeToCode(String type) {
         switch (type) {
-            case "Carro":
+            case "CARRO":
                 type = "1";
                 break;
-            case "Moto":
+            case "MOTO":
                 type = "2";
                 break;
-            case "Bicicleta":
+            case "BICICLETA":
                 type = "3";
                 break;
         }
@@ -29,19 +29,19 @@ public class ParseUserInputs {
 
     public String parseVehicleColorToCode(String color) {
         switch (color) {
-            case "Blanco":
+            case "BLANCO":
                 color = "white";
                 break;
-            case "Gris":
+            case "GRIS":
                 color = "gray";
                 break;
-            case "Negro":
+            case "NEGRO":
                 color = "black";
                 break;
-            case "Azul":
+            case "AZUL":
                 color = "blue";
                 break;
-            case "Rojo":
+            case "ROJO":
                 color = "red";
                 break;
         }
@@ -51,16 +51,16 @@ public class ParseUserInputs {
 
     public String parseVehicleStateToCode(String state) {
         switch (state) {
-            case "Bueno":
+            case "OK":
                 state = "1";
                 break;
-            case "Rayon(es)":
+            case "RAYONES(ES)":
                 state = "2";
                 break;
-            case "Golpe(s)":
+            case "GOLPE(S)":
                 state = "3";
                 break;
-            case "Desconocido":
+            case "DESCONOCIDO":
                 state = "4";
                 break;
         }
@@ -70,15 +70,60 @@ public class ParseUserInputs {
 
     //Comparan el valor del combo box y retorna el texto equivalente al vehiculo
     public String parseVehicleTypeToLetters(String type) {
-        return null;
+        switch (type) {
+            case "1":
+                type = "CARRO";
+                break;
+            case "2":
+                type = "MOTO";
+                break;
+            case "3":
+                type = "BICICLETA";
+                break;
+        }
+
+        return type;
     }
 
     public String parseVehicleColorToLetters(String color) {
-        return null;
+        switch (color) {
+            case "white":
+                color = "BLANCO";
+                break;
+            case "gray":
+                color = "GRIS";
+                break;
+            case "black":
+                color = "NEGRO";
+                break;
+            case "blue":
+                color = "AZUL";
+                break;
+            case "red":
+                color = "ROJO";
+                break;
+        }
+
+        return color;
     }
 
     public String parseVehicleStateToLetters(String state) {
-        return null;
+        switch (state) {
+            case "1":
+                state = "OK";
+                break;
+            case "2":
+                state = "RAYON(ES)";
+                break;
+            case "3":
+                state = "GOLPE(S)";
+                break;
+            case "4":
+                state = "DESCONOCIDO";
+                break;
+        }
+
+        return state;
     }
 
 }

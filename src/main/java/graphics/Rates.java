@@ -4,6 +4,10 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import managmentCore.RatesManagment;
 
@@ -13,11 +17,13 @@ import managmentCore.RatesManagment;
  */
 public class Rates extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Rates
-     */
     public Rates() {
         initComponents();
+
+        //Primero indica a ratesManagment para que obtenga las tarifas y luego indica a printRates para que las establezca
+        RatesManagment ratesManagment = new RatesManagment();
+        ratesManagment.askRatesToDB();
+        printRates();
     }
 
     /**
@@ -59,11 +65,11 @@ public class Rates extends javax.swing.JFrame {
         bikeRateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         bikeRateLabel.setText("TARIFA BICICLETA: ");
 
-        carRate.setText("$5.000");
+        carRate.setText("-------");
 
-        motorcycleRate.setText("$2.000");
+        motorcycleRate.setText("-------");
 
-        bikeRate.setText("$500");
+        bikeRate.setText("-------");
 
         ratesGoBackButton.setText("VOLVER");
         ratesGoBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +126,7 @@ public class Rates extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(changeBikeRates)
                             .addComponent(changeMotorcyclesRates))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -158,16 +164,43 @@ public class Rates extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeCarRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeCarRatesActionPerformed
-        changeRates("car");
+        double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
+        RatesManagment ratesManagment = new RatesManagment();
+
+        try {
+            ratesManagment.changeRate(this, "car", newRate);
+            printRates();
+        } catch (SQLException ex) {
+            Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_changeCarRatesActionPerformed
 
+    //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeMotorcyclesRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeMotorcyclesRatesActionPerformed
-        changeRates("motorcycle");
+        double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
+        RatesManagment ratesManagment = new RatesManagment();
+
+        try {
+            ratesManagment.changeRate(this, "motorcycle", newRate);
+            printRates();
+        } catch (SQLException ex) {
+            Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_changeMotorcyclesRatesActionPerformed
 
+    //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeBikeRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBikeRatesActionPerformed
-        changeRates("bike");
+        double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
+        RatesManagment ratesManagment = new RatesManagment();
+
+        try {
+            ratesManagment.changeRate(this, "bike", newRate);
+            printRates();
+        } catch (SQLException ex) {
+            Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_changeBikeRatesActionPerformed
 
     private void ratesGoBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesGoBackButtonActionPerformed
@@ -177,32 +210,14 @@ public class Rates extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_ratesGoBackButtonActionPerformed
 
-    
-    private void changeRates(String type) {
+    //Obtiene las tarifas desde ratesManagment y asigna esos valores a los JLabel de tarifas
+    public void printRates() {
         RatesManagment ratesManagment = new RatesManagment();
-        double newRate;
-        
-        try {
-            //Se identifica el tipo de vehiculo y trata de ejecutar la actualizacion en la base de datos
-            if(type.equals("car")) {
-                newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa para autos"));
-                ratesManagment.setCarRate(newRate);
-                carRate.setText(String.valueOf(newRate));
-            } else if(type.equals("motorcycle")) {
-                newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa para motos"));
-                ratesManagment.setMotorcycleRate(newRate);
-                motorcycleRate.setText(String.valueOf(newRate));
-            } else if(type.equals("bike")) {
-                newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa para bicicletas"));
-                ratesManagment.setBikeRate(newRate);
-                bikeRate.setText(String.valueOf(newRate));
-            }
-        } catch(Exception e) {
-            System.out.println(e);
-        }
+        carRate.setText(String.valueOf(ratesManagment.getCarRate()));
+        motorcycleRate.setText(String.valueOf(ratesManagment.getMotorcycleRate()));
+        bikeRate.setText(String.valueOf(ratesManagment.getBikeRate()));
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */

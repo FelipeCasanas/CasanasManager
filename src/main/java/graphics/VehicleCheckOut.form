@@ -105,7 +105,7 @@
     <Component class="javax.swing.JComboBox" name="vehiclesDepartureVehicleState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Bueno&quot;, &quot;Rayon(es)&quot;, &quot;Golpe(s)&quot;, &quot;Desconocido&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;OK&quot;, &quot;RAYON(ES)&quot;, &quot;GOLPE(S)&quot;, &quot;DESCONOCIDO&quot; })" type="code"/>
         </Property>
       </Properties>
       <AuxValues>

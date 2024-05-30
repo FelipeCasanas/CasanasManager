@@ -196,4 +196,58 @@ public class QueryManagment extends Connect {
 
         return checkout;
     }
+
+    public String[] queryRates() {
+        this.connect();
+        Connection link = getConnection();
+        String[] rates = new String[3];
+
+        try {
+            String ratesQuery = "SELECT * FROM rate LIMIT 3;";
+            PreparedStatement ratesPS = link.prepareStatement(ratesQuery);
+            ResultSet ratesRS = ratesPS.executeQuery();
+
+            int index = 0; // Índice para el array
+            while (ratesRS.next() && index < 3) { // Asegurarse de que no se sobrepase el límite de 3
+                rates[index] = ratesRS.getString("rate_amount");
+                index++;
+            }
+
+            ratesPS.close();
+            this.closeConnection();
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rates;
+    }
+
+    public boolean updateRates(double amount, int vehicleCode) throws SQLException {
+        this.connect();
+        Connection link = getConnection();
+        boolean updated = false;
+
+        try {
+            String updateRateQuery = "UPDATE rate SET rate_amount = ? WHERE rates_id = ?";
+            PreparedStatement updateRatePS = link.prepareStatement(updateRateQuery);
+            updateRatePS.setDouble(1, amount);
+            updateRatePS.setInt(2, vehicleCode);
+            int executedUpdate = updateRatePS.executeUpdate();
+
+            if (executedUpdate == 1) {
+                updated = true;
+                link.commit();
+            } else {
+                link.rollback();
+            }
+            
+            updateRatePS.close();
+            this.closeConnection();
+        } catch (SQLException ex) {
+            link.rollback();
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return updated;
+    }
 }
