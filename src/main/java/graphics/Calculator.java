@@ -4,15 +4,18 @@
  */
 package graphics;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Felipe
  */
 public class Calculator extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Calculator
-     */
+    private short operation = 0, repeat = 1;
+    private static double number1 = 0, number2 = 0, result = 0;
+    private String numberString = "";
+
     public Calculator() {
         initComponents();
     }
@@ -28,6 +31,7 @@ public class Calculator extends javax.swing.JFrame {
 
         calculatorTitleLabel = new javax.swing.JLabel();
         resultTextField = new javax.swing.JTextField();
+        preResultTextField = new javax.swing.JTextField();
         numberPadContainer = new javax.swing.JPanel();
         numberOneButton = new javax.swing.JButton();
         numberTwoButton = new javax.swing.JButton();
@@ -40,6 +44,7 @@ public class Calculator extends javax.swing.JFrame {
         numberNineButton = new javax.swing.JButton();
         numberZeroButton = new javax.swing.JButton();
         clearFieldsButton = new javax.swing.JButton();
+        clearAllButton = new javax.swing.JButton();
         equalsButton = new javax.swing.JButton();
         operationsContainer = new javax.swing.JPanel();
         plusButton = new javax.swing.JButton();
@@ -58,22 +63,61 @@ public class Calculator extends javax.swing.JFrame {
         calculatorTitleLabel.setText("CALCULADORA");
 
         resultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        resultTextField.setText("RESULTADO");
+        resultTextField.setText("-");
         resultTextField.setEnabled(false);
 
+        preResultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        preResultTextField.setText("-");
+        preResultTextField.setEnabled(false);
+
         numberOneButton.setText("1");
+        numberOneButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberOneButtonActionPerformed(evt);
+            }
+        });
 
         numberTwoButton.setText("2");
+        numberTwoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberTwoButtonActionPerformed(evt);
+            }
+        });
 
         numberThreeButton.setText("3");
+        numberThreeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberThreeButtonActionPerformed(evt);
+            }
+        });
 
         numberFourButton.setText("4");
+        numberFourButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberFourButtonActionPerformed(evt);
+            }
+        });
 
         numberFiveButton.setText("5");
+        numberFiveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberFiveButtonActionPerformed(evt);
+            }
+        });
 
         numberSixButton.setText("6");
+        numberSixButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberSixButtonActionPerformed(evt);
+            }
+        });
 
         numberSevenButton.setText("7");
+        numberSevenButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberSevenButtonActionPerformed(evt);
+            }
+        });
 
         numberEightButton.setText("8");
         numberEightButton.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +127,11 @@ public class Calculator extends javax.swing.JFrame {
         });
 
         numberNineButton.setText("9");
+        numberNineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numberNineButtonActionPerformed(evt);
+            }
+        });
 
         numberZeroButton.setText("0");
         numberZeroButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,10 +140,17 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
-        clearFieldsButton.setText("---");
+        clearFieldsButton.setText("-");
         clearFieldsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearFieldsButtonActionPerformed(evt);
+            }
+        });
+
+        clearAllButton.setText("---");
+        clearAllButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearAllButtonActionPerformed(evt);
             }
         });
 
@@ -109,7 +165,12 @@ public class Calculator extends javax.swing.JFrame {
         numberPadContainer.setLayout(numberPadContainerLayout);
         numberPadContainerLayout.setHorizontalGroup(
             numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(numberPadContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(clearFieldsButton, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(clearAllButton, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(numberPadContainerLayout.createSequentialGroup()
                     .addGap(4, 4, 4)
@@ -123,8 +184,7 @@ public class Calculator extends javax.swing.JFrame {
                         .addGroup(numberPadContainerLayout.createSequentialGroup()
                             .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(numberFourButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(numberSevenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(clearFieldsButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(numberSevenButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(numberPadContainerLayout.createSequentialGroup()
@@ -146,7 +206,12 @@ public class Calculator extends javax.swing.JFrame {
         );
         numberPadContainerLayout.setVerticalGroup(
             numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 323, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, numberPadContainerLayout.createSequentialGroup()
+                .addContainerGap(240, Short.MAX_VALUE)
+                .addComponent(clearFieldsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(clearAllButton)
+                .addGap(23, 23, 23))
             .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(numberPadContainerLayout.createSequentialGroup()
                     .addContainerGap()
@@ -167,18 +232,37 @@ public class Calculator extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(numberZeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(clearFieldsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(equalsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(14, Short.MAX_VALUE)))
         );
 
         plusButton.setText("+");
+        plusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                plusButtonActionPerformed(evt);
+            }
+        });
 
         minusButton.setText("-");
+        minusButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                minusButtonActionPerformed(evt);
+            }
+        });
 
         multiplyButton.setText("*");
+        multiplyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                multiplyButtonActionPerformed(evt);
+            }
+        });
 
         divisionButton.setText("/");
+        divisionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                divisionButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout operationsContainerLayout = new javax.swing.GroupLayout(operationsContainer);
         operationsContainer.setLayout(operationsContainerLayout);
@@ -234,7 +318,8 @@ public class Calculator extends javax.swing.JFrame {
                                 .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(resultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                             .addComponent(goBack, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(preResultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -242,13 +327,15 @@ public class Calculator extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(calculatorTitleLabel)
-                .addGap(30, 30, 30)
-                .addComponent(resultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(preResultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(numberPadContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -259,19 +346,17 @@ public class Calculator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void numberEightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberEightButtonActionPerformed
-        // TODO add your handling code here:
+        numberString += "8";
+        printNumber();
     }//GEN-LAST:event_numberEightButtonActionPerformed
 
-    private void numberZeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberZeroButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numberZeroButtonActionPerformed
-
     private void clearFieldsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFieldsButtonActionPerformed
-        // TODO add your handling code here:
+        short mode = 1;
+        clearNumber(mode);
     }//GEN-LAST:event_clearFieldsButtonActionPerformed
 
     private void equalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsButtonActionPerformed
-        // TODO add your handling code here:
+        Enter();
     }//GEN-LAST:event_equalsButtonActionPerformed
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
@@ -280,6 +365,276 @@ public class Calculator extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackActionPerformed
+
+    private void numberOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberOneButtonActionPerformed
+        numberString += "1";
+        printNumber();
+    }//GEN-LAST:event_numberOneButtonActionPerformed
+
+    private void numberTwoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberTwoButtonActionPerformed
+        numberString += "2";
+        printNumber();
+    }//GEN-LAST:event_numberTwoButtonActionPerformed
+
+    private void numberThreeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberThreeButtonActionPerformed
+        numberString += "3";
+        printNumber();
+    }//GEN-LAST:event_numberThreeButtonActionPerformed
+
+    private void numberFourButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberFourButtonActionPerformed
+        numberString += "4";
+        printNumber();
+    }//GEN-LAST:event_numberFourButtonActionPerformed
+
+    private void numberFiveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberFiveButtonActionPerformed
+        numberString += "5";
+        printNumber();
+    }//GEN-LAST:event_numberFiveButtonActionPerformed
+
+    private void numberSixButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberSixButtonActionPerformed
+        numberString += "6";
+        printNumber();
+    }//GEN-LAST:event_numberSixButtonActionPerformed
+
+    private void numberSevenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberSevenButtonActionPerformed
+        numberString += "7";
+        printNumber();
+    }//GEN-LAST:event_numberSevenButtonActionPerformed
+
+    private void numberNineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberNineButtonActionPerformed
+        numberString += "9";
+        printNumber();
+    }//GEN-LAST:event_numberNineButtonActionPerformed
+
+    private void numberZeroButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberZeroButtonActionPerformed
+        numberString += "0";
+        printNumber();
+    }//GEN-LAST:event_numberZeroButtonActionPerformed
+
+    private void plusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plusButtonActionPerformed
+        Plus();
+    }//GEN-LAST:event_plusButtonActionPerformed
+
+    private void minusButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusButtonActionPerformed
+        Minus();
+    }//GEN-LAST:event_minusButtonActionPerformed
+
+    private void multiplyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_multiplyButtonActionPerformed
+        Multiply();
+    }//GEN-LAST:event_multiplyButtonActionPerformed
+
+    private void divisionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_divisionButtonActionPerformed
+        Division();
+    }//GEN-LAST:event_divisionButtonActionPerformed
+
+    private void clearAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllButtonActionPerformed
+        clearAll();
+    }//GEN-LAST:event_clearAllButtonActionPerformed
+
+    public void setResult(String result) {
+        resultTextField.setText(result);
+    }
+
+    public void printNumber() {
+        preResultTextField.setText(numberString);
+    }
+
+    public void resetVariables() {
+        number1 = 0;
+        number2 = 0;
+    }
+
+    public void buttonSetVisible() {
+        plusButton.setEnabled(true);
+        minusButton.setEnabled(true);
+        multiplyButton.setEnabled(true);
+        divisionButton.setEnabled(true);
+    }
+
+    public void buttonSetInvisible() {
+        plusButton.setEnabled(false);
+        minusButton.setEnabled(false);
+        multiplyButton.setEnabled(false);
+        divisionButton.setEnabled(false);
+    }
+
+    public void clearNumber(short mode) {
+        if (mode == 1) {
+            int numberLength = numberString.length();
+            if (numberLength < 1) {
+                JOptionPane.showMessageDialog(this, "El campo esta vacío");
+            } else {
+                numberString = numberString.substring(0, numberLength - 1);
+                printNumber();
+            }
+        } else if (mode == 2) {
+            numberString = "";
+            result = 0;
+            repeat--;
+            resetVariables();
+            setResult("");
+            printNumber();
+        }
+    }
+    
+    public boolean clearAll() {
+        short mode = 2;
+        clearNumber(mode);
+        return false;
+    }
+
+    public void Enter() {
+        if (operation == 1) {
+            if (repeat == 1) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result = number1 + number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+                repeat++;
+
+                buttonSetVisible();
+            } else if (repeat == 2) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result += number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+
+                buttonSetVisible();
+            }
+        }
+        if (operation == 2) {
+            if (repeat == 1) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result = number1 - number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+                repeat++;
+
+                buttonSetVisible();
+            } else if (repeat == 2) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result -= number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+
+                buttonSetVisible();
+            }
+        }
+        if (operation == 3) {
+            if (repeat == 1) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result = number1 * number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+                repeat++;
+
+                buttonSetVisible();
+            } else if (repeat == 2) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result *= number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+
+                buttonSetVisible();
+            }
+        }
+        if (operation == 4) {
+            if (repeat == 1) {
+                number2 = Double.parseDouble(numberString);
+                numberString = "";
+                result = number1 / number2;
+                resetVariables();
+                printNumber();
+                setResult("Resultado: " + result);
+                operation = 0;
+                repeat++;
+
+                buttonSetVisible();
+            } else if (repeat == 2) {
+                number2 = Double.parseDouble(numberString);
+                if (number2 > 0) {
+                    numberString = "";
+                    result /= number2;
+                    resetVariables();
+                    printNumber();
+                    setResult("Resultado: " + result);
+                    operation = 0;
+
+                    buttonSetVisible();
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se puede dividir por 0");
+                    numberString = "";
+                    printNumber();
+                }
+            }
+        }
+    }
+
+    public void Plus() {
+        if (repeat == 1) {
+            number1 = Double.parseDouble(numberString);
+            numberString = "";
+            buttonSetInvisible();
+            operation = 1;
+        } else if (repeat == 2) {
+            buttonSetInvisible();
+            operation = 1;
+        }
+    }
+
+    public void Minus() {
+        if (repeat == 1) {
+            number1 = Double.parseDouble(numberString);
+            numberString = "";
+            buttonSetInvisible();
+            operation = 2;
+        } else if (repeat == 2) {
+            buttonSetInvisible();
+            operation = 2;
+        }
+    }
+
+    public void Multiply() {
+        if (repeat == 1) {
+            number1 = Double.parseDouble(numberString);
+            numberString = "";
+            buttonSetInvisible();
+            operation = 3;
+        } else if (repeat == 2) {
+            buttonSetInvisible();
+            operation = 3;
+        }
+    }
+
+    public void Division() {
+        if (repeat == 1) {
+            number1 = Double.parseDouble(numberString);
+            numberString = "";
+            buttonSetInvisible();
+            operation = 4;
+        } else if (repeat == 2) {
+            buttonSetInvisible();
+            operation = 4;
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -318,6 +673,7 @@ public class Calculator extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel calculatorTitleLabel;
+    private javax.swing.JButton clearAllButton;
     private javax.swing.JButton clearFieldsButton;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton divisionButton;
@@ -338,6 +694,7 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.JButton numberZeroButton;
     private javax.swing.JPanel operationsContainer;
     private javax.swing.JButton plusButton;
+    private javax.swing.JTextField preResultTextField;
     private javax.swing.JTextField resultTextField;
     // End of variables declaration//GEN-END:variables
 }

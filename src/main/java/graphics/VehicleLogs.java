@@ -4,6 +4,10 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import javax.swing.JOptionPane;
+import utilities.FieldsToUpdate;
+
 /**
  *
  * @author Felipe
@@ -15,6 +19,8 @@ public class VehicleLogs extends javax.swing.JFrame {
      */
     public VehicleLogs() {
         initComponents();
+
+        requestLogsData();
     }
 
     /**
@@ -28,8 +34,15 @@ public class VehicleLogs extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         vehicleLogsTitleLabel = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        filtersAndSortContainer = new javax.swing.JPanel();
+        filtersHeader = new javax.swing.JLabel();
+        vehicleTypeSelector = new javax.swing.JComboBox<>();
+        vehicleStateSelector = new javax.swing.JComboBox<>();
+        vehicleCheckoutBySelector = new javax.swing.JComboBox<>();
+        searchLogs = new javax.swing.JButton();
+        logsContainer = new javax.swing.JTabbedPane();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
@@ -44,6 +57,49 @@ public class VehicleLogs extends javax.swing.JFrame {
         vehicleLogsTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         vehicleLogsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleLogsTitleLabel.setText("REGISTROS");
+
+        filtersHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        filtersHeader.setText("FILTROS Y ORDENAMIENTO");
+
+        vehicleTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "CARRO", "MOTO", "BICICLETA"}));
+
+        vehicleStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
+
+        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "TRABAJADOR1"}));
+        vehicleCheckoutBySelector.setEnabled(false);
+
+        searchLogs.setText("BUSCAR");
+
+        javax.swing.GroupLayout filtersAndSortContainerLayout = new javax.swing.GroupLayout(filtersAndSortContainer);
+        filtersAndSortContainer.setLayout(filtersAndSortContainerLayout);
+        filtersAndSortContainerLayout.setHorizontalGroup(
+            filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(filtersHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filtersAndSortContainerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(vehicleCheckoutBySelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleStateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vehicleTypeSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(searchLogs, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
+        );
+        filtersAndSortContainerLayout.setVerticalGroup(
+            filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(filtersAndSortContainerLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(filtersHeader)
+                .addGap(33, 33, 33)
+                .addComponent(vehicleTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(vehicleStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(vehicleCheckoutBySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchLogs)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        logsContainer.setBackground(new java.awt.Color(0, 153, 255));
 
         goBackButton.setText("<-");
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -60,25 +116,31 @@ public class VehicleLogs extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(vehicleLogsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(63, 63, 63)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 58, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filtersAndSortContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(logsContainer)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(vehicleLogsTitleLabel)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logsContainer)
+                    .addComponent(filtersAndSortContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBackButton)
                     .addComponent(developerLabel))
                 .addContainerGap())
@@ -93,6 +155,32 @@ public class VehicleLogs extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
+
+    private void requestLogsData() {
+        //Instancia las clases necesarias
+        FieldsToUpdate fieldsToUpdate = new FieldsToUpdate();
+        QueryManagment queryManagment = new QueryManagment();
+
+        //Declara array de campos
+        String[] fields = new String[3];
+
+        //Obtiene los criterios de busqueda
+        fields[0] = vehicleTypeSelector.getSelectedItem().toString();
+        fields[1] = vehicleStateSelector.getSelectedItem().toString();
+        fields[2] = vehicleCheckoutBySelector.getSelectedItem().toString();
+
+        Boolean[] willBeUpdated = fieldsToUpdate.getFields(fields);
+
+        //Llama metodo para obtener los registros de la base de datos
+        String[][] logsData = queryManagment.queryLogs(willBeUpdated);
+        
+        if(logsData != null) {
+            //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Imprime la informacion obtenida en el TABBEDPANE!!!!!!!!!!!!!!
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontraron registros");
+        }
+         
+    }
 
     /**
      * @param args the command line arguments
@@ -130,11 +218,18 @@ public class VehicleLogs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel developerLabel;
+    private javax.swing.JPanel filtersAndSortContainer;
+    private javax.swing.JLabel filtersHeader;
     private javax.swing.JButton goBackButton;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTabbedPane logsContainer;
+    private javax.swing.JButton searchLogs;
+    private javax.swing.JComboBox<String> vehicleCheckoutBySelector;
     private javax.swing.JLabel vehicleLogsTitleLabel;
+    private javax.swing.JComboBox<String> vehicleStateSelector;
+    private javax.swing.JComboBox<String> vehicleTypeSelector;
     // End of variables declaration//GEN-END:variables
 }

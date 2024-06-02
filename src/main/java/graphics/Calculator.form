@@ -42,6 +42,7 @@
                       </Group>
                   </Group>
                   <Component id="developerLabel" alignment="0" max="32767" attributes="0"/>
+                  <Component id="preResultTextField" alignment="0" pref="305" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -52,14 +53,16 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="calculatorTitleLabel" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="resultTextField" min="-2" pref="50" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="resultTextField" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="preResultTextField" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="numberPadContainer" min="-2" max="-2" attributes="0"/>
                   <Component id="operationsContainer" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="developerLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                   <Component id="goBack" alignment="1" min="-2" pref="35" max="-2" attributes="0"/>
@@ -82,7 +85,14 @@
     <Component class="javax.swing.JTextField" name="resultTextField">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="RESULTADO"/>
+        <Property name="text" type="java.lang.String" value="-"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="preResultTextField">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="-"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
@@ -91,7 +101,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="clearFieldsButton" pref="50" max="32767" attributes="0"/>
+                      <Component id="clearAllButton" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
@@ -107,7 +124,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="numberFourButton" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
                                   <Component id="numberSevenButton" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
-                                  <Component id="clearFieldsButton" alignment="1" min="-2" pref="60" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -142,7 +158,13 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="323" max="32767" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace pref="240" max="32767" attributes="0"/>
+                  <Component id="clearFieldsButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="clearAllButton" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -166,7 +188,6 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="numberZeroButton" alignment="3" min="-2" pref="60" max="-2" attributes="0"/>
-                          <Component id="clearFieldsButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                           <Component id="equalsButton" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
@@ -180,36 +201,57 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberOneButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberTwoButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="2"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberTwoButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberThreeButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberThreeButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberFourButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="4"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberFourButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberFiveButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="5"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberFiveButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberSixButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="6"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberSixButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberSevenButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="7"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberSevenButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberEightButton">
           <Properties>
@@ -223,6 +265,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="9"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="numberNineButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="numberZeroButton">
           <Properties>
@@ -234,10 +279,18 @@
         </Component>
         <Component class="javax.swing.JButton" name="clearFieldsButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="---"/>
+            <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearFieldsButtonActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="clearAllButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="---"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearAllButtonActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="equalsButton">
@@ -288,21 +341,33 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="plusButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="minusButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="-"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="minusButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="multiplyButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="*"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="multiplyButtonActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="divisionButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="/"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="divisionButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

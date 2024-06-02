@@ -240,7 +240,7 @@ public class QueryManagment extends Connect {
             } else {
                 link.rollback();
             }
-            
+
             updateRatePS.close();
             this.closeConnection();
         } catch (SQLException ex) {
@@ -250,4 +250,91 @@ public class QueryManagment extends Connect {
 
         return updated;
     }
+
+    public String[][] queryLogs(Boolean[] willBeUpdated) {
+        this.connect();
+        Connection link = getConnection();
+
+        //Se delcara un String para la consulta que se guardara y uno para convertir los valores booleanos a una cadena de caracteres (1, 0)
+        String searchLogsQuery = "";
+        String caseKey = (willBeUpdated[0] ? "1" : "0")
+                + (willBeUpdated[1] ? "1" : "0")
+                + (willBeUpdated[2] ? "1" : "0");
+
+        //Se evalua la cadena de caracteres y se guarda la consulta del case que sea verdadera 
+        switch (caseKey) {
+            case "111":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0] + " AND state = " + willBeUpdated[1] + " AND checkout_by = " + willBeUpdated[2];
+                break;
+            case "110":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0] + " AND state = " + willBeUpdated[1];
+                break;
+            case "011":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE state = " + willBeUpdated[1] + " AND checkout_by = " + willBeUpdated[2];
+                break;
+            case "100":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0];
+                break;
+            case "010":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE state = " + willBeUpdated[1];
+                break;
+            case "001":
+                searchLogsQuery = "SELECT * FROM vehicle WHERE checkout_by = " + willBeUpdated[2];
+                break;
+            default:
+                searchLogsQuery = "";
+                break;
+        }
+
+        try {
+            int totalRows = 0, range = 0;
+
+            //Se prepara la consulta y se ejecuta
+            PreparedStatement searchLogsPS = link.prepareStatement(searchLogsQuery);
+            ResultSet searchLogsRS = searchLogsPS.executeQuery();
+
+            while (searchLogsRS != null) {
+                totalRows++;
+            }
+
+            //Si existe al menos una fila se guarda la informacion en la matriz
+            if (totalRows > 0) {
+                //Instancia matriz de que guarda los registros
+                String[][] logsData = new String[totalRows][11];
+                
+                do {
+                    logsData[range][0] = searchLogsRS.getString("id");
+                    logsData[range][1] = searchLogsRS.getString("type");
+                    logsData[range][2] = searchLogsRS.getString("color");
+                    logsData[range][3] = searchLogsRS.getString("state");
+                    logsData[range][4] = searchLogsRS.getString("checkout_state");
+                    logsData[range][5] = searchLogsRS.getString("checkin_by");
+                    logsData[range][6] = searchLogsRS.getString("checkout_by");
+                    logsData[range][7] = searchLogsRS.getString("owner_id");
+                    logsData[range][8] = searchLogsRS.getString("plate");
+                    logsData[range][9] = searchLogsRS.getString("checkin_hour");
+                    logsData[range][10] = searchLogsRS.getString("checkout_hour");
+                    
+                    range++;
+                } while(searchLogsRS.next());
+                
+                return logsData;
+            }
+
+            searchLogsPS.close();
+            searchLogsRS.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                this.closeConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+
+        return null;
+    }
+
 }
