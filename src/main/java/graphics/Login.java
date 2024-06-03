@@ -42,7 +42,7 @@ public class Login extends javax.swing.JFrame {
         loginLabel.setText("INICIO DE SESION");
 
         loginEmailField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        loginEmailField.setText("felipecasanascastro@gmail.com");
+        loginEmailField.setText("casanascastrofelipe@gmail.com");
         loginEmailField.setToolTipText("");
         loginEmailField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

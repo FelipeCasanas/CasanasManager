@@ -30,19 +30,19 @@ public class ParseUserInputs {
     public String parseVehicleColorToCode(String color) {
         switch (color) {
             case "BLANCO":
-                color = "white";
+                color = "1";
                 break;
             case "GRIS":
-                color = "gray";
+                color = "2";
                 break;
             case "NEGRO":
-                color = "black";
+                color = "3";
                 break;
             case "AZUL":
-                color = "blue";
+                color = "4";
                 break;
             case "ROJO":
-                color = "red";
+                color = "5";
                 break;
         }
 
@@ -87,19 +87,19 @@ public class ParseUserInputs {
 
     public String parseVehicleColorToLetters(String color) {
         switch (color) {
-            case "white":
+            case "1":
                 color = "BLANCO";
                 break;
-            case "gray":
+            case "2":
                 color = "GRIS";
                 break;
-            case "black":
+            case "3":
                 color = "NEGRO";
                 break;
-            case "blue":
+            case "4":
                 color = "AZUL";
                 break;
-            case "red":
+            case "5":
                 color = "ROJO";
                 break;
         }

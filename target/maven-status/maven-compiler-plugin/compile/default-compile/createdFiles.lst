@@ -1,3 +1,4 @@
+utilities\FieldsToUpdate.class
 graphics\SearchInvoice$1.class
 graphics\Calculator$12.class
 graphics\Dashboard$9.class
@@ -17,6 +18,7 @@ utilities\ParseUserInputs.class
 graphics\Calculator$3.class
 graphics\Calculator.class
 graphics\Login$3.class
+graphics\VehicleLogs$4.class
 com\casanassoftware\administrativemanager\StartRunning.class
 graphics\VehicleCheckOut.class
 graphics\VehicleCheckIn$2.class
@@ -38,6 +40,7 @@ graphics\Dashboard.class
 graphics\Rates$2.class
 managmentCore\VehiclesManagment.class
 graphics\Calculator$2.class
+graphics\VehicleLogs$3.class
 connection\QueryManagment.class
 graphics\SearchInvoice$2.class
 graphics\Dashboard$4.class

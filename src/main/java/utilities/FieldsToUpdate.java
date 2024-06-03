@@ -20,6 +20,7 @@ public class FieldsToUpdate {
             } else {
                 willBeUpdated[range] = false;
             }
+            range++;
         } while (range < fields.length);
 
         return willBeUpdated;

@@ -39,7 +39,7 @@ public class QueryManagment extends Connect {
         boolean isLogged = false;
 
         try {
-            String query = "SELECT * from user WHERE email = ? AND password = ? AND active = ?;";
+            String query = "SELECT * from my_user WHERE email = ? AND password = ? AND active = ?;";
             PreparedStatement loginPS = link.prepareStatement(query);
             loginPS.setString(1, email);
             loginPS.setString(2, password);
@@ -67,7 +67,7 @@ public class QueryManagment extends Connect {
         boolean stillHere = false;
 
         try {
-            String searchVehicleQuery = "SELECT * FROM vehicle WHERE plate = ? AND checkout_by IS NULL;";
+            String searchVehicleQuery = "SELECT * FROM vehicle WHERE plate = ? AND checkout_hour IS NULL;";
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
             searchVehiclePS.setString(1, plate);
             ResultSet foundVehicleRS = searchVehiclePS.executeQuery();
@@ -93,7 +93,7 @@ public class QueryManagment extends Connect {
         vehicleData[0] = null;
 
         try {
-            String searchVehicleQuery = "SELECT * FROM vehicle WHERE plate = ?;";
+            String searchVehicleQuery = "SELECT * FROM vehicle v INNER JOIN vehicle_type vt ON v.type = vt.type_id INNER JOIN vehicle_state vs ON v.state = vs.id WHERE plate = ?;";
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
             //searchVehiclePS.setString(1, searchBy);
             searchVehiclePS.setString(1, search);
@@ -101,10 +101,10 @@ public class QueryManagment extends Connect {
 
             if (foundVehicleRS.next()) {
                 vehicleData[0] = foundVehicleRS.getString("id");
-                vehicleData[1] = foundVehicleRS.getString("type");
+                vehicleData[1] = foundVehicleRS.getString("type_name");
                 vehicleData[2] = foundVehicleRS.getString("color");
-                vehicleData[3] = foundVehicleRS.getString("state");
-                vehicleData[4] = foundVehicleRS.getString("checkout_state");
+                vehicleData[3] = foundVehicleRS.getString("vs.state");
+                vehicleData[4] = foundVehicleRS.getString("vs.checkout_state");
                 vehicleData[5] = foundVehicleRS.getString("checkin_by");
                 vehicleData[6] = foundVehicleRS.getString("checkout_by");
                 vehicleData[7] = foundVehicleRS.getString("owner_id");
@@ -129,15 +129,17 @@ public class QueryManagment extends Connect {
         boolean inserted = false;
 
         try {
-            String query = "INSERT INTO vehicle(type, color, state, checkin_by, owner_id, plate, checkin_hour) VALUES (?, ?, ? , ?, ?, ?, ?);";
+            String query = "INSERT INTO vehicle(type, color, state, checkout_state, checkin_by, checkout_by, owner_id, plate, checkin_hour) VALUES (?, ?, ? , ?, ?, ?, ?, ?, ?);";
             PreparedStatement insertVehiclePS = link.prepareStatement(query);
             insertVehiclePS.setString(1, vehicleData[0]);
             insertVehiclePS.setString(2, vehicleData[1]);
             insertVehiclePS.setString(3, vehicleData[2]);
-            insertVehiclePS.setInt(4, workerId);
-            insertVehiclePS.setString(5, vehicleData[3]);
-            insertVehiclePS.setString(6, vehicleData[4]);
-            insertVehiclePS.setString(7, formattedDate);
+            insertVehiclePS.setInt(4, 0);
+            insertVehiclePS.setInt(5, workerId);
+            insertVehiclePS.setInt(6, 0);
+            insertVehiclePS.setString(7, vehicleData[3]);
+            insertVehiclePS.setString(8, vehicleData[4]);
+            insertVehiclePS.setString(9, formattedDate);
             int insertStatus = insertVehiclePS.executeUpdate();
 
             if (insertStatus == 1) {
@@ -251,12 +253,20 @@ public class QueryManagment extends Connect {
         return updated;
     }
 
-    public String[][] queryLogs(Boolean[] willBeUpdated) {
+    public String[][] queryLogs(Boolean[] willBeUpdated, String[] fields) {
         this.connect();
         Connection link = getConnection();
 
-        //Se delcara un String para la consulta que se guardara y uno para convertir los valores booleanos a una cadena de caracteres (1, 0)
-        String searchLogsQuery = "";
+        //searchLogsQuery se toma como consulta base, esta lo que hace es obtener los valores para cada columna y esto lo repite en cada fila
+        String searchLogsQuery = "SELECT v1.*, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name "
+                        + "FROM vehicle v1 INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
+                        + "INNER JOIN color c1 ON v1.color = c1.id "
+                        + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
+                        + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
+                        + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
+                        + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
+        
+        //Se pregunta que condiciones de busqueda se van a aplicar a la consulta
         String caseKey = (willBeUpdated[0] ? "1" : "0")
                 + (willBeUpdated[1] ? "1" : "0")
                 + (willBeUpdated[2] ? "1" : "0");
@@ -264,60 +274,67 @@ public class QueryManagment extends Connect {
         //Se evalua la cadena de caracteres y se guarda la consulta del case que sea verdadera 
         switch (caseKey) {
             case "111":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0] + " AND state = " + willBeUpdated[1] + " AND checkout_by = " + willBeUpdated[2];
+                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0] + " AND state = " + fields[1] + " AND checkout_by = " + fields[2];
                 break;
             case "110":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0] + " AND state = " + willBeUpdated[1];
+                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0] + " AND state = " + fields[1];
                 break;
             case "011":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE state = " + willBeUpdated[1] + " AND checkout_by = " + willBeUpdated[2];
+                whereQuery = "SELECT * FROM vehicle WHERE state = " + fields[1] + " AND checkout_by = " + fields[2];
                 break;
             case "100":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE type = " + willBeUpdated[0];
+                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0];
                 break;
             case "010":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE state = " + willBeUpdated[1];
+                whereQuery = "SELECT * FROM vehicle WHERE state = " + fields[1];
                 break;
             case "001":
-                searchLogsQuery = "SELECT * FROM vehicle WHERE checkout_by = " + willBeUpdated[2];
+                whereQuery = "SELECT * FROM vehicle WHERE checkout_by = " + fields[2];
                 break;
             default:
-                searchLogsQuery = "";
+                whereQuery = searchLogsQuery + orderByQuery;
                 break;
         }
 
         try {
             int totalRows = 0, range = 0;
 
-            //Se prepara la consulta y se ejecuta
-            PreparedStatement searchLogsPS = link.prepareStatement(searchLogsQuery);
+            // Se prepara la consulta y se ejecuta
+            PreparedStatement searchLogsPS = link.prepareStatement(searchLogsQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             ResultSet searchLogsRS = searchLogsPS.executeQuery();
 
-            while (searchLogsRS != null) {
+            // Contar el número total de filas
+            while (searchLogsRS.next()) {
                 totalRows++;
             }
 
-            //Si existe al menos una fila se guarda la informacion en la matriz
+            // Si existe al menos una fila se guarda la información en la matriz
             if (totalRows > 0) {
-                //Instancia matriz de que guarda los registros
+                // Instancia matriz que guarda los registros
                 String[][] logsData = new String[totalRows][11];
-                
-                do {
+
+                // Mover el puntero al inicio del ResultSet
+                searchLogsRS.beforeFirst();
+
+                // Llenar la matriz con los datos
+                while (searchLogsRS.next()) {
                     logsData[range][0] = searchLogsRS.getString("id");
-                    logsData[range][1] = searchLogsRS.getString("type");
-                    logsData[range][2] = searchLogsRS.getString("color");
-                    logsData[range][3] = searchLogsRS.getString("state");
-                    logsData[range][4] = searchLogsRS.getString("checkout_state");
-                    logsData[range][5] = searchLogsRS.getString("checkin_by");
-                    logsData[range][6] = searchLogsRS.getString("checkout_by");
+                    logsData[range][1] = searchLogsRS.getString("vt1.type_name");
+                    logsData[range][2] = searchLogsRS.getString("c1.color_name");
+                    logsData[range][3] = searchLogsRS.getString("state_name");
+                    logsData[range][4] = searchLogsRS.getString("checkout_state_name");
+                    logsData[range][5] = searchLogsRS.getString("checkin_by_user_name");
+                    logsData[range][6] = searchLogsRS.getString("checkout_by_user_name");
                     logsData[range][7] = searchLogsRS.getString("owner_id");
                     logsData[range][8] = searchLogsRS.getString("plate");
                     logsData[range][9] = searchLogsRS.getString("checkin_hour");
                     logsData[range][10] = searchLogsRS.getString("checkout_hour");
-                    
+
                     range++;
-                } while(searchLogsRS.next());
-                
+                }
+
+                searchLogsPS.close();
+                searchLogsRS.close();
                 return logsData;
             }
 
@@ -332,7 +349,6 @@ public class QueryManagment extends Connect {
                 Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
 
         return null;
     }

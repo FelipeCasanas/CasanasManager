@@ -84,7 +84,7 @@
     <Component class="javax.swing.JTextField" name="loginEmailField">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="felipecasanascastro@gmail.com"/>
+        <Property name="text" type="java.lang.String" value="casanascastrofelipe@gmail.com"/>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
       <Events>

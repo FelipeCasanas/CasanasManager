@@ -6,6 +6,7 @@ package graphics;
 
 import connection.QueryManagment;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import utilities.FieldsToUpdate;
 
 /**
@@ -19,8 +20,6 @@ public class VehicleLogs extends javax.swing.JFrame {
      */
     public VehicleLogs() {
         initComponents();
-
-        requestLogsData();
     }
 
     /**
@@ -43,6 +42,10 @@ public class VehicleLogs extends javax.swing.JFrame {
         vehicleCheckoutBySelector = new javax.swing.JComboBox<>();
         searchLogs = new javax.swing.JButton();
         logsContainer = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        logsView = new javax.swing.JScrollPane();
+        logsViewTable = new javax.swing.JTable();
+        addLogsPane = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
@@ -65,16 +68,20 @@ public class VehicleLogs extends javax.swing.JFrame {
 
         vehicleStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
 
-        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "TRABAJADOR1"}));
-        vehicleCheckoutBySelector.setEnabled(false);
+        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" , "1", "TRABAJADOR1"}));
 
         searchLogs.setText("BUSCAR");
+        searchLogs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchLogsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout filtersAndSortContainerLayout = new javax.swing.GroupLayout(filtersAndSortContainer);
         filtersAndSortContainer.setLayout(filtersAndSortContainerLayout);
         filtersAndSortContainerLayout.setHorizontalGroup(
             filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(filtersHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+            .addComponent(filtersHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filtersAndSortContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -96,10 +103,92 @@ public class VehicleLogs extends javax.swing.JFrame {
                 .addComponent(vehicleCheckoutBySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchLogs)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         logsContainer.setBackground(new java.awt.Color(0, 153, 255));
+
+        logsViewTable.setAutoCreateRowSorter(true);
+        logsViewTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "PLACA", "HORA ENTRADA", "HORA SALIDA"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        logsViewTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        logsViewTable.setShowGrid(true);
+        logsViewTable.getTableHeader().setReorderingAllowed(false);
+        logsView.setViewportView(logsViewTable);
+        if (logsViewTable.getColumnModel().getColumnCount() > 0) {
+            logsViewTable.getColumnModel().getColumn(0).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+            logsViewTable.getColumnModel().getColumn(1).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(1).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(2).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(3).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(4).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(5).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(6).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(7).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(7).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(8).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(8).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(9).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(10).setResizable(false);
+        }
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logsView, javax.swing.GroupLayout.DEFAULT_SIZE, 1147, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logsView, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
+        );
+
+        logsContainer.addTab("REGISTROS", jPanel1);
+
+        javax.swing.GroupLayout addLogsPaneLayout = new javax.swing.GroupLayout(addLogsPane);
+        addLogsPane.setLayout(addLogsPaneLayout);
+        addLogsPaneLayout.setHorizontalGroup(
+            addLogsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1159, Short.MAX_VALUE)
+        );
+        addLogsPaneLayout.setVerticalGroup(
+            addLogsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 577, Short.MAX_VALUE)
+        );
+
+        logsContainer.addTab("AGREGAR REGISTRO", addLogsPane);
 
         goBackButton.setText("<-");
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -122,11 +211,11 @@ public class VehicleLogs extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 58, Short.MAX_VALUE))
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(filtersAndSortContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logsContainer)))
                 .addContainerGap())
         );
@@ -156,6 +245,10 @@ public class VehicleLogs extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
+    private void searchLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLogsActionPerformed
+        requestLogsData();
+    }//GEN-LAST:event_searchLogsActionPerformed
+
     private void requestLogsData() {
         //Instancia las clases necesarias
         FieldsToUpdate fieldsToUpdate = new FieldsToUpdate();
@@ -172,14 +265,21 @@ public class VehicleLogs extends javax.swing.JFrame {
         Boolean[] willBeUpdated = fieldsToUpdate.getFields(fields);
 
         //Llama metodo para obtener los registros de la base de datos
-        String[][] logsData = queryManagment.queryLogs(willBeUpdated);
-        
-        if(logsData != null) {
-            //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Imprime la informacion obtenida en el TABBEDPANE!!!!!!!!!!!!!!
+        String[][] logsData = queryManagment.queryLogs(willBeUpdated, fields);
+
+        if (logsData != null) {
+            //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Imprime la informacion obtenida en el TABBEDPANE!!!!!!!!!!!!!!            
+            DefaultTableModel tableModel = (DefaultTableModel) logsViewTable.getModel();
+            int range = logsData.length;
+
+            for (int row = 0; row < range; row++) {
+                tableModel.addRow(new Object[]{logsData[row][0], logsData[row][1], logsData[row][2], logsData[row][3], logsData[row][4], logsData[row][5], logsData[row][6], logsData[row][7], logsData[row][8], logsData[row][9], logsData[row][10]});
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "No se encontraron registros");
         }
-         
+
     }
 
     /**
@@ -218,14 +318,18 @@ public class VehicleLogs extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel addLogsPane;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JPanel filtersAndSortContainer;
     private javax.swing.JLabel filtersHeader;
     private javax.swing.JButton goBackButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTabbedPane logsContainer;
+    private javax.swing.JScrollPane logsView;
+    private javax.swing.JTable logsViewTable;
     private javax.swing.JButton searchLogs;
     private javax.swing.JComboBox<String> vehicleCheckoutBySelector;
     private javax.swing.JLabel vehicleLogsTitleLabel;
