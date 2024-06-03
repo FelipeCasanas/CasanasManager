@@ -37,7 +37,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="dashboardSearchVehicleButton" min="-2" pref="180" max="-2" attributes="0"/>
-                  <Component id="dashboardSearchInvoiceButton" min="-2" pref="180" max="-2" attributes="0"/>
+                  <Component id="dashboardGenerateInvoiceButton" min="-2" pref="180" max="-2" attributes="0"/>
                   <Component id="dashboardRatesButton" min="-2" pref="180" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
@@ -66,7 +66,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                      <Component id="dashboardSearchInvoiceButton" alignment="3" min="-2" pref="100" max="-2" attributes="0"/>
+                      <Component id="dashboardGenerateInvoiceButton" alignment="3" min="-2" pref="100" max="-2" attributes="0"/>
                       <Component id="dashboardDepartureVehicleButton" alignment="3" min="-2" pref="100" max="-2" attributes="0"/>
                   </Group>
                   <Component id="dashboardTodayRecordsButton" min="-2" pref="100" max="-2" attributes="0"/>
@@ -120,12 +120,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardTodayRecordsButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="dashboardSearchInvoiceButton">
+    <Component class="javax.swing.JButton" name="dashboardGenerateInvoiceButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="BUSCAR FACTURA"/>
+        <Property name="text" type="java.lang.String" value="GENERAR FACTURA"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardSearchInvoiceButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardGenerateInvoiceButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="dashboardShowLogsButton">

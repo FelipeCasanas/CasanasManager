@@ -292,8 +292,6 @@ public class SearchVehicle extends javax.swing.JFrame {
 
         //Valida que el array tenga informacion; Si no la tiene imprime mensaje indicando que no se entrontro coincidencia
         if (vehicleData[0] != null) {
-            ParseUserInputs parseUserInputs = new ParseUserInputs();
-            
             //Quita mensaje de no se encontro coincidencia
             itsNotLabel.setText("-");
             

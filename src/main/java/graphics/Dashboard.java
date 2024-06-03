@@ -32,7 +32,7 @@ public class Dashboard extends javax.swing.JFrame {
         dashboardSearchVehicleButton = new javax.swing.JButton();
         dashboardDepartureVehicleButton = new javax.swing.JButton();
         dashboardTodayRecordsButton = new javax.swing.JButton();
-        dashboardSearchInvoiceButton = new javax.swing.JButton();
+        dashboardGenerateInvoiceButton = new javax.swing.JButton();
         dashboardShowLogsButton = new javax.swing.JButton();
         dashboardRatesButton = new javax.swing.JButton();
         dashboardCloseSessionButton = new javax.swing.JButton();
@@ -69,10 +69,10 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        dashboardSearchInvoiceButton.setText("BUSCAR FACTURA");
-        dashboardSearchInvoiceButton.addActionListener(new java.awt.event.ActionListener() {
+        dashboardGenerateInvoiceButton.setText("GENERAR FACTURA");
+        dashboardGenerateInvoiceButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardSearchInvoiceButtonActionPerformed(evt);
+                dashboardGenerateInvoiceButtonActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dashboardSearchVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dashboardSearchInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dashboardGenerateInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardRatesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,7 +152,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dashboardSearchInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dashboardGenerateInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(dashboardDepartureVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(dashboardTodayRecordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -227,12 +227,12 @@ public class Dashboard extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_dashboardCalculatorButtonActionPerformed
 
-    private void dashboardSearchInvoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardSearchInvoiceButtonActionPerformed
-        SearchInvoice searchInvoice = new SearchInvoice();
-        searchInvoice.setVisible(true);
-        searchInvoice.setLocationRelativeTo(null);
+    private void dashboardGenerateInvoiceButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardGenerateInvoiceButtonActionPerformed
+        GenerateInvoice generateInvoice = new GenerateInvoice();
+        generateInvoice.setVisible(true);
+        generateInvoice.setLocationRelativeTo(null);
         this.setVisible(false);
-    }//GEN-LAST:event_dashboardSearchInvoiceButtonActionPerformed
+    }//GEN-LAST:event_dashboardGenerateInvoiceButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -274,8 +274,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton dashboardCloseSessionButton;
     private javax.swing.JButton dashboardDepartureVehicleButton;
     private javax.swing.JButton dashboardEntryVehicleButton;
+    private javax.swing.JButton dashboardGenerateInvoiceButton;
     private javax.swing.JButton dashboardRatesButton;
-    private javax.swing.JButton dashboardSearchInvoiceButton;
     private javax.swing.JButton dashboardSearchVehicleButton;
     private javax.swing.JButton dashboardShowLogsButton;
     private javax.swing.JButton dashboardTodayRecordsButton;

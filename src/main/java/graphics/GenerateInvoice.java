@@ -4,16 +4,19 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import javax.swing.JOptionPane;
+import utilities.FieldsToUpdate;
+
 /**
  *
  * @author Felipe
  */
-public class SearchInvoice extends javax.swing.JFrame {
+public class GenerateInvoice extends javax.swing.JFrame {
 
-    /**
-     * Creates new form searchInvoice
-     */
-    public SearchInvoice() {
+    private String[] vehicleData;
+
+    public GenerateInvoice() {
         initComponents();
     }
 
@@ -34,6 +37,7 @@ public class SearchInvoice extends javax.swing.JFrame {
         printInvoice = new javax.swing.JButton();
         rightContainer = new javax.swing.JPanel();
         foundLabel = new javax.swing.JLabel();
+        foundLabelStillHere = new javax.swing.JLabel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
@@ -44,10 +48,16 @@ public class SearchInvoice extends javax.swing.JFrame {
         ratesTitleLabel.setText("BUSCAR FACTURA");
 
         searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
+        searchMethodSelector.setEnabled(false);
 
         searchMethodField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         searchButton.setText("BUSCAR");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
 
         printInvoice.setText("CREAR FACTURA");
         printInvoice.setEnabled(false);
@@ -81,24 +91,34 @@ public class SearchInvoice extends javax.swing.JFrame {
                 .addComponent(searchButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(printInvoice)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         foundLabel.setForeground(new java.awt.Color(0, 255, 0));
         foundLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        foundLabel.setText("ENCONTRADO");
+        foundLabel.setText("-");
+
+        foundLabelStillHere.setForeground(new java.awt.Color(0, 255, 0));
+        foundLabelStillHere.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        foundLabelStillHere.setText("-");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
         rightContainerLayout.setHorizontalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(foundLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+            .addGroup(rightContainerLayout.createSequentialGroup()
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(foundLabelStillHere, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(foundLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         rightContainerLayout.setVerticalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightContainerLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addGap(68, 68, 68)
                 .addComponent(foundLabel)
+                .addGap(18, 18, 18)
+                .addComponent(foundLabelStillHere)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -117,20 +137,18 @@ public class SearchInvoice extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(leftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(rightContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,10 +156,10 @@ public class SearchInvoice extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(ratesTitleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(leftContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBackButton)
                     .addComponent(developerLabel))
@@ -158,9 +176,53 @@ public class SearchInvoice extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        //Instancia las clases necesarias
+        QueryManagment queryManagment = new QueryManagment();
+
+        //Declara array de campos y guarda las entradas en sus 2 posiciones
+        String[] fields = new String[2];
+        fields[0] = searchMethodSelector.getSelectedItem().toString();
+        fields[1] = searchMethodField.getText().toString();
+
+        //Busca el vehiculo en la DB
+        String[] vehicleData = queryManagment.searchVehicle(fields[0], fields[1]);
+
+        /*
+        Valida que el array tenga informacion. Si la tiene guarda la informacion obtenida por medio del metodo setVehicleData
+        y activa el boton de imprimir factura; Si no, 
+        la tiene imprime mensaje indicando que no se entrontro coincidencia
+         */
+        if (vehicleData[0] != null) {
+            setVehicleData(vehicleData);
+            printInvoice.setEnabled(true);
+
+            if (vehicleData[6].equals("0")) {
+                foundLabel.setText("AUN EN PARQUEADERO");
+                foundLabelStillHere.setText("FALTARAN DATOS SI IMPRIME");
+            } else {
+                foundLabel.setText("ENCONTRADO");
+                foundLabelStillHere.setText("");
+            }
+        } else {
+            printInvoice.setEnabled(false);
+            foundLabel.setText("-");
+            foundLabelStillHere.setText("-");
+            JOptionPane.showMessageDialog(this, "No se encontro el vehiculo");
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
-        // TODO add your handling code here:
+        //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡PENDIENTE!!!!!!!!!!!!!!!!!!!
     }//GEN-LAST:event_printInvoiceActionPerformed
+
+    public String[] getVehicleData() {
+        return vehicleData;
+    }
+
+    private void setVehicleData(String[] vehicleData) {
+        this.vehicleData = vehicleData;
+    }
 
     /**
      * @param args the command line arguments
@@ -179,21 +241,23 @@ public class SearchInvoice extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GenerateInvoice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchInvoice().setVisible(true);
+                new GenerateInvoice().setVisible(true);
             }
         });
     }
@@ -201,6 +265,7 @@ public class SearchInvoice extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel developerLabel;
     private javax.swing.JLabel foundLabel;
+    private javax.swing.JLabel foundLabelStillHere;
     private javax.swing.JButton goBackButton;
     private javax.swing.JPanel leftContainer;
     private javax.swing.JButton printInvoice;

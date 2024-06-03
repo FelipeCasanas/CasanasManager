@@ -1,5 +1,4 @@
 utilities\FieldsToUpdate.class
-graphics\SearchInvoice$1.class
 graphics\Calculator$12.class
 graphics\Dashboard$9.class
 graphics\Calculator$6.class
@@ -22,6 +21,7 @@ graphics\VehicleLogs$4.class
 com\casanassoftware\administrativemanager\StartRunning.class
 graphics\VehicleCheckOut.class
 graphics\VehicleCheckIn$2.class
+graphics\GenerateInvoice$4.class
 graphics\SearchVehicle$3.class
 graphics\SearchVehicle.class
 graphics\Rates.class
@@ -38,11 +38,11 @@ graphics\SearchVehicle$4.class
 graphics\Dashboard$7.class
 graphics\Dashboard.class
 graphics\Rates$2.class
+graphics\GenerateInvoice$3.class
 managmentCore\VehiclesManagment.class
 graphics\Calculator$2.class
 graphics\VehicleLogs$3.class
 connection\QueryManagment.class
-graphics\SearchInvoice$2.class
 graphics\Dashboard$4.class
 graphics\Calculator$1.class
 graphics\Login.class
@@ -54,12 +54,11 @@ graphics\VehicleCheckOut$1.class
 utilities\ClearManagmentData.class
 graphics\SearchVehicle$1.class
 graphics\VehicleLogs$2.class
+graphics\GenerateInvoice$1.class
 utilities\FormatDate.class
 graphics\Calculator$13.class
 graphics\Dashboard$10.class
 graphics\Dashboard$8.class
-graphics\SearchInvoice.class
-graphics\SearchInvoice$3.class
 graphics\Rates$1.class
 graphics\Calculator$7.class
 graphics\Dashboard$3.class
@@ -67,9 +66,11 @@ graphics\VehicleCheckIn.class
 graphics\VehicleCheckOut$2.class
 graphics\Calculator$11.class
 graphics\Rates$4.class
+graphics\GenerateInvoice.class
 graphics\SearchVehicle$2.class
 connection\Connect.class
 graphics\VehicleLogs$1.class
+graphics\GenerateInvoice$2.class
 graphics\Calculator$4.class
 graphics\Dashboard$6.class
 graphics\VehicleCheckIn$3.class
