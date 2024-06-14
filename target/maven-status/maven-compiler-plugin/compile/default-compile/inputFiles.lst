@@ -6,6 +6,7 @@ C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\u
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\managmentCore\UserManagment.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\managmentCore\RatesManagment.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\managmentCore\VehiclesManagment.java
+C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\managmentCore\ReportsManagement.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\Login.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\SearchVehicle.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\connection\QueryManagment.java
@@ -13,6 +14,7 @@ C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\g
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\utilities\ClearManagmentData.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\GenerateInvoice.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\utilities\FieldsToUpdate.java
+C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\utilities\PrintInvoice.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\VehicleLogs.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\VehicleCheckOut.java
 C:\Users\Felipe\Documents\NetBeansProjects\AdministrativeManager\src\main\java\graphics\CashCheckout.java

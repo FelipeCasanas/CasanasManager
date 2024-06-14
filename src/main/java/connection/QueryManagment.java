@@ -93,20 +93,28 @@ public class QueryManagment extends Connect {
         vehicleData[0] = null;
 
         try {
-            String searchVehicleQuery = "SELECT * FROM vehicle v INNER JOIN vehicle_type vt ON v.type = vt.type_id INNER JOIN vehicle_state vs ON v.state = vs.id WHERE plate = ?;";
+            String searchVehicleQuery = "SELECT v1.id, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, v1.owner_id, v1.plate, v1.checkin_hour, v1.checkout_hour "
+                    + "FROM vehicle v1 "
+                    + "INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
+                    + "INNER JOIN color c1 ON v1.color = c1.id "
+                    + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
+                    + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
+                    + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
+                    + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id "
+                    + "WHERE v1.plate = ?";
+
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
-            //searchVehiclePS.setString(1, searchBy);
             searchVehiclePS.setString(1, search);
             ResultSet foundVehicleRS = searchVehiclePS.executeQuery();
 
             if (foundVehicleRS.next()) {
                 vehicleData[0] = foundVehicleRS.getString("id");
                 vehicleData[1] = foundVehicleRS.getString("type_name");
-                vehicleData[2] = foundVehicleRS.getString("color");
-                vehicleData[3] = foundVehicleRS.getString("vs.state");
-                vehicleData[4] = foundVehicleRS.getString("vs.checkout_state");
-                vehicleData[5] = foundVehicleRS.getString("checkin_by");
-                vehicleData[6] = foundVehicleRS.getString("checkout_by");
+                vehicleData[2] = foundVehicleRS.getString("color_name");
+                vehicleData[3] = foundVehicleRS.getString("state_name");
+                vehicleData[4] = foundVehicleRS.getString("checkout_state_name");
+                vehicleData[5] = foundVehicleRS.getString("checkin_by_user_name");
+                vehicleData[6] = foundVehicleRS.getString("checkout_by_user_name");
                 vehicleData[7] = foundVehicleRS.getString("owner_id");
                 vehicleData[8] = foundVehicleRS.getString("plate");
                 vehicleData[9] = foundVehicleRS.getString("checkin_hour");
@@ -259,13 +267,13 @@ public class QueryManagment extends Connect {
 
         //searchLogsQuery se toma como consulta base, esta lo que hace es obtener los valores para cada columna y esto lo repite en cada fila
         String searchLogsQuery = "SELECT v1.*, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name "
-                        + "FROM vehicle v1 INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
-                        + "INNER JOIN color c1 ON v1.color = c1.id "
-                        + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
-                        + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
-                        + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
-                        + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
-        
+                + "FROM vehicle v1 INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
+                + "INNER JOIN color c1 ON v1.color = c1.id "
+                + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
+                + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
+                + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
+                + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
+
         //Se pregunta que condiciones de busqueda se van a aplicar a la consulta
         String caseKey = (willBeUpdated[0] ? "1" : "0")
                 + (willBeUpdated[1] ? "1" : "0")

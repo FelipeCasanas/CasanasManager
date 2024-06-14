@@ -5,6 +5,7 @@ graphics\Calculator$6.class
 graphics\VehicleCheckOut$3.class
 graphics\Rates$3.class
 graphics\Calculator$19.class
+utilities\PrintInvoice.class
 graphics\Dashboard$2.class
 graphics\Calculator$15.class
 graphics\CashCheckout$1.class
@@ -12,6 +13,7 @@ managmentCore\UserManagment.class
 graphics\Calculator$16.class
 graphics\Dashboard$5.class
 managmentCore\RatesManagment.class
+managmentCore\ReportsManagement.class
 graphics\VehicleLogs.class
 utilities\ParseUserInputs.class
 graphics\Calculator$3.class

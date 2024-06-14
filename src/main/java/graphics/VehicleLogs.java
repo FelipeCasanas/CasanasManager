@@ -114,14 +114,14 @@ public class VehicleLogs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "PLACA", "HORA ENTRADA", "HORA SALIDA"
+                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "PLACA", "HORA ENTRADA", "HORA SALIDA", "COBRO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -157,6 +157,7 @@ public class VehicleLogs extends javax.swing.JFrame {
             logsViewTable.getColumnModel().getColumn(8).setPreferredWidth(30);
             logsViewTable.getColumnModel().getColumn(9).setResizable(false);
             logsViewTable.getColumnModel().getColumn(10).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(11).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

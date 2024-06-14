@@ -6,7 +6,7 @@ package graphics;
 
 import connection.QueryManagment;
 import javax.swing.JOptionPane;
-import utilities.FieldsToUpdate;
+import utilities.PrintInvoice;
 
 /**
  *
@@ -214,6 +214,8 @@ public class GenerateInvoice extends javax.swing.JFrame {
 
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
         //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡PENDIENTE!!!!!!!!!!!!!!!!!!!
+        PrintInvoice printInvoice = new PrintInvoice();
+        printInvoice.print(vehicleData);
     }//GEN-LAST:event_printInvoiceActionPerformed
 
     public String[] getVehicleData() {
