@@ -10,7 +10,7 @@ import managmentCore.UserManagment;
  *
  * @author Felipe
  */
-public class ClearManagmentData {
+public class ClearInputsOutputs {
     
     
     public void clearUserData() {

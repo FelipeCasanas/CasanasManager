@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import net.sf.jasperreports.engine.util.JRLoader;
+import utilities.FormatTime;
 
 public class ReportsManagement {
 
@@ -53,6 +54,7 @@ public class ReportsManagement {
 
     public JasperPrint fillReport(String compiledReportFile) {
         try {
+            FormatTime formatTime = new FormatTime();
             JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(compiledReportFile);
 
             Map<String, Object> parameters = new HashMap<>();
@@ -68,6 +70,7 @@ public class ReportsManagement {
             parameters.put("companyLogo", companyLogo);
             parameters.put("companyAddress", companyAddress);
             parameters.put("printDate", new Date());
+            parameters.put("printHour", new Date());
 
             return JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
         } catch (JRException e) {

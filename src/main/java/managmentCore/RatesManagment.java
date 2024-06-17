@@ -19,17 +19,15 @@ public class RatesManagment {
     private static double carRate, motorcycleRate, bikeRate;
 
     //Consulta tarifas a base de datos y las establece en parametros de la clase
-    public void askRatesToDB() {
+    public static void askRatesToDB() {
         QueryManagment queryManagment = new QueryManagment();
         String[] returnedRates = queryManagment.queryRates();
 
-        carRate = Double.parseDouble(returnedRates[0]);
-        motorcycleRate = Double.parseDouble(returnedRates[1]);
-        bikeRate = Double.parseDouble(returnedRates[2]);
+        setRates(returnedRates);
     }
 
-    //TEMPORALMENTE NO SE USA YA QUE PREGUNTA A DB PARA ACUTALIZAR AL CAMBIAR TARIFAS
-    private void setRates(String[] rates) {
+    //Establece tarifas en las propiedades
+    private static void setRates(String[] rates) {
         carRate = Double.parseDouble(rates[0]);
         motorcycleRate = Double.parseDouble(rates[1]);
         bikeRate = Double.parseDouble(rates[2]);
@@ -75,15 +73,15 @@ public class RatesManagment {
         }
     }
 
-    public double getCarRate() {
+    public static double getCarRate() {
         return carRate;
     }
 
-    public double getMotorcycleRate() {
+    public static double getMotorcycleRate() {
         return motorcycleRate;
     }
 
-    public double getBikeRate() {
+    public static double getBikeRate() {
         return bikeRate;
     }
 

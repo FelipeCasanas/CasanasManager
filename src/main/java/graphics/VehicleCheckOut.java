@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import managmentCore.RatesManagment;
 import managmentCore.UserManagment;
 import utilities.EmptyPlaces;
-import utilities.FormatDate;
+import utilities.FormatTime;
 import utilities.ParseUserInputs;
 
 /**
@@ -167,24 +167,24 @@ public class VehicleCheckOut extends javax.swing.JFrame {
 
         //Cobra tarifa regular 
         if (rateType == 0) {
-            RatesManagment ratesManagment = new RatesManagment();
+            RatesManagment.askRatesToDB();
 
             //Obtiene desde parametros el tipo de vehiculo, en base al tipo de vehiculo establece su tarifa regular y la guarda en parkingPrice
             //Car = 1, Motorcycle = 2, Bike = 3
-            if (vehicleData[1].equals("1")) {
-                parkingPrice = ratesManagment.getCarRate();
-            } else if (vehicleData[1].equals("2")) {
-                parkingPrice = ratesManagment.getMotorcycleRate();
-            } else if (vehicleData[1].equals("3")) {
-                parkingPrice = ratesManagment.getBikeRate();
+            if (vehicleData[1].equals("carro")) {
+                parkingPrice = RatesManagment.getCarRate();
+            } else if (vehicleData[1].equals("moto")) {
+                parkingPrice = RatesManagment.getMotorcycleRate();
+            } else if (vehicleData[1].equals("bicicleta")) {
+                parkingPrice = RatesManagment.getBikeRate();
             }
         } else if (rateType == 1) {
             parkingPrice = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor a cobrar"));
         }
 
         //Obtiene la fecha y hora parseada a String
-        FormatDate formattedDate = new FormatDate();
-        String date = formattedDate.format();
+        FormatTime formatter = new FormatTime();
+        String formattedDate = formatter.formatDate();
 
         //Instancia  UserManagment y QueryManagment
         UserManagment userManagment = new UserManagment();
@@ -194,7 +194,7 @@ public class VehicleCheckOut extends javax.swing.JFrame {
         String userId = String.valueOf(userManagment.getId());
 
         //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)
-        boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], vehicleInputData[0], userId, date, parkingPrice);
+        boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], vehicleInputData[0], userId, formattedDate, parkingPrice);
 
         if (checkout) {
             //Crea la factura con todos los datos

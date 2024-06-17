@@ -4,6 +4,7 @@
 
 package com.casanassoftware.administrativemanager;
 import graphics.Login;
+import managmentCore.RatesManagment;
 
 /**
  *

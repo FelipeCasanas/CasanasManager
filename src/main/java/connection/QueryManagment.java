@@ -266,13 +266,16 @@ public class QueryManagment extends Connect {
         Connection link = getConnection();
 
         //searchLogsQuery se toma como consulta base, esta lo que hace es obtener los valores para cada columna y esto lo repite en cada fila
-        String searchLogsQuery = "SELECT v1.*, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name "
-                + "FROM vehicle v1 INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
+        String searchLogsQuery = "SELECT v1.*, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, "
+                + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, i1.pay_amount "
+                + "FROM vehicle v1 "
+                + "INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
                 + "INNER JOIN color c1 ON v1.color = c1.id "
                 + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
                 + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
                 + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
-                + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
+                + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id "
+                + "INNER JOIN income i1 ON v1.id = i1.vehicle_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
 
         //Se pregunta que condiciones de busqueda se van a aplicar a la consulta
         String caseKey = (willBeUpdated[0] ? "1" : "0")
@@ -282,22 +285,32 @@ public class QueryManagment extends Connect {
         //Se evalua la cadena de caracteres y se guarda la consulta del case que sea verdadera 
         switch (caseKey) {
             case "111":
-                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0] + " AND state = " + fields[1] + " AND checkout_by = " + fields[2];
+                whereQuery =" WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
+                searchLogsQuery += whereQuery;
                 break;
             case "110":
-                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0] + " AND state = " + fields[1];
+                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1];
+                searchLogsQuery += whereQuery;
                 break;
             case "011":
-                whereQuery = "SELECT * FROM vehicle WHERE state = " + fields[1] + " AND checkout_by = " + fields[2];
+                whereQuery = " WHERE v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
+                searchLogsQuery += whereQuery;
+                break;
+            case "101":
+                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.checkout_by = " + fields[2];
+                searchLogsQuery += whereQuery;
                 break;
             case "100":
-                whereQuery = "SELECT * FROM vehicle WHERE type = " + fields[0];
+                whereQuery = " WHERE v1.type = " + fields[0];
+                searchLogsQuery += whereQuery;
                 break;
             case "010":
-                whereQuery = "SELECT * FROM vehicle WHERE state = " + fields[1];
+                whereQuery = " WHERE v1.state = " + fields[1];
+                searchLogsQuery += whereQuery;
                 break;
             case "001":
-                whereQuery = "SELECT * FROM vehicle WHERE checkout_by = " + fields[2];
+                whereQuery = " WHERE v1.checkout_by = " + fields[2];
+                searchLogsQuery += whereQuery;
                 break;
             default:
                 whereQuery = searchLogsQuery + orderByQuery;
@@ -319,7 +332,7 @@ public class QueryManagment extends Connect {
             // Si existe al menos una fila se guarda la información en la matriz
             if (totalRows > 0) {
                 // Instancia matriz que guarda los registros
-                String[][] logsData = new String[totalRows][11];
+                String[][] logsData = new String[totalRows][12];
 
                 // Mover el puntero al inicio del ResultSet
                 searchLogsRS.beforeFirst();
@@ -337,6 +350,7 @@ public class QueryManagment extends Connect {
                     logsData[range][8] = searchLogsRS.getString("plate");
                     logsData[range][9] = searchLogsRS.getString("checkin_hour");
                     logsData[range][10] = searchLogsRS.getString("checkout_hour");
+                    logsData[range][11] = searchLogsRS.getString("i1.pay_amount");
 
                     range++;
                 }

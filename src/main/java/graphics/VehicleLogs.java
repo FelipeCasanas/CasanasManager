@@ -8,6 +8,7 @@ import connection.QueryManagment;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import utilities.FieldsToUpdate;
+import utilities.ParseUserInputs;
 
 /**
  *
@@ -68,7 +69,7 @@ public class VehicleLogs extends javax.swing.JFrame {
 
         vehicleStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
 
-        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" , "1", "TRABAJADOR1"}));
+        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
         searchLogs.setText("BUSCAR");
         searchLogs.addActionListener(new java.awt.event.ActionListener() {
@@ -253,6 +254,7 @@ public class VehicleLogs extends javax.swing.JFrame {
     private void requestLogsData() {
         //Instancia las clases necesarias
         FieldsToUpdate fieldsToUpdate = new FieldsToUpdate();
+        ParseUserInputs parseUserInputs = new ParseUserInputs();
         QueryManagment queryManagment = new QueryManagment();
 
         //Declara array de campos
@@ -265,22 +267,36 @@ public class VehicleLogs extends javax.swing.JFrame {
 
         Boolean[] willBeUpdated = fieldsToUpdate.getFields(fields);
 
+        //Parsea fields de texto a su numero ID
+        fields[0] = parseUserInputs.parseVehicleTypeToCode(fields[0]);
+        fields[1] = parseUserInputs.parseVehicleStateToCode(fields[1]);
+
         //Llama metodo para obtener los registros de la base de datos
         String[][] logsData = queryManagment.queryLogs(willBeUpdated, fields);
 
         if (logsData != null) {
             //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡Imprime la informacion obtenida en el TABBEDPANE!!!!!!!!!!!!!!            
             DefaultTableModel tableModel = (DefaultTableModel) logsViewTable.getModel();
+            clearTable(tableModel);
+
             int range = logsData.length;
 
             for (int row = 0; row < range; row++) {
-                tableModel.addRow(new Object[]{logsData[row][0], logsData[row][1], logsData[row][2], logsData[row][3], logsData[row][4], logsData[row][5], logsData[row][6], logsData[row][7], logsData[row][8], logsData[row][9], logsData[row][10]});
+                tableModel.addRow(new Object[]{logsData[row][0], logsData[row][1], logsData[row][2], logsData[row][3], logsData[row][4], logsData[row][5], logsData[row][6], logsData[row][7], logsData[row][8], logsData[row][9], logsData[row][10], "$" + logsData[row][11]});
             }
 
         } else {
             JOptionPane.showMessageDialog(this, "No se encontraron registros");
         }
 
+    }
+
+    private void clearTable(DefaultTableModel tableModel) {
+        int rowsCount = tableModel.getRowCount();
+
+        for (int i = rowsCount - 1; i >= 0; i--) {
+            tableModel.removeRow(i);
+        }
     }
 
     /**

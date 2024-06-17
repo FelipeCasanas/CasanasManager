@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import managmentCore.UserManagment;
 import utilities.EmptyPlaces;
-import utilities.FormatDate;
+import utilities.FormatTime;
 import utilities.ParseUserInputs;
 
 /**
@@ -143,7 +143,7 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
-    private String [] getAndParseComboboxData() {
+    private String[] getAndParseComboboxData() {
         ParseUserInputs parseUserInputs = new ParseUserInputs();
         String[] vehicleInputData = new String[5];
 
@@ -151,28 +151,28 @@ public class VehicleCheckIn extends javax.swing.JFrame {
         String type = vehiclesEntryVehicleType.getSelectedItem().toString();
         vehicleInputData[0] = parseUserInputs.parseVehicleTypeToCode(type);
 
-        String color= vehiclesEntryVehicleColor.getSelectedItem().toString();
+        String color = vehiclesEntryVehicleColor.getSelectedItem().toString();
         vehicleInputData[1] = parseUserInputs.parseVehicleColorToCode(color);
-        
+
         String state = vehiclesEntryVehicleState.getSelectedItem().toString();
         vehicleInputData[2] = parseUserInputs.parseVehicleStateToCode(state);
-        
+
         vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
         vehicleInputData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
-        
+
         return vehicleInputData;
     }
 
     private void vehiclesEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesEntryButtonActionPerformed
         //El array places se usa en empty places para devolver un mensaje con el nombre del campo vacio, en caso de que lo haya
         //vehicleInputData obtiene los datos del combobox parseados del español al valor que tendran en la base de datos
-        String [] places = {"tipo", "color", "estado", "cedula", "placa"};
-        String [] vehicleInputData = getAndParseComboboxData();
-        
+        String[] places = {"tipo", "color", "estado", "cedula", "placa"};
+        String[] vehicleInputData = getAndParseComboboxData();
+
         try {
             EmptyPlaces emptyPlaces = new EmptyPlaces();
             boolean isEmpty = emptyPlaces.validateEmptyPlaces(vehicleInputData, places, this, 5);
-            
+
             //Si no hay campos vacios se ejecuta
             if (!isEmpty) {
                 //Busca en DB si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
@@ -190,8 +190,8 @@ public class VehicleCheckIn extends javax.swing.JFrame {
                         int workerId = userManagment.getId();
 
                         //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
-                        FormatDate formatter = new FormatDate();
-                        String formattedDate = formatter.format();
+                        FormatTime formatter = new FormatTime();
+                        String formattedDate = formatter.formatDate();
 
                         //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
                         boolean vehicleInserted = queryManagment.insertVehicle(vehicleInputData, workerId, formattedDate);

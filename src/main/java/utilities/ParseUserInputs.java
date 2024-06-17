@@ -54,7 +54,7 @@ public class ParseUserInputs {
             case "OK":
                 state = "1";
                 break;
-            case "RAYONES(ES)":
+            case "RAYON(ES)":
                 state = "2";
                 break;
             case "GOLPE(S)":

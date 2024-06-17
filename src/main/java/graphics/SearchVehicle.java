@@ -303,7 +303,7 @@ public class SearchVehicle extends javax.swing.JFrame {
             
             
             //Si vehicleData[6] (QUE ES CHECKOUT_BY) es 0 indica que el vehiculo no ha salido del parqueadero
-            if(vehicleData[6].equals("0")) {
+            if(vehicleData[6].equals("no_registra")) {
                 inParking.setText("SI");
             } else {
                 inParking.setText("NO");

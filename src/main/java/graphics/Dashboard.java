@@ -4,7 +4,7 @@
  */
 package graphics;
 
-import utilities.ClearManagmentData;
+import utilities.ClearInputsOutputs;
 
 /**
  *
@@ -205,8 +205,8 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboardRatesButtonActionPerformed
 
     private void dashboardCloseSessionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardCloseSessionButtonActionPerformed
-        ClearManagmentData clearManagmentData = new ClearManagmentData();
-        clearManagmentData.clearUserData();
+        ClearInputsOutputs ClearInputsOutputs = new ClearInputsOutputs();
+        ClearInputsOutputs.clearUserData();
         Login login = new Login();
         login.setVisible(true);
         login.setLocationRelativeTo(null);
