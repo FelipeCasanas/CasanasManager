@@ -191,7 +191,7 @@ public class VehicleCheckIn extends javax.swing.JFrame {
 
                         //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
                         FormatTime formatter = new FormatTime();
-                        String formattedDate = formatter.formatDate();
+                        String formattedDate = formatter.formatFullDate();
 
                         //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
                         boolean vehicleInserted = queryManagment.insertVehicle(vehicleInputData, workerId, formattedDate);

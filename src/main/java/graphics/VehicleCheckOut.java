@@ -184,7 +184,7 @@ public class VehicleCheckOut extends javax.swing.JFrame {
 
         //Obtiene la fecha y hora parseada a String
         FormatTime formatter = new FormatTime();
-        String formattedDate = formatter.formatDate();
+        String formattedDate = formatter.formatFullDate();
 
         //Instancia  UserManagment y QueryManagment
         UserManagment userManagment = new UserManagment();

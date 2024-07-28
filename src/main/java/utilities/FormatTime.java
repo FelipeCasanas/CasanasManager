@@ -13,9 +13,17 @@ import java.util.Date;
  */
 public class FormatTime {
 
-    public String formatDate() {
+    public String formatFullDate() {
         Date date = new Date();
         SimpleDateFormat doFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        String formatedDate = doFormat.format(date);
+
+        return formatedDate;
+    }
+    
+    public String formatDate() {
+        Date date = new Date();
+        SimpleDateFormat doFormat = new SimpleDateFormat("yyyy/MM/dd");
         String formatedDate = doFormat.format(date);
 
         return formatedDate;
