@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import managmentCore.UserManagment;
+import utilities.FormatTime;
 
 /**
  *
@@ -261,6 +262,45 @@ public class QueryManagment extends Connect {
         return updated;
     }
 
+    public int[] countLogs(String dateToSearch) {
+        this.connect();
+        Connection link = getConnection();
+
+        int[] totalVehiclesCount = new int[3];
+
+        FormatTime formatter = new FormatTime();
+        String dayStart = formatter.formatDate() + " 00:00:00";
+        String dayEnd = formatter.formatDate() + " 23:59:59";
+
+        String query = "SELECT type FROM vehicle v INNER JOIN vehicle_type vt ON v.type = vt.type_id WHERE checkin_hour BETWEEN checkin_hour = ? AND checkin_hour = ?";
+
+        try {
+            PreparedStatement ps = link.prepareStatement(query);
+            ps.setString(1, dayStart);
+            ps.setString(2, dayEnd);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String type = rs.getString("type");
+
+                if (type.equals("carro")) {
+                    totalVehiclesCount[0]++;
+                } else if (type.equals("moto")) {
+                    totalVehiclesCount[1]++;
+                } else if (type.equals("bicicleta")) {
+                    totalVehiclesCount[2]++;
+                }
+            }
+
+            return totalVehiclesCount;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public String[][] queryLogs(Boolean[] willBeUpdated, String[] fields) {
         this.connect();
         Connection link = getConnection();
@@ -285,7 +325,7 @@ public class QueryManagment extends Connect {
         //Se evalua la cadena de caracteres y se guarda la consulta del case que sea verdadera 
         switch (caseKey) {
             case "111":
-                whereQuery =" WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
+                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "110":
