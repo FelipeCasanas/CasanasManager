@@ -32,11 +32,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="goBackButton" min="-2" pref="50" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="developerLabel" min="-2" pref="390" max="-2" attributes="0"/>
+                      <Component id="developerLabel" min="-2" pref="400" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="otherDayReportField" max="32767" attributes="0"/>
@@ -45,9 +45,9 @@
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="todayReport" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="otherDayReport" min="-2" max="-2" attributes="0"/>
+                              <Component id="todayReport" pref="80" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="otherDayReport" min="-2" pref="80" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -56,7 +56,7 @@
                       <Component id="rightContainer" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="23" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -116,30 +116,30 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="113" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel8" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel6" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="108" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="motorcycleCounter" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="bikeCounter" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="carCounter" alignment="1" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="counterTitleLabel" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="counterTitleLabel" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="counterBikeLabel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="counterCarLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="counterMotorcycleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="57" max="32767" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="bikeCounterLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="carCounterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="motorcycleCounterLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace pref="78" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -147,24 +147,24 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
-                  <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="counterTitleLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="21" max="32767" attributes="0"/>
+                  <Component id="carCounter" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="motorcycleCounter" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+                  <Component id="bikeCounter" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="counterTitleLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="carCounterLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="counterCarLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="motorcycleCounterLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="counterMotorcycleLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="counterBikeLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="bikeCounterLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -175,37 +175,37 @@
         <Component class="javax.swing.JLabel" name="counterTitleLabel">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="CONTEO"/>
+            <Property name="text" type="java.lang.String" value="CONTEO VEHICULAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="counterCarLabel">
+        <Component class="javax.swing.JLabel" name="carCounterLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="CARROS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="counterMotorcycleLabel">
+        <Component class="javax.swing.JLabel" name="motorcycleCounterLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="MOTOS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="counterBikeLabel">
+        <Component class="javax.swing.JLabel" name="bikeCounterLabel">
           <Properties>
             <Property name="text" type="java.lang.String" value="BICICLETAS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel7">
+        <Component class="javax.swing.JLabel" name="carCounter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="4"/>
+            <Property name="text" type="java.lang.String" value="----"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel8">
+        <Component class="javax.swing.JLabel" name="motorcycleCounter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="2"/>
+            <Property name="text" type="java.lang.String" value="----"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel6">
+        <Component class="javax.swing.JLabel" name="bikeCounter">
           <Properties>
-            <Property name="text" type="java.lang.String" value="6"/>
+            <Property name="text" type="java.lang.String" value="----"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -216,11 +216,11 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace pref="86" max="32767" attributes="0"/>
+                  <EmptySpace pref="99" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel10" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel11" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel12" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="carIncome" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="motorcycleIncome" alignment="1" min="-2" max="-2" attributes="0"/>
+                      <Component id="bikeIncome" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -233,7 +233,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="bikeIncomeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="carIncomeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="incomeMotorcycleLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="motorcycleIncomeLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
@@ -247,11 +247,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                  <Component id="carIncome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                  <Component id="motorcycleIncome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                  <Component id="bikeIncome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
@@ -261,7 +261,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="carIncomeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="incomeMotorcycleLabel" min="-2" max="-2" attributes="0"/>
+                      <Component id="motorcycleIncomeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="bikeIncomeLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -282,19 +282,9 @@
             <Property name="text" type="java.lang.String" value="CARROS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel10">
+        <Component class="javax.swing.JLabel" name="motorcycleIncomeLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="30.000"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="12000"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="5500"/>
+            <Property name="text" type="java.lang.String" value="MOTOS"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="bikeIncomeLabel">
@@ -302,9 +292,19 @@
             <Property name="text" type="java.lang.String" value="BICICLETAS"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="incomeMotorcycleLabel">
+        <Component class="javax.swing.JLabel" name="carIncome">
           <Properties>
-            <Property name="text" type="java.lang.String" value="MOTOS"/>
+            <Property name="text" type="java.lang.String" value="----"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="motorcycleIncome">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="----"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="bikeIncome">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="----"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -313,6 +313,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="HOY"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="todayReportActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="otherDayReport">
       <Properties>
@@ -333,6 +336,9 @@
         <Property name="text" type="java.lang.String" value="BUSCAR"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="otherDaySearchReportActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="goBackButton">
       <Properties>

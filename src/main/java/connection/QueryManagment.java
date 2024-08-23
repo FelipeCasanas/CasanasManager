@@ -415,4 +415,63 @@ public class QueryManagment extends Connect {
         return null;
     }
 
+    public String[][] getCheckoutData(String dateToSearch) {
+        this.connect();
+        Connection link = getConnection();
+
+        String innerJoinQuery = " INNER JOIN vehicle_type vt1 ON v1.id = vt1.type_id INNER JOIN income i1 ON v1.id = i1.vehicle_id INNER JOIN my_user mu ON v1.checkout_by = mu.user_id";
+        String whereQuery = " WHERE checkin_hour BETWEEN '2024-06-03 00:00:00' AND '2024-06-03 23:59:59'";
+        String checkoutCountQuery = "SELECT v1.id, vt1.type_name, i1.pay_amount, mu.name, mu.last_name FROM vehicle v1" + innerJoinQuery + whereQuery;
+
+        String[][] checkoutData = null;
+        PreparedStatement checkoutCountPS = null;
+        ResultSet checkoutCountRS = null;
+
+        try {
+            // Prepara la consulta
+            checkoutCountPS = link.prepareStatement(checkoutCountQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            checkoutCountRS = checkoutCountPS.executeQuery();
+
+            // Contar las filas
+            checkoutCountRS.last();
+            int totalRows = checkoutCountRS.getRow();
+
+            // Si hay filas, inicializa el arreglo
+            if (totalRows > 0) {
+                checkoutData = new String[totalRows][5];
+                checkoutCountRS.beforeFirst();
+
+                int range = 0;
+                while (checkoutCountRS.next()) {
+                    checkoutData[range][0] = checkoutCountRS.getString("v1.id");
+                    checkoutData[range][1] = checkoutCountRS.getString("vt1.type_name");
+                    checkoutData[range][2] = checkoutCountRS.getString("i1.pay_amount");
+                    checkoutData[range][3] = checkoutCountRS.getString("mu.name");
+                    checkoutData[range][4] = checkoutCountRS.getString("mu.last_name");
+                    range++;
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            // Asegúrate de cerrar los recursos
+            try {
+                if (checkoutCountRS != null) {
+                    checkoutCountRS.close();
+                }
+                if (checkoutCountPS != null) {
+                    checkoutCountPS.close();
+                }
+                if (link != null) {
+                    link.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return checkoutData;
+    }
+
 }

@@ -4,6 +4,10 @@
  */
 package graphics;
 
+import connection.QueryManagment;
+import managmentCore.CheckoutDataProcessing;
+import utilities.FormatTime;
+
 /**
  *
  * @author Felipe
@@ -30,20 +34,20 @@ public class CashCheckout extends javax.swing.JFrame {
         developerLabel = new javax.swing.JLabel();
         leftContainer = new javax.swing.JPanel();
         counterTitleLabel = new javax.swing.JLabel();
-        counterCarLabel = new javax.swing.JLabel();
-        counterMotorcycleLabel = new javax.swing.JLabel();
-        counterBikeLabel = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        carCounterLabel = new javax.swing.JLabel();
+        motorcycleCounterLabel = new javax.swing.JLabel();
+        bikeCounterLabel = new javax.swing.JLabel();
+        carCounter = new javax.swing.JLabel();
+        motorcycleCounter = new javax.swing.JLabel();
+        bikeCounter = new javax.swing.JLabel();
         rightContainer = new javax.swing.JPanel();
         incomeTitleLabel = new javax.swing.JLabel();
         carIncomeLabel = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        motorcycleIncomeLabel = new javax.swing.JLabel();
         bikeIncomeLabel = new javax.swing.JLabel();
-        incomeMotorcycleLabel = new javax.swing.JLabel();
+        carIncome = new javax.swing.JLabel();
+        motorcycleIncome = new javax.swing.JLabel();
+        bikeIncome = new javax.swing.JLabel();
         todayReport = new javax.swing.JButton();
         otherDayReport = new javax.swing.JButton();
         otherDayReportField = new javax.swing.JTextField();
@@ -62,64 +66,64 @@ public class CashCheckout extends javax.swing.JFrame {
         developerLabel.setText("CASANAS SOFTWARE");
 
         counterTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        counterTitleLabel.setText("CONTEO");
+        counterTitleLabel.setText("CONTEO VEHICULAR");
 
-        counterCarLabel.setText("CARROS");
+        carCounterLabel.setText("CARROS");
 
-        counterMotorcycleLabel.setText("MOTOS");
+        motorcycleCounterLabel.setText("MOTOS");
 
-        counterBikeLabel.setText("BICICLETAS");
+        bikeCounterLabel.setText("BICICLETAS");
 
-        jLabel7.setText("4");
+        carCounter.setText("----");
 
-        jLabel8.setText("2");
+        motorcycleCounter.setText("----");
 
-        jLabel6.setText("6");
+        bikeCounter.setText("----");
 
         javax.swing.GroupLayout leftContainerLayout = new javax.swing.GroupLayout(leftContainer);
         leftContainer.setLayout(leftContainerLayout);
         leftContainerLayout.setHorizontalGroup(
             leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
+            .addGroup(leftContainerLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
+                        .addGap(0, 108, Short.MAX_VALUE)
+                        .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(motorcycleCounter, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bikeCounter, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(carCounter, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(counterTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(leftContainerLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
-                    .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(counterTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(leftContainerLayout.createSequentialGroup()
-                            .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(counterBikeLabel)
-                                .addComponent(counterCarLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(counterMotorcycleLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGap(0, 57, Short.MAX_VALUE)))
-                    .addContainerGap()))
+                    .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(bikeCounterLabel)
+                        .addComponent(carCounterLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(motorcycleCounterLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addContainerGap(78, Short.MAX_VALUE)))
         );
         leftContainerLayout.setVerticalGroup(
             leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addContainerGap()
+                .addComponent(counterTitleLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(carCounter)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel7)
+                .addComponent(motorcycleCounter)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel8)
+                .addComponent(bikeCounter)
                 .addContainerGap())
             .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(leftContainerLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(counterTitleLabel)
+                    .addGap(40, 40, 40)
+                    .addComponent(carCounterLabel)
                     .addGap(18, 18, 18)
-                    .addComponent(counterCarLabel)
+                    .addComponent(motorcycleCounterLabel)
                     .addGap(18, 18, 18)
-                    .addComponent(counterMotorcycleLabel)
-                    .addGap(18, 18, 18)
-                    .addComponent(counterBikeLabel)
+                    .addComponent(bikeCounterLabel)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
@@ -128,26 +132,26 @@ public class CashCheckout extends javax.swing.JFrame {
 
         carIncomeLabel.setText("CARROS");
 
-        jLabel10.setText("30.000");
-
-        jLabel11.setText("12000");
-
-        jLabel12.setText("5500");
+        motorcycleIncomeLabel.setText("MOTOS");
 
         bikeIncomeLabel.setText("BICICLETAS");
 
-        incomeMotorcycleLabel.setText("MOTOS");
+        carIncome.setText("----");
+
+        motorcycleIncome.setText("----");
+
+        bikeIncome.setText("----");
 
         javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
         rightContainer.setLayout(rightContainerLayout);
         rightContainerLayout.setHorizontalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rightContainerLayout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(99, Short.MAX_VALUE)
                 .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(carIncome, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(motorcycleIncome, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bikeIncome, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rightContainerLayout.createSequentialGroup()
@@ -158,7 +162,7 @@ public class CashCheckout extends javax.swing.JFrame {
                             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(bikeIncomeLabel)
                                 .addComponent(carIncomeLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(incomeMotorcycleLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(motorcycleIncomeLabel, javax.swing.GroupLayout.Alignment.LEADING))
                             .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap()))
         );
@@ -166,11 +170,11 @@ public class CashCheckout extends javax.swing.JFrame {
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel10)
+                .addComponent(carIncome)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11)
+                .addComponent(motorcycleIncome)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12)
+                .addComponent(bikeIncome)
                 .addContainerGap())
             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rightContainerLayout.createSequentialGroup()
@@ -179,13 +183,18 @@ public class CashCheckout extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addComponent(carIncomeLabel)
                     .addGap(18, 18, 18)
-                    .addComponent(incomeMotorcycleLabel)
+                    .addComponent(motorcycleIncomeLabel)
                     .addGap(18, 18, 18)
                     .addComponent(bikeIncomeLabel)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         todayReport.setText("HOY");
+        todayReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                todayReportActionPerformed(evt);
+            }
+        });
 
         otherDayReport.setText("OTRO");
         otherDayReport.addActionListener(new java.awt.event.ActionListener() {
@@ -199,6 +208,11 @@ public class CashCheckout extends javax.swing.JFrame {
 
         otherDaySearchReport.setText("BUSCAR");
         otherDaySearchReport.setEnabled(false);
+        otherDaySearchReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                otherDaySearchReportActionPerformed(evt);
+            }
+        });
 
         goBackButton.setText("<-");
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
@@ -218,24 +232,24 @@ public class CashCheckout extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(otherDayReportField)
                                     .addComponent(otherDaySearchReport, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
-                                .addComponent(todayReport)
-                                .addGap(18, 18, 18)
-                                .addComponent(otherDayReport)))
+                                .addComponent(todayReport, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(otherDayReport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addComponent(leftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(rightContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 23, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,14 +289,39 @@ public class CashCheckout extends javax.swing.JFrame {
     }//GEN-LAST:event_goBackButtonActionPerformed
 
     private void otherDayReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDayReportActionPerformed
-        if(!otherDayReportField.isEnabled()) {
+        if (!otherDayReportField.isEnabled()) {
             otherDayReportField.setEnabled(true);
             otherDaySearchReport.setEnabled(true);
-        } else {
-            otherDayReportField.setEnabled(false);
-            otherDaySearchReport.setEnabled(false);
         }
     }//GEN-LAST:event_otherDayReportActionPerformed
+
+    private void todayReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todayReportActionPerformed
+        FormatTime formatTime = new FormatTime();
+        String actualDate = formatTime.formatDate();
+
+        otherDayReportField.setText(actualDate);
+        otherDayReportField.setEnabled(false);
+        otherDaySearchReport.setEnabled(true);
+    }//GEN-LAST:event_todayReportActionPerformed
+
+    private void otherDaySearchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDaySearchReportActionPerformed
+        CheckoutDataProcessing checkoutDataProcessing = new CheckoutDataProcessing();
+        QueryManagment QuerycheckoutData = new QueryManagment();
+        String dateToSearch = otherDayReportField.getText().toString();
+
+        String[][] checkoutData = QuerycheckoutData.getCheckoutData(dateToSearch);
+        double[] countedData = checkoutDataProcessing.getCountCheckoutLogs(checkoutData);
+        
+        //Imprime en interfaz el total de vehiculos por categoria y la suma de ellos
+        carCounter.setText(String.valueOf(countedData[0]));
+        motorcycleCounter.setText(String.valueOf(countedData[1]));
+        bikeCounter.setText(String.valueOf(countedData[2]));
+        
+        //Imprime en interfaz el total de ingresos por categoria y la suma de ellos
+        carIncome.setText(String.valueOf(countedData[4]));
+        motorcycleIncome.setText(String.valueOf(countedData[5]));
+        bikeIncome.setText(String.valueOf(countedData[6]));
+    }//GEN-LAST:event_otherDaySearchReportActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,23 +359,23 @@ public class CashCheckout extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bikeCounter;
+    private javax.swing.JLabel bikeCounterLabel;
+    private javax.swing.JLabel bikeIncome;
     private javax.swing.JLabel bikeIncomeLabel;
+    private javax.swing.JLabel carCounter;
+    private javax.swing.JLabel carCounterLabel;
+    private javax.swing.JLabel carIncome;
     private javax.swing.JLabel carIncomeLabel;
-    private javax.swing.JLabel counterBikeLabel;
-    private javax.swing.JLabel counterCarLabel;
-    private javax.swing.JLabel counterMotorcycleLabel;
     private javax.swing.JLabel counterTitleLabel;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
-    private javax.swing.JLabel incomeMotorcycleLabel;
     private javax.swing.JLabel incomeTitleLabel;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel leftContainer;
+    private javax.swing.JLabel motorcycleCounter;
+    private javax.swing.JLabel motorcycleCounterLabel;
+    private javax.swing.JLabel motorcycleIncome;
+    private javax.swing.JLabel motorcycleIncomeLabel;
     private javax.swing.JButton otherDayReport;
     private javax.swing.JTextField otherDayReportField;
     private javax.swing.JButton otherDaySearchReport;

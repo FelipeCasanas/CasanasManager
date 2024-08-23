@@ -4,6 +4,7 @@ graphics\Dashboard$9.class
 graphics\Calculator$6.class
 graphics\VehicleCheckOut$3.class
 utilities\FormatTime.class
+graphics\CashCheckout$4.class
 graphics\Rates$3.class
 graphics\Calculator$19.class
 utilities\PrintInvoice.class
@@ -32,6 +33,7 @@ graphics\Login$4.class
 graphics\Calculator$18.class
 graphics\VehicleCheckIn$1.class
 graphics\Dashboard$1.class
+graphics\CashCheckout$5.class
 graphics\Calculator$5.class
 graphics\Calculator$9.class
 utilities\ValidateInputs.class
@@ -56,6 +58,7 @@ graphics\Calculator$8.class
 graphics\Calculator$10.class
 graphics\VehicleCheckOut$1.class
 graphics\SearchVehicle$1.class
+managmentCore\CheckoutDataProcessing.class
 graphics\VehicleLogs$2.class
 graphics\GenerateInvoice$1.class
 graphics\Calculator$13.class
