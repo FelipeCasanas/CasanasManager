@@ -3,8 +3,7 @@
  */
 
 package com.casanassoftware.administrativemanager;
-import graphics.Login;
-import managmentCore.RatesManagment;
+import userInterface.LoginUI;
 
 /**
  *
@@ -13,7 +12,7 @@ import managmentCore.RatesManagment;
 public class StartRunning {
 
     public static void main(String[] args) {
-        Login login = new Login();
+        LoginUI login = new LoginUI();
         login.setLocationRelativeTo(null);
         login.setVisible(true);
     }
