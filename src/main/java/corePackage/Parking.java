@@ -17,11 +17,6 @@ import java.util.ArrayList;
  */
 public class Parking extends ManageBussiness {
 
-    Rates rates = new Rates();
-    TimeMethods formatter = new TimeMethods();
-    QueryManagment queryManagment = new QueryManagment();
-    User userManagment = new User();
-
     public Double[] getParkingRates() {
         Double[] returnedRates = new Double[3];
 
@@ -29,6 +24,7 @@ public class Parking extends ManageBussiness {
         ArrayList<Object> ratesList = new ArrayList<>();
 
         //Llama a metodo en rates para obtener las tarifas
+        Rates rates = new Rates();
         ratesList = rates.getRates(1, 0);
 
         //Parsea ArrayList de objeto a sus tipos string y double respectivamente para poder acceder a su informacion
@@ -39,10 +35,12 @@ public class Parking extends ManageBussiness {
         if (ratesName.contains("carro")) {
             //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de carro
             returnedRates[0] = ratesAmount.get(ratesName.indexOf("carro"));
-        } else if (ratesName.contains("moto")) {
+        }
+        if (ratesName.contains("moto")) {
             //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de moto
             returnedRates[1] = ratesAmount.get(ratesName.indexOf("moto"));
-        } else if (ratesName.contains("bicicleta")) {
+        }
+        if (ratesName.contains("bicicleta")) {
             //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de bicicleta
             returnedRates[2] = ratesAmount.get(ratesName.indexOf("bicicleta"));
         }
@@ -55,6 +53,7 @@ public class Parking extends ManageBussiness {
 
         try {
             //Busca en DB si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
+            QueryManagment queryManagment = new QueryManagment();
             boolean vehicleExists = queryManagment.vehicleStillHere(elementArguments[4]);
 
             //Ejecuta si el vehiculo no se encuentra en el parqueadero
@@ -64,9 +63,11 @@ public class Parking extends ManageBussiness {
                 //Se inicia proceso para ingresar el vehiculo
                 if (checkIn == 0) {
                     //Obtiene el id del trabajador en turno
+                    User userManagment = new User();
                     String workerId = userManagment.getId();
 
                     //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
+                    TimeMethods formatter = new TimeMethods();
                     String formattedDate = formatter.formatFullDate();
 
                     //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
@@ -94,6 +95,7 @@ public class Parking extends ManageBussiness {
         boolean checkoutCompleted = false;
 
         try {
+            QueryManagment queryManagment = new QueryManagment();
             boolean stillHere = queryManagment.vehicleStillHere(elementArguments[2]);
 
             //Si sigue en parqueadero sigue proceso; Si no, muestra mensaje que vehiculo ya salio del parquedero
@@ -117,9 +119,11 @@ public class Parking extends ManageBussiness {
                 }
                  */
                 //Obtiene la fecha y hora parseada a String
+                TimeMethods formatter = new TimeMethods();
                 String formattedDate = formatter.formatFullDate();
 
                 //Obtiene el ID del trabajador que tiene sesion iniciada y lo convierte a String
+                User userManagment = new User();
                 String userId = String.valueOf(userManagment.getId());
 
                 //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)

@@ -64,7 +64,7 @@ public class IOOperations implements abstractModel.ManageText {
                 user.setName("");
                 user.setLastName("");
                 user.setBirth_day("");
-                user.setCategory("0");
+                user.setBusiness_id("0");
                 user.setEmail("");
                 user.setPassword("");
                 user.setActive("0");

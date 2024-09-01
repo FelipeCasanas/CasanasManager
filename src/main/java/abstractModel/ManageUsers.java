@@ -14,6 +14,7 @@ public interface ManageUsers {
     
     boolean authUser(String email, String password);  //Valida parametros correctos y devuelve true(Autenticado) o false(No autenticado)
     String[] getUserData(String id, int permissions); //Id der la cuenta a buscar, permisos de quien busca la informacion
+    void setUserData(String[] userData);
     boolean modifyUser(String[] arguments, int operationToDo); //operationToDo: (1)Personal (2)Rol (3)Preferencias
     
 }

@@ -15,7 +15,8 @@ import java.sql.SQLException;
  */
 public class User extends network.Connect implements abstractModel.ManageUsers {
 
-    private static String id, card_id, name, lastName, birth_day, email, password, category, active, admin;
+    private static String id, card_id, name, lastName, birth_day, business_id, email, password, active, admin;
+
 
     Connection link = this.getConnection();
     
@@ -52,16 +53,16 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
     }
 
     @Override
-    public String[] getUserData(String id, int permissions) {
+    public String[] getUserData(String email, int permissions) {
         this.connect();
 
         try {
             if (permissions == 1) {
 
                 String[] userData = new String[10];
-                String query = "SELECT * from my_user WHERE id = ?;";
+                String query = "SELECT * from my_user WHERE email = ?;";
                 PreparedStatement loginPS = link.prepareStatement(query);
-                loginPS.setString(1, id);
+                loginPS.setString(1, email);
                 ResultSet queryResult = loginPS.executeQuery();
 
                 if (queryResult.next()) {
@@ -70,7 +71,7 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
                     userData[2] = queryResult.getString("name");
                     userData[3] = queryResult.getString("last_name");
                     userData[4] = queryResult.getString("birth_day");
-                    userData[5] = queryResult.getString("category");
+                    userData[5] = queryResult.getString("business_id");
                     userData[6] = queryResult.getString("email");
                     userData[7] = queryResult.getString("password");
                     userData[8] = queryResult.getString("active");
@@ -83,7 +84,7 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
                 return userData;
             } else if (permissions == 0) {
                 String[] userData = new String[5];
-                String query = "SELECT name, last_name, category, email, active FROM my_user WHERE id = ?;";
+                String query = "SELECT name, last_name, business_id, email, active FROM my_user WHERE id = ?;";
                 PreparedStatement loginPS = link.prepareStatement(query);
                 loginPS.setString(1, id);
                 ResultSet queryResult = loginPS.executeQuery();
@@ -91,7 +92,7 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
                 if (queryResult.next()) {
                     userData[0] = queryResult.getString("name");
                     userData[1] = queryResult.getString("last_name");
-                    userData[2] = queryResult.getString("category");
+                    userData[2] = queryResult.getString("business_id");
                     userData[3] = queryResult.getString("email");
                     userData[4] = queryResult.getString("active");
                 }
@@ -108,6 +109,21 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
 
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
+    @Override
+    public void setUserData(String[] userData) {
+        setId(userData[0]);
+        setCard_id(userData[1]);
+        setName(userData[2]);
+        setLastName(userData[3]);
+        setBirth_day(userData[4]);
+        setBusiness_id(userData[5]);
+        setEmail(userData[6]);
+        setPassword(userData[7]);
+        setActive(userData[8]);
+        setAdmin(userData[9]);
+    }
+    
 
     @Override
     public boolean modifyUser(String[] arguments, int operationToDo) {
@@ -171,12 +187,12 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
         User.password = password;
     }
 
-    public static String getCategory() {
-        return category;
+    public static String getBusiness_id() {
+        return business_id;
     }
 
-    public static void setCategory(String category) {
-        User.category = category;
+    public static void setBusiness_id(String business_id) {
+        User.business_id = business_id;
     }
 
     public static String getActive() {

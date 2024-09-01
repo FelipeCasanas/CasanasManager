@@ -7,6 +7,7 @@ package userInterface;
 import corePackage.Parking;
 import javax.swing.JOptionPane;
 import corePackage.Rates;
+import corePackage.User;
 
 /**
  *
@@ -14,8 +15,8 @@ import corePackage.Rates;
  */
 public class RatesUI extends javax.swing.JFrame {
 
-    DashboardUI dashboard = new DashboardUI();
-    Rates rates = new Rates();
+    
+    
     Parking parking = new Parking();
 
     public RatesUI() {
@@ -166,32 +167,40 @@ public class RatesUI extends javax.swing.JFrame {
 
     //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeCarRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeCarRatesActionPerformed
+        Rates rates = new Rates();
         double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
 
-        rates.updateRate(this, "car", newRate);
-        Double[] rates = parking.getParkingRates();
-        printRates(rates);
+        User user = new User();
+        rates.updateRate(this, Integer.parseInt(user.getBusiness_id()), "carro", newRate);
+        Double[] returnedRates = parking.getParkingRates();
+        printRates(returnedRates);
     }//GEN-LAST:event_changeCarRatesActionPerformed
 
     //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeMotorcyclesRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeMotorcyclesRatesActionPerformed
+        Rates rates = new Rates();
         double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
 
-        rates.updateRate(this, "motorcycle", newRate);
-        Double[] rates = parking.getParkingRates();
-        printRates(rates);
+        User user = new User();
+        rates.updateRate(this, Integer.parseInt(user.getBusiness_id()), "moto", newRate);
+        Double[] returnedRates = parking.getParkingRates();
+        printRates(returnedRates);
     }//GEN-LAST:event_changeMotorcyclesRatesActionPerformed
 
     //Trata cambiar la tarifa y vuelve a imprimir la nueva
     private void changeBikeRatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeBikeRatesActionPerformed
+        Rates rates = new Rates();
+        
         double newRate = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la nueva tarifa"));
 
-        rates.updateRate(this, "bike", newRate);
-        Double[] rates = parking.getParkingRates();
-        printRates(rates);
+        User user = new User();
+        rates.updateRate(this, Integer.parseInt(user.getBusiness_id()), "bicicleta", newRate);
+        Double[] returnedRates = parking.getParkingRates();
+        printRates(returnedRates);
     }//GEN-LAST:event_changeBikeRatesActionPerformed
 
     private void ratesGoBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesGoBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
         dashboard.setVisible(true);
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);

@@ -204,8 +204,6 @@ public class DashboardUI extends javax.swing.JFrame {
     }//GEN-LAST:event_dashboardRatesButtonActionPerformed
 
     private void dashboardCloseSessionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardCloseSessionButtonActionPerformed
-        IOOperations stringsMethods = new IOOperations();
-        stringsMethods.cleanString(1);
         LoginUI login = new LoginUI();
         login.setVisible(true);
         login.setLocationRelativeTo(null);

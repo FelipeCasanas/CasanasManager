@@ -22,8 +22,8 @@ import network.QueryManagment;
 public class Rates extends network.Connect implements abstractModel.ManageRates {
 
     //Declara 2 listas, el primero String para darle nombre a la tarifa. El segundo tipo Double para el valor de la tarifa
-    ArrayList<String> newRateName = new ArrayList<>();
-    ArrayList<Double> rate = new ArrayList<>();
+    private static ArrayList<String> newRateName = new ArrayList<>();
+    private static ArrayList<Double> rate = new ArrayList<>();
 
     //Instancia la clase de consultas
     QueryManagment queryManagment = new QueryManagment();
@@ -69,6 +69,12 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
         //Llama metodo para subir tarifas a base de datos
         uploadRateToDB(newRateName, newRate);
     }
+    
+    @Override
+    public void addLocalRate(ArrayList<String> ratesName, ArrayList<Double> rates) {
+        this.newRateName = ratesName;
+        this.rate = rates;
+    }
 
     @Override
     public boolean uploadRateToDB(ArrayList<String> newRateName, ArrayList<Double> newRate) {
@@ -85,7 +91,7 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
         try {
             //String con consulta para insertar nuevas tarifas
-            String insertRate = "INSERT INTO rate(business_id, rate_name, rate) VALUES (?, ?, ?);";
+            String insertRate = "INSERT INTO price(business_id, rate_name, rate_amount) VALUES (?, ?, ?);";
 
             for (int i = 0; i < newRateName.size(); i++) {
                 //Se crea PreparedStatement y en cada posicion inserta el valor correspondiente en la posicion de i para cada elemento
@@ -140,7 +146,7 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
         ArrayList<Double> rates = new ArrayList<>();
 
         try {
-            String queryRates = "SELECT * FROM rate WHERE business_id = ?";
+            String queryRates = "SELECT * FROM price WHERE business_id = ?";
             PreparedStatement ratesPS = link.prepareStatement(queryRates);
             ratesPS.setString(1, String.valueOf(businessType));
             ResultSet ratesRS = ratesPS.executeQuery();
@@ -148,9 +154,12 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
             //Acumula tarifas en la lista en la columna asignada (PENDIENTE ASIGNAR LA COLUMNA CORRECTA)
             while (ratesRS.next()) {
                 ratesName.add(ratesRS.getString("rate_name")); //PENDIENTE CONFIRMAR SI ES ESE NOMBRE
-                rates.add(ratesRS.getDouble("rate"));  //PENDIENTE CONFIRMAR SI ES ESE NOMBRE
+                rates.add(ratesRS.getDouble("rate_amount"));  //PENDIENTE CONFIRMAR SI ES ESE NOMBRE
             }
 
+            //Asigna valores de ArrayList´s locales a ArrayList´s globales
+            addLocalRate(ratesName, rates);
+            
             //Iicializa ArrayList que guarda los otros 2 ArrayList (ratesName y rates)
             ArrayList<Object> ratesData = new ArrayList<>();
             ratesData.add(ratesName);
@@ -201,7 +210,7 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
     //PENDIENTE 
     @Override
-    public boolean updateRate(Component view, String elementName, double newRate) {
+    public boolean updateRate(Component view, int businessId, String elementName, double newRate) {
         //Abre la conexion a la base de datos
         this.connect();
         Connection link = getConnection();
@@ -210,14 +219,15 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
         boolean rateUpdated = false;
 
         //Busca los datos del elemento ingresado, si lo encuentra guarda su informacion
-        String[] ratesData = searchRate(elementName);
+        //String[] ratesData = searchRate(elementName);
 
         //Ejecuta cosulta a DB para actualizar la tarifa. Si la actualizacion es exitosa devuelve true
         try {
-            String updateRateQuery = "UPDATE rate SET rate_amount = ? WHERE id = ?";
+            String updateRateQuery = "UPDATE price SET rate_amount = ? WHERE business_id = ? AND rate_name = ?";    //rate_name es temporal, despues sera id
             PreparedStatement updateRatePS = link.prepareStatement(updateRateQuery);
             updateRatePS.setDouble(1, newRate);
-            updateRatePS.setString(2, ratesData[0]);
+            updateRatePS.setInt(2, businessId);
+            updateRatePS.setString(3, elementName/*ratesData[0]*/);     //Esto es temporal mientras hago que los ArrayList guarden los datos
             int executedUpdate = updateRatePS.executeUpdate();
 
             if (executedUpdate == 1) {
