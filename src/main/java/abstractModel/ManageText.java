@@ -13,7 +13,7 @@ import java.awt.Component;
 public interface ManageText {
     
     boolean compare(String[] textInput, int operationToDo);
-    boolean validate(Component view, String[] toValidate, String[] auxiliar, int limit);
+    boolean validateEmptyFields(Component view, String[] toValidate, String[] auxiliar, int limit);
     String[] separate(String[] textInput, int operationToDo);
     void cleanString(int operationToDo);
     

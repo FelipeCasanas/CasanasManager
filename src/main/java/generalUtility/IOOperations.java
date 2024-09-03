@@ -22,31 +22,26 @@ public class IOOperations implements abstractModel.ManageText {
     }
 
     @Override
-    public boolean validate(Component view, String[] toValidate, String[] auxiliar, int limit) {
-        String accumulator = "";
-        int range = 0;
-        boolean validated = false;
+    public boolean validateEmptyFields(Component view, String[] toValidate, String[] auxiliar, int limit) {
+        StringBuilder accumulator = new StringBuilder();
 
-        do {
-            if (toValidate[range].isEmpty()) {
-                if (accumulator.isEmpty()) {
-                    accumulator += auxiliar[range];
-                } else {
-                    accumulator += ", " + auxiliar[range];
+        for (int i = 0; i < limit; i++) {
+            if (toValidate[i].isEmpty()) {
+                if (accumulator.length() > 0) {
+                    accumulator.append(", ");
                 }
+                accumulator.append(auxiliar[i]);
             }
-            range++;
-        } while (range < limit);
-
-        if (accumulator.isEmpty()) {
-            validated = true;
-        } else {
-            String message = "Campos faltantes:\n" + accumulator;
-            JOptionPane.showMessageDialog(view, message);
-            validated = false;
         }
 
-        return validated;
+        if (accumulator.length() == 0) {
+            return true; // Todos los campos están llenos
+        } else {
+            String message = "Campos faltantes:\n" + accumulator.toString();
+            JOptionPane.showMessageDialog(view, message);
+            return false; // Hay campos vacíos
+        }
+
     }
 
     @Override

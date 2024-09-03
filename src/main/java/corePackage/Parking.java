@@ -127,7 +127,7 @@ public class Parking extends ManageBussiness {
                 String userId = String.valueOf(userManagment.getId());
 
                 //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)
-                boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], elementArguments[0], userId, formattedDate, parkingPrice);
+                boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], "1", elementArguments[0], userId, formattedDate, parkingPrice);
 
                 if (checkout) {
                     JOptionPane.showMessageDialog(view, "SALIDA COMPLETADA");

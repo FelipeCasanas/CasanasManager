@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 01, 2024 at 09:27 PM
+-- Generation Time: Sep 03, 2024 at 05:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -41,6 +41,13 @@ CREATE TABLE `business` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `business`
+--
+
+INSERT INTO `business` (`id`, `category`, `name`, `owner_name`, `phone_number`, `email`, `address`, `city`, `state`, `country`, `created_at`) VALUES
+(1, 1, 'parking1', 'carlos', '3016124366', 'parking1@gmail.com', 'cl 11 #8-22', 'buga', 'valle', 'co', '2024-09-03 02:13:56');
+
 -- --------------------------------------------------------
 
 --
@@ -51,6 +58,15 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `business_type` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `business_type`) VALUES
+(1, 'parqueadero'),
+(2, 'tienda'),
+(3, 'supermercado');
 
 -- --------------------------------------------------------
 
@@ -82,21 +98,51 @@ INSERT INTO `color` (`id`, `color_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `income`
+--
+
+CREATE TABLE `income` (
+  `id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `rate_amount` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `income`
+--
+
+INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
+(1, 1, 2, 4500);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `item`
 --
 
 CREATE TABLE `item` (
   `id` int(11) NOT NULL,
-  `item_identifiquer` int(11) NOT NULL,
+  `item_identifiquer` varchar(32) NOT NULL,
   `business_id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
   `color` int(11) NOT NULL,
   `checkin_state` int(11) NOT NULL,
   `checkout_state` int(11) NOT NULL,
-  `checkin_hour` int(11) NOT NULL,
-  `checkout_hour` int(11) NOT NULL,
+  `checkin_hour` timestamp NULL DEFAULT NULL,
+  `checkout_hour` timestamp NULL DEFAULT NULL,
   `checkin_by` int(11) NOT NULL,
   `checkout_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `item`
+--
+
+INSERT INTO `item` (`id`, `item_identifiquer`, `business_id`, `type`, `color`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
+(1, 'fff456', 1, 0, 2, 1, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 2),
+(2, 'wjk95c', 1, 1, 1, 1, 1, '2024-09-03 01:27:29', '2024-09-03 02:58:31', 1, 1),
+(3, 'hhy546', 1, 1, 5, 3, 0, '2024-09-03 02:28:58', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -132,10 +178,19 @@ INSERT INTO `my_user` (`id`, `card_id`, `name`, `last_name`, `birth_day`, `busin
 
 CREATE TABLE `price` (
   `id` int(11) NOT NULL,
+  `rate_name` varchar(16) NOT NULL,
   `business_id` int(11) NOT NULL,
-  `rate_name` varchar(32) NOT NULL,
   `rate_amount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `price`
+--
+
+INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
+(1, 'carro', 1, 3400),
+(2, 'moto', 1, 2500),
+(3, 'bicicleta', 1, 700);
 
 -- --------------------------------------------------------
 
@@ -172,8 +227,8 @@ INSERT INTO `state` (`id`, `state_name`) VALUES
 
 CREATE TABLE `user_preference` (
   `id` int(11) NOT NULL,
-  `preference_name` varchar(100) NOT NULL,
-  `preference_value` varchar(100) NOT NULL
+  `dark_mode` int(11) NOT NULL,
+  `recomendations` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -197,6 +252,13 @@ ALTER TABLE `category`
 --
 ALTER TABLE `color`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `income`
+--
+ALTER TABLE `income`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `business_id` (`business_id`);
 
 --
 -- Indexes for table `item`
@@ -236,13 +298,13 @@ ALTER TABLE `user_preference`
 -- AUTO_INCREMENT for table `business`
 --
 ALTER TABLE `business`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `color`
@@ -251,10 +313,16 @@ ALTER TABLE `color`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
+-- AUTO_INCREMENT for table `income`
+--
+ALTER TABLE `income`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `my_user`
@@ -266,7 +334,7 @@ ALTER TABLE `my_user`
 -- AUTO_INCREMENT for table `price`
 --
 ALTER TABLE `price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `state`
@@ -279,6 +347,16 @@ ALTER TABLE `state`
 --
 ALTER TABLE `user_preference`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `income`
+--
+ALTER TABLE `income`
+  ADD CONSTRAINT `income_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

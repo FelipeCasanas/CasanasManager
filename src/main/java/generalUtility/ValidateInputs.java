@@ -19,7 +19,7 @@ public class ValidateInputs implements ManageText {
     }
 
     @Override
-    public boolean validate(Component view, String[] toValidate, String[] auxiliar, int limit) {
+    public boolean validateEmptyFields(Component view, String[] toValidate, String[] auxiliar, int limit) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -132,14 +132,12 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
         vehicleInputData[2] = vehiclesDepartureCarPlate.getText().toString().toLowerCase().trim();
         
         //Valida si hay campos vacios
-        boolean isEmpty = stringsMethods.validate(this, vehicleInputData, places, 3);
+        boolean isFull = stringsMethods.validateEmptyFields(this, vehicleInputData, places, 3);
 
         //Si no hay campos vacios se ejecuta
-        if (!isEmpty) {
+        if (isFull) {
             Parking parking = new Parking();
             parking.checkOut(this, vehicleInputData, places);
-        } else {
-            JOptionPane.showMessageDialog(this, "Hay campos vacios");
         }
     }//GEN-LAST:event_vehiclesDepartureButtonActionPerformed
 

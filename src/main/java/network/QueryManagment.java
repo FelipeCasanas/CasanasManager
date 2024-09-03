@@ -4,6 +4,7 @@
  */
 package network;
 
+import corePackage.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ public class QueryManagment extends Connect {
         boolean stillHere = false;
 
         try {
-            String searchVehicleQuery = "SELECT * FROM vehicle WHERE plate = ? AND checkout_hour IS NULL;";
+            String searchVehicleQuery = "SELECT * FROM item WHERE item_identifiquer = ? AND checkout_hour IS NULL;";
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
             searchVehiclePS.setString(1, plate);
             ResultSet foundVehicleRS = searchVehiclePS.executeQuery();
@@ -50,15 +51,17 @@ public class QueryManagment extends Connect {
         vehicleData[0] = null;
 
         try {
-            String searchVehicleQuery = "SELECT v1.id, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, v1.owner_id, v1.plate, v1.checkin_hour, v1.checkout_hour "
-                    + "FROM vehicle v1 "
-                    + "INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
-                    + "INNER JOIN color c1 ON v1.color = c1.id "
-                    + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
-                    + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
-                    + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
-                    + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id "
-                    + "WHERE v1.plate = ?";
+            String searchVehicleQuery = "SELECT i1.id, c1.color_name, s1.state_name AS checkin_state_name, s2.state_name AS checkout_state_name, "
+                    + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, "
+                    + "b1.name AS business_name, i1.item_identifiquer, i1.checkin_hour, i1.checkout_hour "
+                    + "FROM item i1 "
+                    + "INNER JOIN color c1 ON i1.color = c1.id "
+                    + "INNER JOIN state s1 ON i1.checkin_state = s1.id "
+                    + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
+                    + "INNER JOIN my_user u1 ON i1.checkin_by = u1.id "
+                    + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
+                    + "INNER JOIN business b1 ON i1.business_id = b1.id "
+                    + "WHERE i1.item_identifiquer = ?";
 
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
             searchVehiclePS.setString(1, search);
@@ -66,16 +69,15 @@ public class QueryManagment extends Connect {
 
             if (foundVehicleRS.next()) {
                 vehicleData[0] = foundVehicleRS.getString("id");
-                vehicleData[1] = foundVehicleRS.getString("type_name");
-                vehicleData[2] = foundVehicleRS.getString("color_name");
-                vehicleData[3] = foundVehicleRS.getString("state_name");
-                vehicleData[4] = foundVehicleRS.getString("checkout_state_name");
-                vehicleData[5] = foundVehicleRS.getString("checkin_by_user_name");
-                vehicleData[6] = foundVehicleRS.getString("checkout_by_user_name");
-                vehicleData[7] = foundVehicleRS.getString("owner_id");
-                vehicleData[8] = foundVehicleRS.getString("plate");
-                vehicleData[9] = foundVehicleRS.getString("checkin_hour");
-                vehicleData[10] = foundVehicleRS.getString("checkout_hour");
+                vehicleData[1] = foundVehicleRS.getString("color_name");
+                vehicleData[2] = foundVehicleRS.getString("checkin_state_name");
+                vehicleData[3] = foundVehicleRS.getString("checkout_state_name");
+                vehicleData[4] = foundVehicleRS.getString("checkin_by_user_name");
+                vehicleData[5] = foundVehicleRS.getString("checkout_by_user_name");
+                vehicleData[6] = foundVehicleRS.getString("business_name");
+                vehicleData[7] = foundVehicleRS.getString("item_identifiquer");
+                vehicleData[8] = foundVehicleRS.getString("checkin_hour");
+                vehicleData[9] = foundVehicleRS.getString("checkout_hour");
             }
 
             searchVehiclePS.close();
@@ -94,17 +96,20 @@ public class QueryManagment extends Connect {
         boolean inserted = false;
 
         try {
-            String query = "INSERT INTO vehicle(type, color, state, checkout_state, checkin_by, checkout_by, owner_id, plate, checkin_hour) VALUES (?, ?, ? , ?, ?, ?, ?, ?, ?);";
+            User user = new User();
+
+            String query = "INSERT INTO item(item_identifiquer, type, color, checkin_state, checkout_state, checkin_by, checkout_by, business_id, checkin_hour, checkout_hour) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement insertVehiclePS = link.prepareStatement(query);
-            insertVehiclePS.setString(1, vehicleData[0]);
-            insertVehiclePS.setString(2, vehicleData[1]);
-            insertVehiclePS.setString(3, vehicleData[2]);
-            insertVehiclePS.setInt(4, 0);
-            insertVehiclePS.setString(5, workerId);
-            insertVehiclePS.setInt(6, 0);
-            insertVehiclePS.setString(7, vehicleData[3]);
-            insertVehiclePS.setString(8, vehicleData[4]);
-            insertVehiclePS.setString(9, formattedDate);
+            insertVehiclePS.setString(1, vehicleData[4]);  // item_identifiquer
+            insertVehiclePS.setString(2, vehicleData[0]);  // type
+            insertVehiclePS.setString(3, vehicleData[1]);  // color
+            insertVehiclePS.setString(4, vehicleData[2]);  // checkin_state
+            insertVehiclePS.setInt(5, 0);                  // checkout_state (inicialmente 0)
+            insertVehiclePS.setString(6, workerId);        // checkin_by
+            insertVehiclePS.setInt(7, 0);                  // checkout_by (inicialmente 0)
+            insertVehiclePS.setString(8, user.getBusiness_id());  // business_id
+            insertVehiclePS.setString(9, formattedDate);   // checkin_hour
+            insertVehiclePS.setString(10, null);           // checkout_hour (inicialmente null)
             int insertStatus = insertVehiclePS.executeUpdate();
 
             if (insertStatus == 1) {
@@ -121,27 +126,28 @@ public class QueryManagment extends Connect {
         return inserted;
     }
 
-    public boolean checkOutVehicle(String vehicleId, String checkoutState, String checkoutBy, String checkoutHour, Double parkingPrice) throws SQLException {
+    public boolean checkOutVehicle(String vehicleId, String businessId, String checkoutState, String checkoutBy, String checkoutHour, Double parkingPrice) throws SQLException {
         //Se conecta a base de datos
         this.connect();
         Connection link = getConnection();
         boolean checkout = false;
 
         try {
-            //Se prepara la sentencia, se asigna valores y ejecuta para dar salida
-            String checkoutQuery = "UPDATE vehicle SET checkout_state = ?, checkout_by = ?, checkout_hour = ? WHERE id = ?";
+            // Se prepara la sentencia, se asignan valores y se ejecuta para dar salida
+            String checkoutQuery = "UPDATE item SET checkout_state = ?, checkout_by = ?, checkout_hour = ? WHERE id = ?";
             PreparedStatement checkoutPS = link.prepareStatement(checkoutQuery);
-            checkoutPS.setString(1, checkoutState);
-            checkoutPS.setString(2, checkoutBy);
-            checkoutPS.setString(3, checkoutHour);
-            checkoutPS.setString(4, vehicleId);
+            checkoutPS.setString(1, checkoutState);    // Estado de salida (checkout_state)
+            checkoutPS.setString(2, checkoutBy);       // Usuario que realiza el checkout (checkout_by)
+            checkoutPS.setString(3, checkoutHour);     // Hora de salida (checkout_hour)
+            checkoutPS.setString(4, vehicleId);           // ID del ítem
             int checkoutExecuted = checkoutPS.executeUpdate();
 
-            //Se prepara la sentencia, se asigna valores y se ejecuta para establecer el pago
-            String checkoutPaymentQuery = "INSERT INTO income(vehicle_id, pay_amount) VALUES(?, ?);";
+            // Se prepara la sentencia, se asignan valores y se ejecuta para establecer el pago
+            String checkoutPaymentQuery = "INSERT INTO `income`(`business_id`, `item_id`, `rate_amount`) VALUES (?, ?, ?)";
             PreparedStatement checkoutPaymentPS = link.prepareStatement(checkoutPaymentQuery);
-            checkoutPaymentPS.setString(1, vehicleId);
-            checkoutPaymentPS.setDouble(2, parkingPrice);
+            checkoutPaymentPS.setString(1, businessId);
+            checkoutPaymentPS.setString(2, vehicleId);     // ID del ítem (antes vehicle_id)
+            checkoutPaymentPS.setDouble(3, parkingPrice); // Monto del pago (pay_amount)
             int checkoutPaymentExecuted = checkoutPaymentPS.executeUpdate();
 
             //Valida si se hizo la actualizacion
@@ -174,7 +180,9 @@ public class QueryManagment extends Connect {
         String dayStart = formatter.formatDate() + " 00:00:00";
         String dayEnd = formatter.formatDate() + " 23:59:59";
 
-        String query = "SELECT type FROM vehicle v INNER JOIN vehicle_type vt ON v.type = vt.type_id WHERE checkin_hour BETWEEN checkin_hour = ? AND checkin_hour = ?";
+        String query = "SELECT ct.business_type FROM item i "
+                + "INNER JOIN category ct ON i.business_id = ct.id "
+                + "WHERE i.checkin_hour BETWEEN ? AND ?";
 
         try {
             PreparedStatement ps = link.prepareStatement(query);
@@ -182,14 +190,14 @@ public class QueryManagment extends Connect {
             ps.setString(2, dayEnd);
             ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                String type = rs.getString("type");
+            while (rs.next()) {
+                String businessType = rs.getString("business_type");
 
-                if (type.equals("carro")) {
+                if (businessType.equals("carro")) {
                     totalVehiclesCount[0]++;
-                } else if (type.equals("moto")) {
+                } else if (businessType.equals("moto")) {
                     totalVehiclesCount[1]++;
-                } else if (type.equals("bicicleta")) {
+                } else if (businessType.equals("bicicleta")) {
                     totalVehiclesCount[2]++;
                 }
             }
@@ -207,51 +215,50 @@ public class QueryManagment extends Connect {
         this.connect();
         Connection link = getConnection();
 
-        //searchLogsQuery se toma como consulta base, esta lo que hace es obtener los valores para cada columna y esto lo repite en cada fila
-        String searchLogsQuery = "SELECT v1.*, vt1.type_name, c1.color_name, vs1.state AS state_name, vs2.state AS checkout_state_name, "
-                + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, i1.pay_amount "
-                + "FROM vehicle v1 "
-                + "INNER JOIN vehicle_type vt1 ON v1.type = vt1.type_id "
-                + "INNER JOIN color c1 ON v1.color = c1.id "
-                + "INNER JOIN vehicle_state vs1 ON v1.state = vs1.id "
-                + "INNER JOIN vehicle_state vs2 ON v1.checkout_state = vs2.id "
-                + "INNER JOIN my_user u1 ON v1.checkin_by = u1.user_id "
-                + "INNER JOIN my_user u2 ON v1.checkout_by = u2.user_id "
-                + "INNER JOIN income i1 ON v1.id = i1.vehicle_id", whereQuery = "", orderByQuery = " ORDER BY v1.id ASC";
+        // Actualizar la consulta SQL para la nueva base de datos
+        String searchLogsQuery = "SELECT i1.*, c1.color_name, s1.state_name AS checkin_state_name, s2.state_name AS checkout_state_name, "
+                + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, p1.rate_amount "
+                + "FROM item i1 "
+                + "INNER JOIN color c1 ON i1.color = c1.id "
+                + "INNER JOIN state s1 ON i1.checkin_state = s1.id "
+                + "INNER JOIN state s2 ON i1.checkout_state = s2.id "
+                + "INNER JOIN my_user u1 ON i1.checkin_by = u1.id "
+                + "INNER JOIN my_user u2 ON i1.checkout_by = u2.id "
+                + "INNER JOIN price p1 ON i1.business_id = p1.business_id", whereQuery = "", orderByQuery = " ORDER BY i1.id ASC";
 
-        //Se pregunta que condiciones de busqueda se van a aplicar a la consulta
+        // Se pregunta qué condiciones de búsqueda se van a aplicar a la consulta
         String caseKey = (willBeUpdated[0] ? "1" : "0")
                 + (willBeUpdated[1] ? "1" : "0")
                 + (willBeUpdated[2] ? "1" : "0");
 
-        //Se evalua la cadena de caracteres y se guarda la consulta del case que sea verdadera 
+        // Se evalúa la cadena de caracteres y se guarda la consulta del case que sea verdadera 
         switch (caseKey) {
             case "111":
-                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1] + " AND i1.checkout_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "110":
-                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.state = " + fields[1];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1];
                 searchLogsQuery += whereQuery;
                 break;
             case "011":
-                whereQuery = " WHERE v1.state = " + fields[1] + " AND v1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.checkin_state = " + fields[1] + " AND i1.checkout_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "101":
-                whereQuery = " WHERE v1.type = " + fields[0] + " AND v1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkout_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "100":
-                whereQuery = " WHERE v1.type = " + fields[0];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0];
                 searchLogsQuery += whereQuery;
                 break;
             case "010":
-                whereQuery = " WHERE v1.state = " + fields[1];
+                whereQuery = " WHERE i1.checkin_state = " + fields[1];
                 searchLogsQuery += whereQuery;
                 break;
             case "001":
-                whereQuery = " WHERE v1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.checkout_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             default:
@@ -282,17 +289,17 @@ public class QueryManagment extends Connect {
                 // Llenar la matriz con los datos
                 while (searchLogsRS.next()) {
                     logsData[range][0] = searchLogsRS.getString("id");
-                    logsData[range][1] = searchLogsRS.getString("vt1.type_name");
-                    logsData[range][2] = searchLogsRS.getString("c1.color_name");
-                    logsData[range][3] = searchLogsRS.getString("state_name");
-                    logsData[range][4] = searchLogsRS.getString("checkout_state_name");
-                    logsData[range][5] = searchLogsRS.getString("checkin_by_user_name");
-                    logsData[range][6] = searchLogsRS.getString("checkout_by_user_name");
-                    logsData[range][7] = searchLogsRS.getString("owner_id");
-                    logsData[range][8] = searchLogsRS.getString("plate");
-                    logsData[range][9] = searchLogsRS.getString("checkin_hour");
-                    logsData[range][10] = searchLogsRS.getString("checkout_hour");
-                    logsData[range][11] = searchLogsRS.getString("i1.pay_amount");
+                    logsData[range][1] = searchLogsRS.getString("color_name");
+                    logsData[range][2] = searchLogsRS.getString("checkin_state_name");
+                    logsData[range][3] = searchLogsRS.getString("checkout_state_name");
+                    logsData[range][4] = searchLogsRS.getString("checkin_by_user_name");
+                    logsData[range][5] = searchLogsRS.getString("checkout_by_user_name");
+                    logsData[range][6] = searchLogsRS.getString("owner_id");
+                    logsData[range][7] = searchLogsRS.getString("item_identifiquer");
+                    logsData[range][8] = searchLogsRS.getString("checkin_hour");
+                    logsData[range][9] = searchLogsRS.getString("checkout_hour");
+                    logsData[range][10] = searchLogsRS.getString("pay_amount");
+                    logsData[range][11] = searchLogsRS.getString("rate_amount");
 
                     range++;
                 }
@@ -321,9 +328,12 @@ public class QueryManagment extends Connect {
         this.connect();
         Connection link = getConnection();
 
-        String innerJoinQuery = " INNER JOIN vehicle_type vt1 ON v1.id = vt1.type_id INNER JOIN income i1 ON v1.id = i1.vehicle_id INNER JOIN my_user mu ON v1.checkout_by = mu.user_id";
-        String whereQuery = " WHERE checkin_hour BETWEEN '2024-06-03 00:00:00' AND '2024-06-03 23:59:59'";
-        String checkoutCountQuery = "SELECT v1.id, vt1.type_name, i1.pay_amount, mu.name, mu.last_name FROM vehicle v1" + innerJoinQuery + whereQuery;
+        // Actualizar la consulta SQL para la nueva base de datos
+        String innerJoinQuery = " INNER JOIN category c1 ON i1.item_identifiquer = c1.id "
+                + "INNER JOIN my_user mu ON i1.checkout_by = mu.id";
+        String whereQuery = " WHERE i1.checkout_hour BETWEEN '" + dateToSearch + " 00:00:00' AND '" + dateToSearch + " 23:59:59'";
+        String checkoutCountQuery = "SELECT i1.id, c1.business_type AS type_name, i1.checkin_hour AS pay_amount, mu.name, mu.last_name "
+                + "FROM item i1" + innerJoinQuery + whereQuery;
 
         String[][] checkoutData = null;
         PreparedStatement checkoutCountPS = null;
@@ -345,11 +355,11 @@ public class QueryManagment extends Connect {
 
                 int range = 0;
                 while (checkoutCountRS.next()) {
-                    checkoutData[range][0] = checkoutCountRS.getString("v1.id");
-                    checkoutData[range][1] = checkoutCountRS.getString("vt1.type_name");
-                    checkoutData[range][2] = checkoutCountRS.getString("i1.pay_amount");
-                    checkoutData[range][3] = checkoutCountRS.getString("mu.name");
-                    checkoutData[range][4] = checkoutCountRS.getString("mu.last_name");
+                    checkoutData[range][0] = checkoutCountRS.getString("id");
+                    checkoutData[range][1] = checkoutCountRS.getString("type_name");
+                    checkoutData[range][2] = checkoutCountRS.getString("pay_amount");
+                    checkoutData[range][3] = checkoutCountRS.getString("name");
+                    checkoutData[range][4] = checkoutCountRS.getString("last_name");
                     range++;
                 }
             }

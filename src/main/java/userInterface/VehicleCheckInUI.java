@@ -153,7 +153,7 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
         vehicleInputData[2] = iOOperations.parseVehicleStateToCode(state);
 
         //Obtiene identificacion de dueño y placa
-        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
+        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();       //POR AHORA NO ESTA LA COLUMNA EN DB
         vehicleInputData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
 
         return vehicleInputData;
@@ -168,14 +168,12 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
 
         //Valida si hay campos vacios
         IOOperations iOOperations = new IOOperations();
-        boolean isEmpty = iOOperations.validate(this, vehicleInputData, places, 5);
+        boolean isFull = iOOperations.validateEmptyFields(this, vehicleInputData, places, 5);
 
         //Si no hay campos vacios se ejecuta
-        if (!isEmpty) {
+        if (isFull) {
             Parking parking = new Parking();
             parking.checkIn(this, vehicleInputData, places);
-        } else {
-            JOptionPane.showMessageDialog(this, "Hay campos vacios");
         }
     }//GEN-LAST:event_vehiclesEntryButtonActionPerformed
 
