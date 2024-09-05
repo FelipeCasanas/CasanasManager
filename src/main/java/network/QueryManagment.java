@@ -47,21 +47,31 @@ public class QueryManagment extends Connect {
     public String[] searchVehicle(String searchBy, String search) {
         this.connect();
         Connection link = getConnection();
-        String[] vehicleData = new String[11];
-        vehicleData[0] = null;
+        String[] vehicleData = new String[12];
 
         try {
-            String searchVehicleQuery = "SELECT i1.id, c1.color_name, s1.state_name AS checkin_state_name, s2.state_name AS checkout_state_name, "
-                    + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, "
-                    + "b1.name AS business_name, i1.item_identifiquer, i1.checkin_hour, i1.checkout_hour "
+            String searchVehicleQuery = "SELECT "
+                    + "i1.id, "
+                    + "c1.color_name, "
+                    + "s1.state_name AS checkin_state_name, "
+                    + "s2.state_name AS checkout_state_name, "
+                    + "u1.name AS checkin_by_user_name, "
+                    + "u2.name AS checkout_by_user_name, "
+                    + "b1.name AS business_name, "
+                    + "i1.item_identifiquer, "
+                    + "i1.client, "
+                    + "t1.type_name, "
+                    + "i1.checkin_hour, "
+                    + "i1.checkout_hour "
                     + "FROM item i1 "
-                    + "INNER JOIN color c1 ON i1.color = c1.id "
-                    + "INNER JOIN state s1 ON i1.checkin_state = s1.id "
+                    + "LEFT JOIN color c1 ON i1.color = c1.id "
+                    + "LEFT JOIN state s1 ON i1.checkin_state = s1.id "
                     + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
-                    + "INNER JOIN my_user u1 ON i1.checkin_by = u1.id "
+                    + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
                     + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
-                    + "INNER JOIN business b1 ON i1.business_id = b1.id "
-                    + "WHERE i1.item_identifiquer = ?";
+                    + "LEFT JOIN business b1 ON i1.business_id = b1.id "
+                    + "LEFT JOIN type t1 ON i1.item_type = t1.id "
+                    + "WHERE i1.item_identifiquer = ?;";
 
             PreparedStatement searchVehiclePS = link.prepareStatement(searchVehicleQuery);
             searchVehiclePS.setString(1, search);
@@ -76,12 +86,11 @@ public class QueryManagment extends Connect {
                 vehicleData[5] = foundVehicleRS.getString("checkout_by_user_name");
                 vehicleData[6] = foundVehicleRS.getString("business_name");
                 vehicleData[7] = foundVehicleRS.getString("item_identifiquer");
-                vehicleData[8] = foundVehicleRS.getString("checkin_hour");
-                vehicleData[9] = foundVehicleRS.getString("checkout_hour");
+                vehicleData[8] = foundVehicleRS.getString("client");
+                vehicleData[9] = foundVehicleRS.getString("type_name"); // Ajustado a type_name
+                vehicleData[10] = foundVehicleRS.getString("checkin_hour");
+                vehicleData[11] = foundVehicleRS.getString("checkout_hour");
             }
-
-            searchVehiclePS.close();
-            foundVehicleRS.close();
             this.closeConnection();
         } catch (SQLException ex) {
             Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,18 +107,19 @@ public class QueryManagment extends Connect {
         try {
             User user = new User();
 
-            String query = "INSERT INTO item(item_identifiquer, type, color, checkin_state, checkout_state, checkin_by, checkout_by, business_id, checkin_hour, checkout_hour) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String query = "INSERT INTO item(item_identifiquer, item_type, color, client, checkin_state, checkout_state, checkin_by, checkout_by, business_id, checkin_hour, checkout_hour) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement insertVehiclePS = link.prepareStatement(query);
             insertVehiclePS.setString(1, vehicleData[4]);  // item_identifiquer
-            insertVehiclePS.setString(2, vehicleData[0]);  // type
+            insertVehiclePS.setInt(2, Integer.parseInt(vehicleData[0]));  // type
             insertVehiclePS.setString(3, vehicleData[1]);  // color
-            insertVehiclePS.setString(4, vehicleData[2]);  // checkin_state
-            insertVehiclePS.setInt(5, 0);                  // checkout_state (inicialmente 0)
-            insertVehiclePS.setString(6, workerId);        // checkin_by
-            insertVehiclePS.setInt(7, 0);                  // checkout_by (inicialmente 0)
-            insertVehiclePS.setString(8, user.getBusiness_id());  // business_id
-            insertVehiclePS.setString(9, formattedDate);   // checkin_hour
-            insertVehiclePS.setString(10, null);           // checkout_hour (inicialmente null)
+            insertVehiclePS.setString(4, vehicleData[3]);  // cedula del cliente
+            insertVehiclePS.setString(5, vehicleData[2]);  // checkin_state
+            insertVehiclePS.setInt(6, 0);                  // checkout_state (inicialmente 0)
+            insertVehiclePS.setString(7, workerId);        // checkin_by
+            insertVehiclePS.setInt(8, 0);                  // checkout_by (inicialmente 0)
+            insertVehiclePS.setString(9, user.getBusiness_id());  // business_id
+            insertVehiclePS.setString(10, formattedDate);   // checkin_hour
+            insertVehiclePS.setString(11, null);           // checkout_hour (inicialmente null)
             int insertStatus = insertVehiclePS.executeUpdate();
 
             if (insertStatus == 1) {

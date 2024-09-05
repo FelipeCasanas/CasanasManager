@@ -292,14 +292,14 @@ public class SearchVehicleUI extends javax.swing.JFrame {
             itsNotLabel.setText("-");
             
             //Imprime la informacion obtenida del vehiculo
-            vehicleType.setText(vehicleData[1].toUpperCase());
-            vehiclePlate.setText(vehicleData[8].toUpperCase());
-            vehicleOwner.setText(vehicleData[7]);
-            vehicleState.setText(vehicleData[3].toUpperCase());
+            vehicleType.setText(vehicleData[9].toUpperCase());  //Pendiente
+            vehiclePlate.setText(vehicleData[7].toUpperCase()); //Pendiente
+            vehicleOwner.setText(vehicleData[8]);
+            vehicleState.setText(vehicleData[2].toUpperCase());
             
             
-            //Si vehicleData[6] (QUE ES CHECKOUT_BY) es 0 indica que el vehiculo no ha salido del parqueadero
-            if(vehicleData[6].equals("no_registra")) {
+            //Si vehicleData[5] (QUE ES CHECKOUT_BY) es 0 indica que el vehiculo no ha salido del parqueadero
+            if(vehicleData[5].equals("indefinido")) {
                 inParking.setText("SI");
             } else {
                 inParking.setText("NO");
