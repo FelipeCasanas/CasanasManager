@@ -246,10 +246,11 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
     }//GEN-LAST:event_goBackButtonActionPerformed
 
     private void searchLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLogsActionPerformed
-        requestLogsData();
+        String[][] logsData = requestLogsData();
+        fillTable(logsData);
     }//GEN-LAST:event_searchLogsActionPerformed
 
-    private void requestLogsData() {
+    private String[][] requestLogsData() {
         //Declara array de 3 campos para los criterios: (1)Tipo vehiculo (2)Estado vehiculo (3)Salida por
         String[] fields = new String[3];
 
@@ -273,6 +274,7 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
         QueryManagment queryManagment = new QueryManagment();
         String[][] logsData = queryManagment.queryLogs(notEmptyFields, fields);
 
+        return logsData;
     }
 
     @Override
@@ -295,8 +297,6 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
         } else {
             JOptionPane.showMessageDialog(this, "No se encontraron registros");
         }
-
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
@@ -309,8 +309,6 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
             //Elimina la fila en la posicion de i
             tableModel.removeRow(i);
         }
-
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**

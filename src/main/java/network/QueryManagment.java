@@ -226,15 +226,25 @@ public class QueryManagment extends Connect {
         Connection link = getConnection();
 
         // Actualizar la consulta SQL para la nueva base de datos
-        String searchLogsQuery = "SELECT i1.*, c1.color_name, s1.state_name AS checkin_state_name, s2.state_name AS checkout_state_name, "
-                + "u1.name AS checkin_by_user_name, u2.name AS checkout_by_user_name, p1.rate_amount "
+        String searchLogsQuery = "SELECT i1.*, "
+                + "c1.color_name, "
+                + "s1.state_name AS checkin_state_name, "
+                + "s2.state_name AS checkout_state_name, "
+                + "u1.name AS checkin_by_user_name, "
+                + "u2.name AS checkout_by_user_name, "
+                + "i1.business_id, "
+                + "inc1.rate_amount, "
+                + "it.type_name " // Se asume que item_type_name es el campo que tiene el nombre del tipo de ítem
                 + "FROM item i1 "
-                + "INNER JOIN color c1 ON i1.color = c1.id "
-                + "INNER JOIN state s1 ON i1.checkin_state = s1.id "
-                + "INNER JOIN state s2 ON i1.checkout_state = s2.id "
-                + "INNER JOIN my_user u1 ON i1.checkin_by = u1.id "
-                + "INNER JOIN my_user u2 ON i1.checkout_by = u2.id "
-                + "INNER JOIN price p1 ON i1.business_id = p1.business_id", whereQuery = "", orderByQuery = " ORDER BY i1.id ASC";
+                + "LEFT JOIN color c1 ON i1.color = c1.id "
+                + "LEFT JOIN state s1 ON i1.checkin_state = s1.id "
+                + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
+                + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
+                + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
+                + "LEFT JOIN income inc1 ON i1.id = inc1.id "
+                + "LEFT JOIN type it ON i1.item_type = it.id " 
+                , whereQuery = "",
+                orderByQuery = " ORDER BY i1.id ASC";
 
         // Se pregunta qué condiciones de búsqueda se van a aplicar a la consulta
         String caseKey = (willBeUpdated[0] ? "1" : "0")
@@ -244,7 +254,7 @@ public class QueryManagment extends Connect {
         // Se evalúa la cadena de caracteres y se guarda la consulta del case que sea verdadera 
         switch (caseKey) {
             case "111":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1] + " AND i1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1] + " AND i1.checkin_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "110":
@@ -252,11 +262,11 @@ public class QueryManagment extends Connect {
                 searchLogsQuery += whereQuery;
                 break;
             case "011":
-                whereQuery = " WHERE i1.checkin_state = " + fields[1] + " AND i1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.checkin_state = " + fields[1] + " AND i1.checkin_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "101":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             case "100":
@@ -268,7 +278,7 @@ public class QueryManagment extends Connect {
                 searchLogsQuery += whereQuery;
                 break;
             case "001":
-                whereQuery = " WHERE i1.checkout_by = " + fields[2];
+                whereQuery = " WHERE i1.checkin_by = " + fields[2];
                 searchLogsQuery += whereQuery;
                 break;
             default:
@@ -299,16 +309,16 @@ public class QueryManagment extends Connect {
                 // Llenar la matriz con los datos
                 while (searchLogsRS.next()) {
                     logsData[range][0] = searchLogsRS.getString("id");
-                    logsData[range][1] = searchLogsRS.getString("color_name");
-                    logsData[range][2] = searchLogsRS.getString("checkin_state_name");
-                    logsData[range][3] = searchLogsRS.getString("checkout_state_name");
-                    logsData[range][4] = searchLogsRS.getString("checkin_by_user_name");
-                    logsData[range][5] = searchLogsRS.getString("checkout_by_user_name");
-                    logsData[range][6] = searchLogsRS.getString("owner_id");
-                    logsData[range][7] = searchLogsRS.getString("item_identifiquer");
-                    logsData[range][8] = searchLogsRS.getString("checkin_hour");
-                    logsData[range][9] = searchLogsRS.getString("checkout_hour");
-                    logsData[range][10] = searchLogsRS.getString("pay_amount");
+                    logsData[range][1] = searchLogsRS.getString("type_name"); // Se agrega el valor de item_type
+                    logsData[range][2] = searchLogsRS.getString("color_name");
+                    logsData[range][3] = searchLogsRS.getString("checkin_state_name");
+                    logsData[range][4] = searchLogsRS.getString("checkout_state_name");
+                    logsData[range][5] = searchLogsRS.getString("checkin_by_user_name");
+                    logsData[range][6] = searchLogsRS.getString("checkout_by_user_name");
+                    logsData[range][7] = searchLogsRS.getString("client");
+                    logsData[range][8] = searchLogsRS.getString("item_identifiquer");
+                    logsData[range][9] = searchLogsRS.getString("checkin_hour");
+                    logsData[range][10] = searchLogsRS.getString("checkout_hour");
                     logsData[range][11] = searchLogsRS.getString("rate_amount");
 
                     range++;

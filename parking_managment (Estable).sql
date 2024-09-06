@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 03, 2024 at 05:00 AM
+-- Generation Time: Sep 06, 2024 at 05:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -84,16 +84,12 @@ CREATE TABLE `color` (
 --
 
 INSERT INTO `color` (`id`, `color_name`) VALUES
-(1, 'rojo'),
-(2, 'azul'),
-(3, 'verde'),
-(4, 'amarillo'),
-(5, 'naranja'),
-(6, 'morado'),
-(7, 'rosa'),
-(8, 'negro'),
-(9, 'blanco'),
-(10, 'gris');
+(1, 'blanco'),
+(2, 'gris'),
+(3, 'negro'),
+(4, 'rojo'),
+(5, 'azul'),
+(6, 'otro');
 
 -- --------------------------------------------------------
 
@@ -113,7 +109,7 @@ CREATE TABLE `income` (
 --
 
 INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
-(1, 1, 2, 4500);
+(1, 1, 1, 2400);
 
 -- --------------------------------------------------------
 
@@ -124,9 +120,10 @@ INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
 CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `item_identifiquer` varchar(32) NOT NULL,
+  `item_type` int(11) NOT NULL,
   `business_id` int(11) NOT NULL,
-  `type` int(11) NOT NULL,
   `color` int(11) NOT NULL,
+  `client` varchar(12) NOT NULL,
   `checkin_state` int(11) NOT NULL,
   `checkout_state` int(11) NOT NULL,
   `checkin_hour` timestamp NULL DEFAULT NULL,
@@ -139,10 +136,10 @@ CREATE TABLE `item` (
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`id`, `item_identifiquer`, `business_id`, `type`, `color`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
-(1, 'fff456', 1, 0, 2, 1, 3, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 2),
-(2, 'wjk95c', 1, 1, 1, 1, 1, '2024-09-03 01:27:29', '2024-09-03 02:58:31', 1, 1),
-(3, 'hhy546', 1, 1, 5, 3, 0, '2024-09-03 02:28:58', NULL, 1, 0);
+INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `color`, `client`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
+(1, 'ttr456', 2, 1, 1, '1111232435', 1, 1, '2024-09-06 14:22:05', '2024-09-06 14:26:55', 1, 1),
+(2, 'dde45h', 1, 1, 3, '1111354654', 2, 0, '2024-09-06 14:33:14', NULL, 1, 0),
+(3, 'pty56c', 2, 1, 4, '1110345342', 4, 0, '2024-09-06 14:54:23', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -168,6 +165,7 @@ CREATE TABLE `my_user` (
 --
 
 INSERT INTO `my_user` (`id`, `card_id`, `name`, `last_name`, `birth_day`, `business_id`, `email`, `password`, `admin`, `active`) VALUES
+(0, '0000000000', 'indefinido', 'indefinido', '2000-01-01', 0, '', '', 0, 1),
 (1, '1112455342', 'felipe', 'casanas', '2004-03-17', 1, 'casanascastrofelipe@gmail.com', '1234', 1, 1);
 
 -- --------------------------------------------------------
@@ -188,8 +186,8 @@ CREATE TABLE `price` (
 --
 
 INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
-(1, 'carro', 1, 3400),
-(2, 'moto', 1, 2500),
+(1, 'carro', 1, 2800),
+(2, 'moto', 1, 1500),
 (3, 'bicicleta', 1, 700);
 
 -- --------------------------------------------------------
@@ -208,16 +206,34 @@ CREATE TABLE `state` (
 --
 
 INSERT INTO `state` (`id`, `state_name`) VALUES
-(1, 'nuevo'),
-(2, 'usado'),
-(3, 'bueno'),
-(4, 'regular'),
-(5, 'malo'),
-(6, 'reacondicionado'),
-(7, 'dañado'),
-(8, 'como nuevo'),
-(9, 'roto'),
-(10, 'caja abierta');
+(0, 'indefinido'),
+(1, 'ok'),
+(2, 'rayon(es)'),
+(3, 'golpe(s)'),
+(4, 'desconocido'),
+(5, 'nuevo'),
+(6, 'usado'),
+(7, 'reacondicionado');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `type`
+--
+
+CREATE TABLE `type` (
+  `id` int(11) NOT NULL,
+  `type_name` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `type`
+--
+
+INSERT INTO `type` (`id`, `type_name`) VALUES
+(1, 'moto'),
+(2, 'carro'),
+(3, 'bicicleta');
 
 -- --------------------------------------------------------
 
@@ -264,24 +280,39 @@ ALTER TABLE `income`
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_item_type` (`item_type`),
+  ADD KEY `fk_item_business_name` (`business_id`),
+  ADD KEY `fk_item_color_name` (`color`),
+  ADD KEY `fk_item_checkin_state` (`checkin_state`),
+  ADD KEY `fk_item_checkout_state` (`checkout_state`),
+  ADD KEY `fk_item_checkin_by` (`checkin_by`),
+  ADD KEY `fk_item_checkout_by` (`checkout_by`);
 
 --
 -- Indexes for table `my_user`
 --
 ALTER TABLE `my_user`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_business` (`business_id`);
 
 --
 -- Indexes for table `price`
 --
 ALTER TABLE `price`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_price_business` (`business_id`);
 
 --
 -- Indexes for table `state`
 --
 ALTER TABLE `state`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `type`
+--
+ALTER TABLE `type`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -310,7 +341,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `income`
@@ -328,7 +359,7 @@ ALTER TABLE `item`
 -- AUTO_INCREMENT for table `my_user`
 --
 ALTER TABLE `my_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `price`
@@ -340,23 +371,19 @@ ALTER TABLE `price`
 -- AUTO_INCREMENT for table `state`
 --
 ALTER TABLE `state`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `type`
+--
+ALTER TABLE `type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `user_preference`
 --
 ALTER TABLE `user_preference`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `income`
---
-ALTER TABLE `income`
-  ADD CONSTRAINT `income_ibfk_1` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
