@@ -199,7 +199,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
             setVehicleData(vehicleData);
             printInvoice.setEnabled(true);
 
-            if (vehicleData[6].equals("0")) {
+            if (vehicleData[5].equals("0")) {
                 foundLabel.setText("AUN EN PARQUEADERO");
                 foundLabelStillHere.setText("FALTARAN DATOS SI IMPRIME");
             } else {
