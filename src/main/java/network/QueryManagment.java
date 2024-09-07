@@ -200,7 +200,7 @@ public class QueryManagment extends Connect {
                 + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
                 + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
                 + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
-                + "LEFT JOIN income inc1 ON i1.id = inc1.id "
+                + "LEFT JOIN income inc1 ON i1.id = inc1.item_id "
                 + "LEFT JOIN type it ON i1.item_type = it.id ", whereQuery = "",
                 orderByQuery = " ORDER BY i1.id ASC";
 
