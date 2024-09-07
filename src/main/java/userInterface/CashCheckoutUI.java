@@ -6,6 +6,7 @@ package userInterface;
 
 import network.QueryManagment;
 import corePackage.CheckoutDataProcessing;
+import generalUtility.IOOperations;
 import generalUtility.TimeMethods;
 
 /**
@@ -109,13 +110,13 @@ public class CashCheckoutUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(counterTitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(carCounter)
                 .addGap(18, 18, 18)
                 .addComponent(motorcycleCounter)
                 .addGap(18, 18, 18)
                 .addComponent(bikeCounter)
-                .addContainerGap())
+                .addContainerGap(9, Short.MAX_VALUE))
             .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(leftContainerLayout.createSequentialGroup()
                     .addGap(40, 40, 40)
@@ -146,13 +147,13 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         rightContainer.setLayout(rightContainerLayout);
         rightContainerLayout.setHorizontalGroup(
             rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightContainerLayout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
-                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(carIncome, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(motorcycleIncome, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bikeIncome, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rightContainerLayout.createSequentialGroup()
+                .addContainerGap(93, Short.MAX_VALUE)
+                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(carIncome)
+                    .addComponent(motorcycleIncome)
+                    .addComponent(bikeIncome))
+                .addGap(12, 12, 12))
             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rightContainerLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
@@ -175,7 +176,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 .addComponent(motorcycleIncome)
                 .addGap(18, 18, 18)
                 .addComponent(bikeIncome)
-                .addContainerGap())
+                .addGap(10, 10, 10))
             .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(rightContainerLayout.createSequentialGroup()
                     .addContainerGap()
@@ -313,6 +314,10 @@ public class CashCheckoutUI extends javax.swing.JFrame {
     private void otherDaySearchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDaySearchReportActionPerformed
         //Obtiene la fecha ingresada en el campo de texto
         String dateToSearch = otherDayReportField.getText().toString();
+        
+        //Reemplaza slash de la fecha por guion
+        IOOperations iOOperations = new IOOperations();
+        dateToSearch = iOOperations.replaceDateSlash(dateToSearch);
 
         //Obtiene la informacion para hacer el reporte de la fecha ingresada
         QueryManagment QuerycheckoutData = new QueryManagment();

@@ -180,47 +180,6 @@ public class QueryManagment extends Connect {
         return checkout;
     }
 
-    public int[] countLogs(String dateToSearch) {
-        this.connect();
-        Connection link = getConnection();
-
-        int[] totalVehiclesCount = new int[3];
-
-        TimeMethods formatter = new TimeMethods();
-        String dayStart = formatter.formatDate() + " 00:00:00";
-        String dayEnd = formatter.formatDate() + " 23:59:59";
-
-        String query = "SELECT ct.business_type FROM item i "
-                + "INNER JOIN category ct ON i.business_id = ct.id "
-                + "WHERE i.checkin_hour BETWEEN ? AND ?";
-
-        try {
-            PreparedStatement ps = link.prepareStatement(query);
-            ps.setString(1, dayStart);
-            ps.setString(2, dayEnd);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                String businessType = rs.getString("business_type");
-
-                if (businessType.equals("carro")) {
-                    totalVehiclesCount[0]++;
-                } else if (businessType.equals("moto")) {
-                    totalVehiclesCount[1]++;
-                } else if (businessType.equals("bicicleta")) {
-                    totalVehiclesCount[2]++;
-                }
-            }
-
-            return totalVehiclesCount;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
-    }
-
     public String[][] queryLogs(Boolean[] willBeUpdated, String[] fields) {
         this.connect();
         Connection link = getConnection();
@@ -242,8 +201,7 @@ public class QueryManagment extends Connect {
                 + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
                 + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
                 + "LEFT JOIN income inc1 ON i1.id = inc1.id "
-                + "LEFT JOIN type it ON i1.item_type = it.id " 
-                , whereQuery = "",
+                + "LEFT JOIN type it ON i1.item_type = it.id ", whereQuery = "",
                 orderByQuery = " ORDER BY i1.id ASC";
 
         // Se pregunta qué condiciones de búsqueda se van a aplicar a la consulta
@@ -344,15 +302,59 @@ public class QueryManagment extends Connect {
         return null;
     }
 
+    public int[] countLogs(String dateToSearch) {
+        this.connect();
+        Connection link = getConnection();
+
+        int[] totalVehiclesCount = new int[3];
+
+        TimeMethods formatter = new TimeMethods();
+        String dayStart = formatter.formatDate() + " 00:00:00";
+        String dayEnd = formatter.formatDate() + " 23:59:59";
+
+        String query = "SELECT ct.business_type FROM item i "
+                + "INNER JOIN category ct ON i.business_id = ct.id "
+                + "WHERE i.checkin_hour BETWEEN ? AND ?";
+
+        try {
+            PreparedStatement ps = link.prepareStatement(query);
+            ps.setString(1, dayStart);
+            ps.setString(2, dayEnd);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String businessType = rs.getString("business_type");
+
+                if (businessType.equals("carro")) {
+                    totalVehiclesCount[0]++;
+                } else if (businessType.equals("moto")) {
+                    totalVehiclesCount[1]++;
+                } else if (businessType.equals("bicicleta")) {
+                    totalVehiclesCount[2]++;
+                }
+            }
+
+            return totalVehiclesCount;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return null;
+    }
+
     public String[][] getCheckoutData(String dateToSearch) {
         this.connect();
         Connection link = getConnection();
 
         // Actualizar la consulta SQL para la nueva base de datos
-        String innerJoinQuery = " INNER JOIN category c1 ON i1.item_identifiquer = c1.id "
-                + "INNER JOIN my_user mu ON i1.checkout_by = mu.id";
+        String innerJoinQuery = " INNER JOIN type t1 ON i1.item_type = t1.id "
+                + "INNER JOIN my_user mu ON i1.checkout_by = mu.id "
+                + "INNER JOIN income inc1 ON i1.id = inc1.item_id AND i1.business_id = inc1.business_id";
+
         String whereQuery = " WHERE i1.checkout_hour BETWEEN '" + dateToSearch + " 00:00:00' AND '" + dateToSearch + " 23:59:59'";
-        String checkoutCountQuery = "SELECT i1.id, c1.business_type AS type_name, i1.checkin_hour AS pay_amount, mu.name, mu.last_name "
+
+        String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.rate_amount "
                 + "FROM item i1" + innerJoinQuery + whereQuery;
 
         String[][] checkoutData = null;
@@ -377,7 +379,7 @@ public class QueryManagment extends Connect {
                 while (checkoutCountRS.next()) {
                     checkoutData[range][0] = checkoutCountRS.getString("id");
                     checkoutData[range][1] = checkoutCountRS.getString("type_name");
-                    checkoutData[range][2] = checkoutCountRS.getString("pay_amount");
+                    checkoutData[range][2] = checkoutCountRS.getString("rate_amount");
                     checkoutData[range][3] = checkoutCountRS.getString("name");
                     checkoutData[range][4] = checkoutCountRS.getString("last_name");
                     range++;
@@ -392,9 +394,7 @@ public class QueryManagment extends Connect {
                 if (checkoutCountRS != null) {
                     checkoutCountRS.close();
                 }
-                if (checkoutCountPS != null) {
-                    checkoutCountPS.close();
-                }
+
                 if (link != null) {
                     link.close();
                 }

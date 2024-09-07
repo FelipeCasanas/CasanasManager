@@ -15,6 +15,25 @@ import corePackage.User;
 public class IOOperations implements abstractModel.ManageText {
 
     User user = new User();
+    
+    
+    public String replaceDateSlash(String dateToSearch) {
+        
+        int dateLength = dateToSearch.length();
+        String returnedDate = "";
+        
+        for (int i = 0; i < dateLength; i++) {
+            if (dateToSearch.charAt(i) == '/') {
+                returnedDate += "-";
+            } else {
+                returnedDate += dateToSearch.charAt(i);
+            }
+        }
+        
+        
+        return returnedDate;
+    }
+    
 
     @Override
     public boolean compare(String[] textInput, int operationToDo) {
