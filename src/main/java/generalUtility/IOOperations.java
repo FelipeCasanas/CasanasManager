@@ -102,10 +102,10 @@ public class IOOperations implements abstractModel.ManageText {
     //Comparan el valor del combo box y retorna el numero equivalente al vehiculo
     public String parseVehicleTypeToCode(String type) {
         switch (type) {
-            case "CARRO":
+            case "MOTO":
                 type = "1";
                 break;
-            case "MOTO":
+            case "CARRO":
                 type = "2";
                 break;
             case "BICICLETA":
@@ -127,12 +127,14 @@ public class IOOperations implements abstractModel.ManageText {
             case "NEGRO":
                 color = "3";
                 break;
-            case "AZUL":
+            case "ROJO":
                 color = "4";
                 break;
-            case "ROJO":
+            case "AZUL":
                 color = "5";
                 break;
+            default:
+                color = "6";
         }
 
         return color;
@@ -161,10 +163,10 @@ public class IOOperations implements abstractModel.ManageText {
     public String parseVehicleTypeToLetters(String type) {
         switch (type) {
             case "1":
-                type = "CARRO";
+                type = "MOTO";
                 break;
             case "2":
-                type = "MOTO";
+                type = "CARRO";
                 break;
             case "3":
                 type = "BICICLETA";
@@ -186,11 +188,13 @@ public class IOOperations implements abstractModel.ManageText {
                 color = "NEGRO";
                 break;
             case "4":
-                color = "AZUL";
-                break;
-            case "5":
                 color = "ROJO";
                 break;
+            case "5":
+                color = "AZUL";
+                break;
+            default:
+                color = "OTRO";
         }
 
         return color;
