@@ -215,7 +215,10 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
-        //¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡PENDIENTE!!!!!!!!!!!!!!!!!!!
+        
+        PrintingMethods printingMethods = new PrintingMethods();
+        printingMethods.getBusinessData();
+        
         PrintingMethods printInvoice = new PrintingMethods();
         printInvoice.print(vehicleData);
     }//GEN-LAST:event_printInvoiceActionPerformed

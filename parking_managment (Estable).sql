@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2024 at 05:15 PM
+-- Generation Time: Sep 08, 2024 at 05:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -109,7 +109,33 @@ CREATE TABLE `income` (
 --
 
 INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
-(1, 1, 1, 2400);
+(1, 1, 1, 2400),
+(2, 1, 7, 3500),
+(3, 1, 6, 2700),
+(4, 1, 5, 2200),
+(5, 1, 8, 4500),
+(6, 1, 9, 4000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_model`
+--
+
+CREATE TABLE `invoice_model` (
+  `id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `icon` varchar(256) NOT NULL,
+  `jrxml_file` varchar(256) NOT NULL,
+  `jasper_model` varchar(256) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `invoice_model`
+--
+
+INSERT INTO `invoice_model` (`id`, `business_id`, `icon`, `jrxml_file`, `jasper_model`) VALUES
+(1, 1, 'C:/Users/Felipe/Desktop/icono.jpg', 'C:/Users/Felipe/Desktop/InvoiceModel.jrxml', 'C:/Users/Felipe/Desktop/InvoiceModel.jasper');
 
 -- --------------------------------------------------------
 
@@ -139,7 +165,13 @@ CREATE TABLE `item` (
 INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `color`, `client`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
 (1, 'ttr456', 2, 1, 1, '1111232435', 1, 1, '2024-09-06 14:22:05', '2024-09-06 14:26:55', 1, 1),
 (2, 'dde45h', 1, 1, 3, '1111354654', 2, 0, '2024-09-06 14:33:14', NULL, 1, 0),
-(3, 'pty56c', 2, 1, 4, '1110345342', 4, 0, '2024-09-06 14:54:23', NULL, 1, 0);
+(3, 'pty56c', 1, 1, 4, '1110345342', 4, 0, '2024-09-06 14:54:23', NULL, 1, 0),
+(4, 'ftr435', 2, 1, 1, '1111323222', 1, 0, '2024-09-07 16:41:12', NULL, 1, 0),
+(5, 'ygr476', 2, 1, 1, '1111386722', 1, 1, '2024-09-07 16:41:31', '2024-09-07 16:47:12', 1, 1),
+(6, 'jhu54c', 1, 1, 1, '1111857633', 1, 1, '2024-09-07 16:41:56', '2024-09-07 16:46:54', 1, 1),
+(7, 'yfu34c', 1, 1, 1, '1111800657', 1, 1, '2024-09-07 16:42:14', '2024-09-07 16:46:38', 1, 1),
+(8, 'wjk99e', 1, 1, 4, '2233444545', 2, 1, '2024-09-07 18:14:53', '2024-09-07 18:17:23', 1, 1),
+(9, 'ggy567', 1, 1, 5, '1110435465', 1, 1, '2024-09-07 22:54:18', '2024-09-07 22:55:10', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +218,7 @@ CREATE TABLE `price` (
 --
 
 INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
-(1, 'carro', 1, 2800),
+(1, 'carro', 1, 2200),
 (2, 'moto', 1, 1500),
 (3, 'bicicleta', 1, 700);
 
@@ -277,6 +309,12 @@ ALTER TABLE `income`
   ADD KEY `business_id` (`business_id`);
 
 --
+-- Indexes for table `invoice_model`
+--
+ALTER TABLE `invoice_model`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `item`
 --
 ALTER TABLE `item`
@@ -347,13 +385,19 @@ ALTER TABLE `color`
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `invoice_model`
+--
+ALTER TABLE `invoice_model`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `my_user`
