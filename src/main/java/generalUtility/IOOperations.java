@@ -12,12 +12,12 @@ import corePackage.User;
  *
  * @author Felipe
  */
-public class IOOperations implements abstractModel.ManageText {
+public class IOOperations {
 
     User user = new User();
     
     
-    public String replaceDateSlash(String dateToSearch) {
+    public static String replaceDateSlash(String dateToSearch) {
         
         int dateLength = dateToSearch.length();
         String returnedDate = "";
@@ -35,21 +35,19 @@ public class IOOperations implements abstractModel.ManageText {
     }
     
 
-    @Override
-    public boolean compare(String[] textInput, int operationToDo) {
+    public static boolean compare(String[] textInput, int operationToDo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    @Override
-    public boolean validateEmptyFields(Component view, String[] toValidate, String[] auxiliar, int limit) {
+    public static boolean validateNonEmptyFields(Component view, String[] data, String[] fields) {
         StringBuilder accumulator = new StringBuilder();
 
-        for (int i = 0; i < limit; i++) {
-            if (toValidate[i].isEmpty()) {
+        for (int i = 0; i < data.length; i++) {
+            if (data[i].isEmpty()) {
                 if (accumulator.length() > 0) {
                     accumulator.append(", ");
                 }
-                accumulator.append(auxiliar[i]);
+                accumulator.append(fields[i]);
             }
         }
 
@@ -63,44 +61,12 @@ public class IOOperations implements abstractModel.ManageText {
 
     }
 
-    @Override
-    public String[] separate(String[] textInput, int operationToDo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void cleanString(int operationToDo) {
-
-        switch (operationToDo = 1) {
-            case 1:
-                user.setId("0");
-                user.setCard_id("");
-                user.setName("");
-                user.setLastName("");
-                user.setBirth_day("");
-                user.setBusiness_id("0");
-                user.setEmail("");
-                user.setPassword("");
-                user.setActive("0");
-                user.setAdmin("0");
-                break;
-
-            case 2:
-
-                break;
-
-            case 3:
-
-                break;
-            default:
-                throw new AssertionError();
-        }
-
+    public static String[] separate(String[] textInput, int operationToDo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     //Comparan el valor del combo box y retorna el numero equivalente al vehiculo
-    public String parseVehicleTypeToCode(String type) {
+    public static String parseVehicleTypeToCode(String type) {
         switch (type) {
             case "MOTO":
                 type = "1";
@@ -116,7 +82,7 @@ public class IOOperations implements abstractModel.ManageText {
         return type;
     }
 
-    public String parseVehicleColorToCode(String color) {
+    public static String parseVehicleColorToCode(String color) {
         switch (color) {
             case "BLANCO":
                 color = "1";
@@ -140,7 +106,7 @@ public class IOOperations implements abstractModel.ManageText {
         return color;
     }
 
-    public String parseVehicleStateToCode(String state) {
+    public static String parseVehicleStateToCode(String state) {
         switch (state) {
             case "OK":
                 state = "1";
@@ -160,7 +126,7 @@ public class IOOperations implements abstractModel.ManageText {
     }
 
     //Comparan el valor del combo box y retorna el texto equivalente al vehiculo
-    public String parseVehicleTypeToLetters(String type) {
+    public static String parseVehicleTypeToLetters(String type) {
         switch (type) {
             case "1":
                 type = "MOTO";
@@ -176,7 +142,7 @@ public class IOOperations implements abstractModel.ManageText {
         return type;
     }
 
-    public String parseVehicleColorToLetters(String color) {
+    public static String parseVehicleColorToLetters(String color) {
         switch (color) {
             case "1":
                 color = "BLANCO";
@@ -200,7 +166,7 @@ public class IOOperations implements abstractModel.ManageText {
         return color;
     }
 
-    public String parseVehicleStateToLetters(String state) {
+    public static String parseVehicleStateToLetters(String state) {
         switch (state) {
             case "1":
                 state = "OK";

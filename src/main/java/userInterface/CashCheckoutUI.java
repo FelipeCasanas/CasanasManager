@@ -300,8 +300,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
 
     private void todayReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_todayReportActionPerformed
         //Obtiene la fecha actual
-        TimeMethods formatTime = new TimeMethods();
-        String actualDate = formatTime.formatDate();
+        String actualDate = TimeMethods.formatDate();
 
         //Establece la fecha actual en el campo de texto
         otherDayReportField.setText(actualDate);
@@ -316,8 +315,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         String dateToSearch = otherDayReportField.getText().toString();
         
         //Reemplaza slash de la fecha por guion
-        IOOperations iOOperations = new IOOperations();
-        dateToSearch = iOOperations.replaceDateSlash(dateToSearch);
+        dateToSearch = IOOperations.replaceDateSlash(dateToSearch);
 
         //Obtiene la informacion para hacer el reporte de la fecha ingresada
         QueryManagment QuerycheckoutData = new QueryManagment();

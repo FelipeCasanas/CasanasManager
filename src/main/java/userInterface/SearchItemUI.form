@@ -74,7 +74,7 @@
           <Font name="Gill Sans MT Condensed" size="20" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="BUSCAR VEHICULO"/>
+        <Property name="text" type="java.lang.String" value="BUSCAR ARTICULO"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="inputsContainer">

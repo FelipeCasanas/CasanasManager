@@ -101,7 +101,7 @@
           <Font name="Gill Sans MT Condensed" size="20" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="TARIFAS"/>
+        <Property name="text" type="java.lang.String" value="ADMINISTRADOR PRECIOS"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="carRateLabel">

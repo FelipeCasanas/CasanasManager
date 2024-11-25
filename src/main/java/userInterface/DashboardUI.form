@@ -98,7 +98,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardSearchVehicleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="BUSCAR VEHICULO"/>
+        <Property name="text" type="java.lang.String" value="BUSCAR ARTICULO"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardSearchVehicleButtonActionPerformed"/>
@@ -106,7 +106,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardDepartureVehicleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SALIDA VEHICULO"/>
+        <Property name="text" type="java.lang.String" value="SALIDA ARTICULO"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardDepartureVehicleButtonActionPerformed"/>
@@ -138,7 +138,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardRatesButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="TARIFAS"/>
+        <Property name="text" type="java.lang.String" value="PRECIOS"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardRatesButtonActionPerformed"/>
@@ -154,7 +154,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardEntryVehicleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ENTRADA VEHICULO"/>
+        <Property name="text" type="java.lang.String" value="ENTRADA ARTICULO"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardEntryVehicleButtonActionPerformed"/>

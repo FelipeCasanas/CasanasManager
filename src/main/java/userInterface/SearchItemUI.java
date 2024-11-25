@@ -10,9 +10,9 @@ import network.QueryManagment;
  *
  * @author Felipe
  */
-public class SearchVehicleUI extends javax.swing.JFrame {
+public class SearchItemUI extends javax.swing.JFrame {
 
-    public SearchVehicleUI() {
+    public SearchItemUI() {
         initComponents();
     }
 
@@ -54,7 +54,7 @@ public class SearchVehicleUI extends javax.swing.JFrame {
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ratesTitleLabel.setText("BUSCAR VEHICULO");
+        ratesTitleLabel.setText("BUSCAR ARTICULO");
 
         searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
         searchDiscriminant.setEnabled(false);
@@ -284,7 +284,7 @@ public class SearchVehicleUI extends javax.swing.JFrame {
 
         //Busca la informacion del vehiculo en la base de datos
         QueryManagment queryManagment = new QueryManagment();
-        String[] vehicleData = queryManagment.searchVehicle(searchBy, search);
+        String[] vehicleData = queryManagment.searchItem(searchBy, search);
 
         //Valida que el array tenga informacion; Si no la tiene imprime mensaje indicando que no se entrontro coincidencia
         if (vehicleData[0] != null) {
@@ -332,21 +332,23 @@ public class SearchVehicleUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SearchVehicleUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchItemUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SearchVehicleUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchItemUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SearchVehicleUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchItemUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SearchVehicleUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SearchItemUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SearchVehicleUI().setVisible(true);
+                new SearchItemUI().setVisible(true);
             }
         });
     }

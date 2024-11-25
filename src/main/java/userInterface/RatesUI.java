@@ -55,7 +55,7 @@ public class RatesUI extends javax.swing.JFrame {
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ratesTitleLabel.setText("TARIFAS");
+        ratesTitleLabel.setText("ADMINISTRADOR PRECIOS");
 
         carRateLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         carRateLabel.setText("TARIFA CARRO: ");

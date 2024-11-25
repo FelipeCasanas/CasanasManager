@@ -15,9 +15,9 @@ import generalUtility.IOOperations;
  *
  * @author Felipe
  */
-public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
+public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
 
-    public VehicleLogsUI() {
+    public ItemLogsUI() {
         initComponents();
     }
 
@@ -262,13 +262,11 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
         fields[2] = vehicleCheckoutBySelector.getSelectedItem().toString();
 
         //Se ingresa los campos  y retorna en array booleano de los que van a ser actualizados
-        SearchDiscriminant searchDiscriminant = new SearchDiscriminant();
-        Boolean[] notEmptyFields = searchDiscriminant.notEmptyFields(fields);
+        Boolean[] notEmptyFields = SearchDiscriminant.notEmptyFields(fields);
 
         //Parsea fields de texto a su numero ID
-        IOOperations stringsMethods = new IOOperations();
-        fields[0] = stringsMethods.parseVehicleTypeToCode(fields[0]);
-        fields[1] = stringsMethods.parseVehicleStateToCode(fields[1]);
+        fields[0] = IOOperations.parseVehicleTypeToCode(fields[0]);
+        fields[1] = IOOperations.parseVehicleStateToCode(fields[1]);
 
         //Llama metodo para obtener los registros de la base de datos
         QueryManagment queryManagment = new QueryManagment();
@@ -328,21 +326,23 @@ public class VehicleLogsUI extends javax.swing.JFrame implements ManageTable {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VehicleLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VehicleLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VehicleLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VehicleLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemLogsUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VehicleLogsUI().setVisible(true);
+                new ItemLogsUI().setVisible(true);
             }
         });
     }

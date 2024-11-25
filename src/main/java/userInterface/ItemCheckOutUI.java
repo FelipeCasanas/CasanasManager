@@ -12,9 +12,9 @@ import generalUtility.IOOperations;
  *
  * @author Felipe
  */
-public class VehicleCheckOutUI extends javax.swing.JFrame {
+public class ItemCheckOutUI extends javax.swing.JFrame {
 
-    public VehicleCheckOutUI() {
+    public ItemCheckOutUI() {
         initComponents();
     }
 
@@ -44,7 +44,7 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
 
         vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        vehicleCheckInTitleLabel.setText("SALIDA VEHICULAR");
+        vehicleCheckInTitleLabel.setText("SALIDA ARTICULO");
 
         vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
 
@@ -116,14 +116,12 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void vehiclesDepartureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesDepartureButtonActionPerformed
-        IOOperations stringsMethods = new IOOperations();
-
         //Se inicializa con los nombres de los campos de la entrada
-        String[] vehicleInputData = new String[3], places = {"estado", "cedula", "placa"};;
+        String[] vehicleInputData = new String[3], fields = {"estado", "cedula", "placa"};;
 
         //Obtiene el estado del vehiculo y lo parsea
         String state = vehiclesDepartureVehicleState.getSelectedItem().toString();
-        vehicleInputData[0] = stringsMethods.parseVehicleStateToCode(state);
+        vehicleInputData[0] = IOOperations.parseVehicleStateToCode(state);
         
         //Obtiene la identificacion del usuario
         vehicleInputData[1] = vehiclesDepartureOwnerID.getText().toString().toLowerCase().trim();
@@ -132,12 +130,12 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
         vehicleInputData[2] = vehiclesDepartureCarPlate.getText().toString().toLowerCase().trim();
         
         //Valida si hay campos vacios
-        boolean isFull = stringsMethods.validateEmptyFields(this, vehicleInputData, places, 3);
+        boolean isFull = IOOperations.validateNonEmptyFields(this, vehicleInputData, fields);
 
         //Si no hay campos vacios se ejecuta
         if (isFull) {
             Parking parking = new Parking();
-            parking.checkOut(this, vehicleInputData, places);
+            parking.checkOut(this, vehicleInputData, fields);
         }
     }//GEN-LAST:event_vehiclesDepartureButtonActionPerformed
 
@@ -165,14 +163,18 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckOutUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -181,7 +183,7 @@ public class VehicleCheckOutUI extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VehicleCheckOutUI().setVisible(true);
+                new ItemCheckOutUI().setVisible(true);
             }
         });
     }

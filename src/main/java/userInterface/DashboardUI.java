@@ -47,14 +47,14 @@ public class DashboardUI extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("MENU PRINCIPAL");
 
-        dashboardSearchVehicleButton.setText("BUSCAR VEHICULO");
+        dashboardSearchVehicleButton.setText("BUSCAR ARTICULO");
         dashboardSearchVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardSearchVehicleButtonActionPerformed(evt);
             }
         });
 
-        dashboardDepartureVehicleButton.setText("SALIDA VEHICULO");
+        dashboardDepartureVehicleButton.setText("SALIDA ARTICULO");
         dashboardDepartureVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardDepartureVehicleButtonActionPerformed(evt);
@@ -82,7 +82,7 @@ public class DashboardUI extends javax.swing.JFrame {
             }
         });
 
-        dashboardRatesButton.setText("TARIFAS");
+        dashboardRatesButton.setText("PRECIOS");
         dashboardRatesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardRatesButtonActionPerformed(evt);
@@ -96,7 +96,7 @@ public class DashboardUI extends javax.swing.JFrame {
             }
         });
 
-        dashboardEntryVehicleButton.setText("ENTRADA VEHICULO");
+        dashboardEntryVehicleButton.setText("ENTRADA ARTICULO");
         dashboardEntryVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardEntryVehicleButtonActionPerformed(evt);
@@ -169,28 +169,21 @@ public class DashboardUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void dashboardSearchVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardSearchVehicleButtonActionPerformed
-        SearchVehicleUI searchVehicle = new SearchVehicleUI();
+        SearchItemUI searchVehicle = new SearchItemUI();
         searchVehicle.setVisible(true);
         searchVehicle.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_dashboardSearchVehicleButtonActionPerformed
 
-    private void dashboardEntryVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardEntryVehicleButtonActionPerformed
-        VehicleCheckInUI vehicleCheckIn = new VehicleCheckInUI();
-        vehicleCheckIn.setVisible(true);
-        vehicleCheckIn.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_dashboardEntryVehicleButtonActionPerformed
-
     private void dashboardDepartureVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardDepartureVehicleButtonActionPerformed
-        VehicleCheckOutUI vehicleCheckOut = new VehicleCheckOutUI();
+        ItemCheckOutUI vehicleCheckOut = new ItemCheckOutUI();
         vehicleCheckOut.setVisible(true);
         vehicleCheckOut.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_dashboardDepartureVehicleButtonActionPerformed
 
     private void dashboardShowLogsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardShowLogsButtonActionPerformed
-        VehicleLogsUI vehicleLogs = new VehicleLogsUI();
+        ItemLogsUI vehicleLogs = new ItemLogsUI();
         vehicleLogs.setVisible(true);
         vehicleLogs.setLocationRelativeTo(null);
         this.setVisible(false);
@@ -230,6 +223,13 @@ public class DashboardUI extends javax.swing.JFrame {
         generateInvoice.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_dashboardGenerateInvoiceButtonActionPerformed
+
+    private void dashboardEntryVehicleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dashboardEntryVehicleButtonActionPerformed
+        ItemCheckInUI vehicleCheckIn = new ItemCheckInUI();
+        vehicleCheckIn.setVisible(true);
+        vehicleCheckIn.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_dashboardEntryVehicleButtonActionPerformed
 
     /**
      * @param args the command line arguments

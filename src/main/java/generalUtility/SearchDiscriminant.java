@@ -11,7 +11,7 @@ package generalUtility;
 public class SearchDiscriminant {
 
     //Recibe los datos a comprobar si estan vacios y retorna array booleano; true para datos que se actualizaran
-    public Boolean[] notEmptyFields(String[] fields) {
+    public static Boolean[] notEmptyFields(String[] fields) {
         
         //Obtiene el largo de la entrada de fields y define el inicio del bucle en 0
         int inputSize = fields.length, range = 0;

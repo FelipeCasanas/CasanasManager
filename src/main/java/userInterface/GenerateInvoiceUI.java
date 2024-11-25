@@ -45,7 +45,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ratesTitleLabel.setText("BUSCAR FACTURA");
+        ratesTitleLabel.setText("GENERADOR FACTURAS");
 
         searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
         searchMethodSelector.setEnabled(false);
@@ -188,7 +188,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
 
         //Busca el vehiculo en la DB
         QueryManagment queryManagment = new QueryManagment();
-        String[] vehicleData = queryManagment.searchVehicle(fields[0], fields[1]);
+        String[] vehicleData = queryManagment.searchItem(fields[0], fields[1]);
 
         /*
         Valida que el array tenga informacion. Si la tiene guarda la informacion obtenida por medio del metodo setVehicleData

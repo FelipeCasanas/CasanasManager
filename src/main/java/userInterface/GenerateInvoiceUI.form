@@ -69,7 +69,7 @@
           <Font name="Gill Sans MT Condensed" size="20" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="BUSCAR FACTURA"/>
+        <Property name="text" type="java.lang.String" value="GENERADOR FACTURAS"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="leftContainer">

@@ -12,9 +12,9 @@ import generalUtility.IOOperations;
  *
  * @author Felipe
  */
-public class VehicleCheckInUI extends javax.swing.JFrame {
+public class ItemCheckInUI extends javax.swing.JFrame {
     
-    public VehicleCheckInUI() {
+    public ItemCheckInUI() {
         initComponents();
     }
 
@@ -46,7 +46,7 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
 
         vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        vehicleCheckInTitleLabel.setText("INGRESO VEHICULAR");
+        vehicleCheckInTitleLabel.setText("ENTRADA ARTICULO");
 
         vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARRO", "MOTO", "BICICLETA"}));
 
@@ -136,24 +136,22 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
     }//GEN-LAST:event_goBackButtonActionPerformed
 
     private String[] getAndParseComboboxData() {
-        IOOperations iOOperations = new IOOperations();
-        
         String[] vehicleInputData = new String[5];
 
         //Obtiene valor tipo de vehiculo y lo parsea a su codigo
         String type = vehiclesEntryVehicleType.getSelectedItem().toString();
-        vehicleInputData[0] = iOOperations.parseVehicleTypeToCode(type);
+        vehicleInputData[0] = IOOperations.parseVehicleTypeToCode(type);
 
         //Obtiene valor color de vehiculo y lo parsea a su codigo
         String color = vehiclesEntryVehicleColor.getSelectedItem().toString();
-        vehicleInputData[1] = iOOperations.parseVehicleColorToCode(color);
+        vehicleInputData[1] = IOOperations.parseVehicleColorToCode(color);
 
         //Obtiene estado de vehiculo y lo parsea a su codigo
         String state = vehiclesEntryVehicleState.getSelectedItem().toString();
-        vehicleInputData[2] = iOOperations.parseVehicleStateToCode(state);
+        vehicleInputData[2] = IOOperations.parseVehicleStateToCode(state);
 
         //Obtiene identificacion de dueño y placa
-        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();       //POR AHORA NO ESTA LA COLUMNA EN DB
+        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
         vehicleInputData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
 
         return vehicleInputData;
@@ -161,19 +159,18 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
 
     private void vehiclesEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesEntryButtonActionPerformed
         //Se inicializa con los nombres de los campos de la entrada
-        String[] places = {"tipo", "color", "estado", "cedula", "placa"};
+        String[] fields = {"tipo", "color", "estado", "cedula", "placa"};
         
         //Se inicializa con los datos de la entrada
         String[] vehicleInputData = getAndParseComboboxData();
 
         //Valida si hay campos vacios
-        IOOperations iOOperations = new IOOperations();
-        boolean isFull = iOOperations.validateEmptyFields(this, vehicleInputData, places, 5);
+        boolean isFull = IOOperations.validateNonEmptyFields(this, vehicleInputData, fields);
 
         //Si no hay campos vacios se ejecuta
         if (isFull) {
             Parking parking = new Parking();
-            parking.checkIn(this, vehicleInputData, places);
+            parking.checkIn(this, vehicleInputData, fields);
         }
     }//GEN-LAST:event_vehiclesEntryButtonActionPerformed
 
@@ -194,21 +191,23 @@ public class VehicleCheckInUI extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VehicleCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ItemCheckInUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VehicleCheckInUI().setVisible(true);
+                new ItemCheckInUI().setVisible(true);
             }
         });
     }

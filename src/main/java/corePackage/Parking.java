@@ -54,7 +54,7 @@ public class Parking extends ManageBussiness {
         try {
             //Busca en DB si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
             QueryManagment queryManagment = new QueryManagment();
-            boolean vehicleExists = queryManagment.vehicleStillHere(elementArguments[4]);
+            boolean vehicleExists = queryManagment.itemStillHere(elementArguments[4]);
 
             //Ejecuta si el vehiculo no se encuentra en el parqueadero
             if (!vehicleExists) {
@@ -67,11 +67,10 @@ public class Parking extends ManageBussiness {
                     String workerId = userManagment.getId();
 
                     //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
-                    TimeMethods formatter = new TimeMethods();
-                    String formattedDate = formatter.formatFullDate();
+                    String formattedDate = TimeMethods.formatFullDate();
 
                     //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
-                    boolean vehicleInserted = queryManagment.insertVehicle(elementArguments, workerId, formattedDate);
+                    boolean vehicleInserted = queryManagment.insertItem(elementArguments, workerId, formattedDate);
 
                     if (vehicleInserted) {
                         JOptionPane.showMessageDialog(view, "Se realizo el ingreso");
@@ -94,12 +93,12 @@ public class Parking extends ManageBussiness {
 
         try {
             QueryManagment queryManagment = new QueryManagment();
-            boolean stillHere = queryManagment.vehicleStillHere(elementArguments[2]);
+            boolean stillHere = queryManagment.itemStillHere(elementArguments[2]);
 
             //Si sigue en parqueadero sigue proceso; Si no, muestra mensaje que vehiculo ya salio del parquedero
             if (stillHere) {
                 //Pide la informacion del vehiculo(TIPO VEHICULO) y lo envia a confirmDeparture()
-                String[] vehicleData = queryManagment.searchVehicle("plate", elementArguments[2]);
+                String[] vehicleData = queryManagment.searchItem("plate", elementArguments[2]);
 
                 //PENDIENTE REFACTORIZAR
                 //Instancia Double y pregunta si va a cobrar tarifa regular
@@ -117,15 +116,14 @@ public class Parking extends ManageBussiness {
                 }
                  */
                 //Obtiene la fecha y hora parseada a String
-                TimeMethods formatter = new TimeMethods();
-                String formattedDate = formatter.formatFullDate();
+                String formattedDate = TimeMethods.formatFullDate();
 
                 //Obtiene el ID del trabajador que tiene sesion iniciada y lo convierte a String
                 User userManagment = new User();
                 String userId = String.valueOf(userManagment.getId());
 
                 //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)
-                boolean checkout = queryManagment.checkOutVehicle(vehicleData[0], "1", elementArguments[0], userId, formattedDate, parkingPrice);
+                boolean checkout = queryManagment.checkOutItem(vehicleData[0], "1", elementArguments[0], userId, formattedDate, parkingPrice);
 
                 if (checkout) {
                     JOptionPane.showMessageDialog(view, "SALIDA COMPLETADA");
