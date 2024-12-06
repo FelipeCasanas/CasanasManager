@@ -52,7 +52,6 @@ userInterface\CalculatorUI$10.class
 userInterface\DashboardUI$5.class
 corePackage\Parking.class
 userInterface\CalculatorUI$17.class
-userInterface\RatesUI$5.class
 userInterface\CashCheckoutUI$3.class
 userInterface\CalculatorUI$13.class
 userInterface\DashboardUI$2.class
@@ -72,7 +71,6 @@ userInterface\CalculatorUI$8.class
 userInterface\DashboardUI.class
 userInterface\DashboardUI$1.class
 network\Connect.class
-userInterface\RatesUI$4.class
 generalUtility\TimeMethods.class
 userInterface\CalculatorUI$19.class
 userInterface\LoginUI$4.class

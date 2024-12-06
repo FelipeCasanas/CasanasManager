@@ -54,7 +54,7 @@ public class DashboardUI extends javax.swing.JFrame {
             }
         });
 
-        dashboardDepartureVehicleButton.setText("SALIDA ARTICULO");
+        dashboardDepartureVehicleButton.setText("REGISTRAR SALIDA");
         dashboardDepartureVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardDepartureVehicleButtonActionPerformed(evt);
@@ -96,7 +96,7 @@ public class DashboardUI extends javax.swing.JFrame {
             }
         });
 
-        dashboardEntryVehicleButton.setText("ENTRADA ARTICULO");
+        dashboardEntryVehicleButton.setText("REGISTRAR ENTRADA");
         dashboardEntryVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardEntryVehicleButtonActionPerformed(evt);

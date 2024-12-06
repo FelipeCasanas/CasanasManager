@@ -7,6 +7,8 @@ package userInterface;
 import javax.swing.JOptionPane;
 import corePackage.Parking;
 import generalUtility.IOOperations;
+import java.util.ArrayList;
+import network.QueryManagment;
 
 /**
  *
@@ -16,6 +18,8 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
     public ItemCheckOutUI() {
         initComponents();
+        
+        setStateSelector();
     }
 
     /**
@@ -29,10 +33,10 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         vehicleCheckInTitleLabel = new javax.swing.JLabel();
-        vehiclesDepartureVehicleState = new javax.swing.JComboBox<>();
-        vehiclesDepartureOwnerID = new javax.swing.JTextField();
-        vehiclesDepartureCarPlate = new javax.swing.JTextField();
-        vehiclesDepartureButton = new javax.swing.JButton();
+        itemDepartureState = new javax.swing.JComboBox<>();
+        itemDepartureOwnerID = new javax.swing.JTextField();
+        itemDepartureIdentifiquer = new javax.swing.JTextField();
+        itemDepartureButton = new javax.swing.JButton();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
@@ -46,16 +50,16 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("SALIDA ARTICULO");
 
-        vehiclesDepartureVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
+        itemDepartureState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehiclesDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        vehiclesDepartureCarPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemDepartureIdentifiquer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        vehiclesDepartureButton.setText("DAR SALIDA");
-        vehiclesDepartureButton.addActionListener(new java.awt.event.ActionListener() {
+        itemDepartureButton.setText("DAR SALIDA");
+        itemDepartureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vehiclesDepartureButtonActionPerformed(evt);
+                itemDepartureButtonActionPerformed(evt);
             }
         });
 
@@ -83,13 +87,13 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                         .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(70, 70, 70))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(vehiclesDepartureVehicleState, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(itemDepartureState, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(vehiclesDepartureButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(vehiclesDepartureCarPlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(vehiclesDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(itemDepartureButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(itemDepartureIdentifiquer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(itemDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -98,13 +102,13 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(vehicleCheckInTitleLabel)
                 .addGap(18, 18, 18)
-                .addComponent(vehiclesDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(itemDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehiclesDepartureCarPlate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vehiclesDepartureVehicleState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemDepartureIdentifiquer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemDepartureState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(vehiclesDepartureButton)
+                .addComponent(itemDepartureButton)
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBackButton)
@@ -115,29 +119,43 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void vehiclesDepartureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesDepartureButtonActionPerformed
+    private void setStateSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> states = queryManagment.getStatesName();
+        ArrayList<String> stateName = (ArrayList<String>) states.get(1);
+        
+        if (stateName != null && !stateName.isEmpty()) {
+            for (String state : stateName) {
+                itemDepartureState.addItem(state.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron estados para agregar al selector.");
+        }
+    }
+    
+    private void itemDepartureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDepartureButtonActionPerformed
         //Se inicializa con los nombres de los campos de la entrada
-        String[] vehicleInputData = new String[3], fields = {"estado", "cedula", "placa"};;
+        String[] itemInputData = new String[3], fields = {"estado", "cedula", "placa"};;
 
         //Obtiene el estado del vehiculo y lo parsea
-        String state = vehiclesDepartureVehicleState.getSelectedItem().toString();
-        vehicleInputData[0] = IOOperations.parseVehicleStateToCode(state);
+        String state = itemDepartureState.getSelectedItem().toString();
+        itemInputData[0] = IOOperations.parseVehicleStateToCode(state);
         
         //Obtiene la identificacion del usuario
-        vehicleInputData[1] = vehiclesDepartureOwnerID.getText().toString().toLowerCase().trim();
+        itemInputData[1] = itemDepartureOwnerID.getText().toString().toLowerCase().trim();
         
         //Obtiene la placa del vehiculo
-        vehicleInputData[2] = vehiclesDepartureCarPlate.getText().toString().toLowerCase().trim();
+        itemInputData[2] = itemDepartureIdentifiquer.getText().toString().toLowerCase().trim();
         
         //Valida si hay campos vacios
-        boolean isFull = IOOperations.validateNonEmptyFields(this, vehicleInputData, fields);
+        boolean isFull = IOOperations.validateNonEmptyFields(this, itemInputData, fields);
 
         //Si no hay campos vacios se ejecuta
         if (isFull) {
             Parking parking = new Parking();
-            parking.checkOut(this, vehicleInputData, fields);
+            parking.checkOut(this, itemInputData, fields);
         }
-    }//GEN-LAST:event_vehiclesDepartureButtonActionPerformed
+    }//GEN-LAST:event_itemDepartureButtonActionPerformed
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         DashboardUI dashboard = new DashboardUI();
@@ -191,11 +209,11 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
+    private javax.swing.JButton itemDepartureButton;
+    private javax.swing.JTextField itemDepartureIdentifiquer;
+    private javax.swing.JTextField itemDepartureOwnerID;
+    private javax.swing.JComboBox<String> itemDepartureState;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel vehicleCheckInTitleLabel;
-    private javax.swing.JButton vehiclesDepartureButton;
-    private javax.swing.JTextField vehiclesDepartureCarPlate;
-    private javax.swing.JTextField vehiclesDepartureOwnerID;
-    private javax.swing.JComboBox<String> vehiclesDepartureVehicleState;
     // End of variables declaration//GEN-END:variables
 }

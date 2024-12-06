@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import generalUtility.TimeMethods;
+import java.util.ArrayList;
 
 /**
  *
@@ -404,6 +405,90 @@ public class QueryManagment extends Connect {
         }
 
         return checkoutData;
+    }
+
+    public ArrayList<Object> getColorsName() {
+        this.connect();
+        Connection link = getConnection();
+
+        ArrayList<Object> colorData = new ArrayList<>();
+        ArrayList<String> colorID = new ArrayList<>();
+        ArrayList<String> color = new ArrayList<>();
+
+        try {
+            String colorQuery = "SELECT * FROM color";
+            PreparedStatement colorPS = link.prepareStatement(colorQuery);
+            ResultSet colorRS = colorPS.executeQuery(colorQuery);
+
+            while (colorRS.next()) {
+                colorID.add(colorRS.getString("id"));
+                color.add(colorRS.getString("color_name"));
+            }
+
+            colorData.add(colorID);
+            colorData.add(color);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return colorData;
+    }
+    
+    public ArrayList<Object> getRatesName() {
+        this.connect();
+        Connection link = getConnection();
+
+        ArrayList<Object> rateData = new ArrayList<>();
+        ArrayList<String> rateID = new ArrayList<>();
+        ArrayList<String> rate = new ArrayList<>();
+
+        try {
+            String rateQuery = "SELECT id, type_name FROM type";
+            PreparedStatement colorPS = link.prepareStatement(rateQuery);
+            ResultSet colorRS = colorPS.executeQuery();
+
+            while (colorRS.next()) {
+                rateID.add(colorRS.getString("id"));
+                rate.add(colorRS.getString("type_name"));
+            }
+
+            rateData.add(rateID);
+            rateData.add(rate);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rateData;
+    }
+
+    public ArrayList<Object> getStatesName() {
+        this.connect();
+        Connection link = getConnection();
+
+        ArrayList<String> stateID = new ArrayList<>();
+        ArrayList<String> state = new ArrayList<>();
+        ArrayList<Object> stateData = new ArrayList<>();
+
+        try {
+            String stateQuery = "SELECT * FROM state";
+            PreparedStatement statePS = link.prepareStatement(stateQuery);
+            ResultSet stateRS = statePS.executeQuery(stateQuery);
+
+            while (stateRS.next()) {
+                stateID.add(stateRS.getString("id"));
+                state.add(stateRS.getString("state_name"));
+            }
+
+            stateData.add(stateID);
+            stateData.add(state);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return stateData;
     }
 
 }

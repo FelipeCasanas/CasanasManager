@@ -53,14 +53,14 @@
                       <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="vehiclesDepartureVehicleState" min="-2" pref="175" max="-2" attributes="0"/>
+                      <Component id="itemDepartureState" min="-2" pref="175" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="vehiclesDepartureButton" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                              <Component id="vehiclesDepartureCarPlate" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                              <Component id="itemDepartureButton" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                              <Component id="itemDepartureIdentifiquer" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="vehiclesDepartureOwnerID" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="itemDepartureOwnerID" min="-2" pref="175" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -74,14 +74,14 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="vehicleCheckInTitleLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="vehiclesDepartureOwnerID" min="-2" max="-2" attributes="0"/>
+              <Component id="itemDepartureOwnerID" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="vehiclesDepartureCarPlate" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="vehiclesDepartureVehicleState" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemDepartureIdentifiquer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemDepartureState" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="vehiclesDepartureButton" min="-2" max="-2" attributes="0"/>
+              <Component id="itemDepartureButton" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="goBackButton" min="-2" max="-2" attributes="0"/>
@@ -102,32 +102,32 @@
         <Property name="text" type="java.lang.String" value="SALIDA ARTICULO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="vehiclesDepartureVehicleState">
+    <Component class="javax.swing.JComboBox" name="itemDepartureState">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;OK&quot;, &quot;RAYON(ES)&quot;, &quot;GOLPE(S)&quot;, &quot;DESCONOCIDO&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="vehiclesDepartureOwnerID">
+    <Component class="javax.swing.JTextField" name="itemDepartureOwnerID">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="vehiclesDepartureCarPlate">
+    <Component class="javax.swing.JTextField" name="itemDepartureIdentifiquer">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="vehiclesDepartureButton">
+    <Component class="javax.swing.JButton" name="itemDepartureButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="DAR SALIDA"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vehiclesDepartureButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemDepartureButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="goBackButton">

@@ -16,38 +16,36 @@ import java.util.ArrayList;
  * @author Felipe
  */
 public class Parking extends ManageBussiness {
-
-    public Double[] getParkingRates() {
-        Double[] returnedRates = new Double[3];
-
-        //Se inicializa ArrayList que va a recibir 2 ArrayList, uno con los nombres(String) y otro con las tarifas(Double)
-        ArrayList<Object> ratesList = new ArrayList<>();
-
-        //Llama a metodo en rates para obtener las tarifas
+    
+    public ArrayList<Double> getRates() {
+        ArrayList<Double> returnedRates = new ArrayList<>();
+        
         Rates rates = new Rates();
-        ratesList = rates.getRates(1, 0);
-
-        //Parsea ArrayList de objeto a sus tipos string y double respectivamente para poder acceder a su informacion
-        ArrayList<String> ratesName = (ArrayList<String>) ratesList.get(0);
-        ArrayList<Double> ratesAmount = (ArrayList<Double>) ratesList.get(1);
-
-        //En ratesName busca si existe el nombre del elemento, si existe trata de obtenerlo
-        if (ratesName.contains("carro")) {
-            //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de carro
-            returnedRates[0] = ratesAmount.get(ratesName.indexOf("carro"));
+        ArrayList<Object> ratesData = rates.getRates(1);
+        ArrayList<String> rateName = (ArrayList<String>) ratesData.get(1);
+        ArrayList<Double> ratesValues = (ArrayList<Double>) ratesData.get(2);
+        
+        if(rateName.contains("carro")) {
+            returnedRates.add(ratesValues.get(rateName.indexOf("carro")));
+        } else {
+            returnedRates.add(0.0);
         }
-        if (ratesName.contains("moto")) {
-            //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de moto
-            returnedRates[1] = ratesAmount.get(ratesName.indexOf("moto"));
+        
+        if(rateName.contains("moto")) {
+            returnedRates.add(ratesValues.get(rateName.indexOf("moto")));
+        } else {
+            returnedRates.add(0.0);
         }
-        if (ratesName.contains("bicicleta")) {
-            //Guarda el valor de rates en la posicion donde ratesName conside con el tipo de vehiculo de bicicleta
-            returnedRates[2] = ratesAmount.get(ratesName.indexOf("bicicleta"));
+        
+        if(rateName.contains("bicicleta")) {
+            returnedRates.add(ratesValues.get(rateName.indexOf("bicicleta")));
+        } else {
+            returnedRates.add(0.0);
         }
-
+        
         return returnedRates;
     }
-
+    
     @Override
     public void checkIn(Component view, String[] elementArguments, String[] auxuliarData) {
 

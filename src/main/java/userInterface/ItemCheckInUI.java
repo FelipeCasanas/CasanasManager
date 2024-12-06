@@ -7,15 +7,21 @@ package userInterface;
 import javax.swing.JOptionPane;
 import corePackage.Parking;
 import generalUtility.IOOperations;
+import java.util.ArrayList;
+import network.QueryManagment;
 
 /**
  *
  * @author Felipe
  */
 public class ItemCheckInUI extends javax.swing.JFrame {
-    
+
     public ItemCheckInUI() {
         initComponents();
+
+        setRateTypeSelector();
+        setColorSelector();
+        setStateSelector();
     }
 
     /**
@@ -29,12 +35,12 @@ public class ItemCheckInUI extends javax.swing.JFrame {
 
         jComboBox1 = new javax.swing.JComboBox<>();
         vehicleCheckInTitleLabel = new javax.swing.JLabel();
-        vehiclesEntryVehicleType = new javax.swing.JComboBox<>();
-        vehiclesEntryVehicleColor = new javax.swing.JComboBox<>();
-        vehiclesEntryVehicleState = new javax.swing.JComboBox<>();
-        vehiclesEntryOwnerID = new javax.swing.JTextField();
-        vehiclesEntryCarPlate = new javax.swing.JTextField();
-        vehiclesEntryButton = new javax.swing.JButton();
+        itemTypeSelector = new javax.swing.JComboBox<>();
+        itemColorSelector = new javax.swing.JComboBox<>();
+        itemStateSelector = new javax.swing.JComboBox<>();
+        itemOwnerID = new javax.swing.JTextField();
+        itemIdentifiquer = new javax.swing.JTextField();
+        itemEntryButton = new javax.swing.JButton();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
@@ -48,20 +54,20 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("ENTRADA ARTICULO");
 
-        vehiclesEntryVehicleType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CARRO", "MOTO", "BICICLETA"}));
+        itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehiclesEntryVehicleColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BLANCO", "GRIS", "NEGRO", "ROJO", "AZUL", "OTRO" }));
+        itemColorSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehiclesEntryVehicleState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
+        itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehiclesEntryOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        vehiclesEntryCarPlate.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemIdentifiquer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
-        vehiclesEntryButton.setText("INGRESAR");
-        vehiclesEntryButton.addActionListener(new java.awt.event.ActionListener() {
+        itemEntryButton.setText("INGRESAR");
+        itemEntryButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                vehiclesEntryButtonActionPerformed(evt);
+                itemEntryButtonActionPerformed(evt);
             }
         });
 
@@ -89,15 +95,15 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                         .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(vehiclesEntryVehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vehiclesEntryVehicleState, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vehiclesEntryVehicleColor, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemColorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(vehiclesEntryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(vehiclesEntryCarPlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(vehiclesEntryOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(itemEntryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(itemIdentifiquer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(itemOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -107,17 +113,17 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 .addComponent(vehicleCheckInTitleLabel)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(vehiclesEntryVehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(vehiclesEntryOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(itemOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(vehiclesEntryCarPlate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(vehiclesEntryVehicleColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(itemIdentifiquer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(itemColorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(vehiclesEntryButton))
-                    .addComponent(vehiclesEntryVehicleState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(itemEntryButton))
+                    .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBackButton)
@@ -135,44 +141,87 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
-    private String[] getAndParseComboboxData() {
-        String[] vehicleInputData = new String[5];
+    private void setRateTypeSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> ratesData = queryManagment.getRatesName();
+        ArrayList<String> ratesName = (ArrayList<String>) ratesData.get(1);
 
-        //Obtiene valor tipo de vehiculo y lo parsea a su codigo
-        String type = vehiclesEntryVehicleType.getSelectedItem().toString();
-        vehicleInputData[0] = IOOperations.parseVehicleTypeToCode(type);
-
-        //Obtiene valor color de vehiculo y lo parsea a su codigo
-        String color = vehiclesEntryVehicleColor.getSelectedItem().toString();
-        vehicleInputData[1] = IOOperations.parseVehicleColorToCode(color);
-
-        //Obtiene estado de vehiculo y lo parsea a su codigo
-        String state = vehiclesEntryVehicleState.getSelectedItem().toString();
-        vehicleInputData[2] = IOOperations.parseVehicleStateToCode(state);
-
-        //Obtiene identificacion de dueño y placa
-        vehicleInputData[3] = vehiclesEntryOwnerID.getText().toString().toLowerCase().trim();
-        vehicleInputData[4] = vehiclesEntryCarPlate.getText().toString().toLowerCase().trim();
-
-        return vehicleInputData;
+        if (ratesName != null && !ratesName.isEmpty()) {
+            for (String rate : ratesName) {
+                itemTypeSelector.addItem(rate.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron tarifas para agregar al selector.");
+        }
+    }
+    
+    private void setColorSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> colors = queryManagment.getColorsName();
+        
+        ArrayList<String> colorName = (ArrayList<String>) colors.get(1);
+        
+        if (colorName != null && !colorName.isEmpty()) {
+            for (String color : colorName) {
+                itemColorSelector.addItem(color.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron colores para agregar al selector.");
+        }
+    }
+    
+    private void setStateSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> states = queryManagment.getStatesName();
+        ArrayList<String> stateName = (ArrayList<String>) states.get(1);
+        
+        if (stateName != null && !stateName.isEmpty()) {
+            for (String state : stateName) {
+                itemStateSelector.addItem(state.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron estados para agregar al selector.");
+        }
     }
 
-    private void vehiclesEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vehiclesEntryButtonActionPerformed
+    private String[] getAndParseComboboxData() {
+        String[] itemInputData = new String[5];
+
+        //Obtiene valor tipo de vehiculo y lo parsea a su codigo
+        String type = itemTypeSelector.getSelectedItem().toString();
+        itemInputData[0] = IOOperations.parseVehicleTypeToCode(type.toLowerCase());
+
+        //Obtiene valor color de vehiculo y lo parsea a su codigo
+        String color = itemColorSelector.getSelectedItem().toString();
+        itemInputData[1] = IOOperations.parseVehicleColorToCode(color.toLowerCase());
+
+        //Obtiene estado de vehiculo y lo parsea a su codigo
+        String state = itemStateSelector.getSelectedItem().toString();
+        itemInputData[2] = IOOperations.parseVehicleStateToCode(state.toLowerCase());
+
+        //Obtiene identificacion de dueño y placa
+        itemInputData[3] = itemOwnerID.getText().toString().toLowerCase().trim();
+        itemInputData[4] = itemIdentifiquer.getText().toString().toLowerCase().trim();
+
+        return itemInputData;
+    }
+
+    private void itemEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntryButtonActionPerformed
         //Se inicializa con los nombres de los campos de la entrada
         String[] fields = {"tipo", "color", "estado", "cedula", "placa"};
-        
+
         //Se inicializa con los datos de la entrada
-        String[] vehicleInputData = getAndParseComboboxData();
+        String[] itemInputData = getAndParseComboboxData();
 
         //Valida si hay campos vacios
-        boolean isFull = IOOperations.validateNonEmptyFields(this, vehicleInputData, fields);
+        boolean isFull = IOOperations.validateNonEmptyFields(this, itemInputData, fields);
 
         //Si no hay campos vacios se ejecuta
         if (isFull) {
             Parking parking = new Parking();
-            parking.checkIn(this, vehicleInputData, fields);
+            parking.checkIn(this, itemInputData, fields);
         }
-    }//GEN-LAST:event_vehiclesEntryButtonActionPerformed
+    }//GEN-LAST:event_itemEntryButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,13 +264,13 @@ public class ItemCheckInUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
+    private javax.swing.JComboBox<String> itemColorSelector;
+    private javax.swing.JButton itemEntryButton;
+    private javax.swing.JTextField itemIdentifiquer;
+    private javax.swing.JTextField itemOwnerID;
+    private javax.swing.JComboBox<String> itemStateSelector;
+    private javax.swing.JComboBox<String> itemTypeSelector;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel vehicleCheckInTitleLabel;
-    private javax.swing.JButton vehiclesEntryButton;
-    private javax.swing.JTextField vehiclesEntryCarPlate;
-    private javax.swing.JTextField vehiclesEntryOwnerID;
-    private javax.swing.JComboBox<String> vehiclesEntryVehicleColor;
-    private javax.swing.JComboBox<String> vehiclesEntryVehicleState;
-    private javax.swing.JComboBox<String> vehiclesEntryVehicleType;
     // End of variables declaration//GEN-END:variables
 }

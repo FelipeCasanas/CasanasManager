@@ -53,17 +53,17 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="vehiclesEntryVehicleType" min="-2" pref="175" max="-2" attributes="0"/>
-                          <Component id="vehiclesEntryVehicleState" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                          <Component id="vehiclesEntryVehicleColor" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="itemTypeSelector" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="itemStateSelector" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="itemColorSelector" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="vehiclesEntryButton" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
-                              <Component id="vehiclesEntryCarPlate" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                              <Component id="itemEntryButton" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
+                              <Component id="itemIdentifiquer" alignment="1" min="-2" pref="175" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="vehiclesEntryOwnerID" min="-2" pref="175" max="-2" attributes="0"/>
+                          <Component id="itemOwnerID" min="-2" pref="175" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -78,20 +78,20 @@
               <Component id="vehicleCheckInTitleLabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="vehiclesEntryVehicleType" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="vehiclesEntryOwnerID" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemTypeSelector" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemOwnerID" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="vehiclesEntryCarPlate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="vehiclesEntryVehicleColor" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="itemIdentifiquer" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="itemColorSelector" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                      <Component id="vehiclesEntryButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="itemEntryButton" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="vehiclesEntryVehicleState" min="-2" max="-2" attributes="0"/>
+                  <Component id="itemStateSelector" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
@@ -113,52 +113,52 @@
         <Property name="text" type="java.lang.String" value="ENTRADA ARTICULO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleType">
+    <Component class="javax.swing.JComboBox" name="itemTypeSelector">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;CARRO&quot;, &quot;MOTO&quot;, &quot;BICICLETA&quot;})" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleColor">
+    <Component class="javax.swing.JComboBox" name="itemColorSelector">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;BLANCO&quot;, &quot;GRIS&quot;, &quot;NEGRO&quot;, &quot;ROJO&quot;, &quot;AZUL&quot;, &quot;OTRO&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JComboBox" name="vehiclesEntryVehicleState">
+    <Component class="javax.swing.JComboBox" name="itemStateSelector">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;OK&quot;, &quot;RAYON(ES)&quot;, &quot;GOLPE(S)&quot;, &quot;DESCONOCIDO&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] {})" type="code"/>
         </Property>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.JTextField" name="vehiclesEntryOwnerID">
+    <Component class="javax.swing.JTextField" name="itemOwnerID">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="vehiclesEntryCarPlate">
+    <Component class="javax.swing.JTextField" name="itemIdentifiquer">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="vehiclesEntryButton">
+    <Component class="javax.swing.JButton" name="itemEntryButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="INGRESAR"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vehiclesEntryButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itemEntryButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="goBackButton">

@@ -19,7 +19,7 @@ public interface ManageRates {
 
     boolean uploadRateToDB(ArrayList<String> newRateIdentifiquer, ArrayList<Double> newRate);
 
-    ArrayList<Object> getRates(int businessType, int Quantity);
+    ArrayList<Object> getRates(int businessType);
 
     String[] searchRate(String elementName);
 

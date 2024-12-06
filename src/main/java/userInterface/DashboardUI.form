@@ -106,7 +106,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardDepartureVehicleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SALIDA ARTICULO"/>
+        <Property name="text" type="java.lang.String" value="REGISTRAR SALIDA"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardDepartureVehicleButtonActionPerformed"/>
@@ -154,7 +154,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="dashboardEntryVehicleButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ENTRADA ARTICULO"/>
+        <Property name="text" type="java.lang.String" value="REGISTRAR ENTRADA"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dashboardEntryVehicleButtonActionPerformed"/>

@@ -25,9 +25,6 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
     private static ArrayList<String> newRateName = new ArrayList<>();
     private static ArrayList<Double> rate = new ArrayList<>();
 
-    //Instancia la clase de consultas
-    QueryManagment queryManagment = new QueryManagment();
-
     //Recibe el componente desde el que ha sido llamado el metodo
     @Override
     public void addRate(Component view, int[] searchDiscriminant) {
@@ -46,7 +43,7 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
             //Valida que ambos campos no esten vacios; Si alguno lo esta muestra mensaje indicandolo
             if (newElementName.length() > 0 && newElementValue.length() > 0) {
-                //Si no existe tarifa con ese nombre entoces la añade; Si no, muestra mensaje indicando que ya existe
+                //Si no existe tarifa con ese nombre entonces la añade; Si no, muestra mensaje indicando que ya existe
                 if (!newRateName.contains(newElementName)) {
                     newRateName.add(newElementName);
                     newRate.add(Double.parseDouble(newElementValue));
@@ -95,13 +92,13 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
             for (int i = 0; i < newRateName.size(); i++) {
                 //Se crea PreparedStatement y en cada posicion inserta el valor correspondiente en la posicion de i para cada elemento
-                PreparedStatement inserRatePS = link.prepareStatement(insertRate);
-                inserRatePS.setInt(1, businessID);
-                inserRatePS.setString(2, newRateName.get(i));
-                inserRatePS.setDouble(3, newRate.get(i));
+                PreparedStatement insertRatePS = link.prepareStatement(insertRate);
+                insertRatePS.setInt(1, businessID);
+                insertRatePS.setString(2, newRateName.get(i));
+                insertRatePS.setDouble(3, newRate.get(i));
 
                 //Ejecuta consulta de insercion
-                int inserted = inserRatePS.executeUpdate();
+                int inserted = insertRatePS.executeUpdate();
 
                 //Si consulta retorno 0 entonces upload = false
                 if (inserted == 0) {
@@ -109,7 +106,7 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
                 }
 
                 //Cierra la consulta
-                inserRatePS.close();
+                insertRatePS.close();
             }
 
             //Valida que upload sea true; Si es false significa que en algun punto algun elemento no se inserto y hace rollback
@@ -134,34 +131,34 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
     //searchDiscriminant[0] tiene el discriminante de id del negocio que solicita las tarifas
     //searchDiscriminant[1] determina la cantidad de tarifas que se pediran a la DB, -1 deslimita (PENDIENTE)
     @Override
-    public ArrayList<Object> getRates(int businessType, int Quantity) {
+    public ArrayList<Object> getRates(int businessID) {
         //Abre la conexion a la base de datos
         this.connect();
         Connection link = getConnection();
 
-        //Declara lista para guardar el nombre de las tarifas
+        //Declara lista para guardar el id, nombre y monto de las tarifas
+        ArrayList<Object> ratesData = new ArrayList<>();
+        ArrayList<Integer> ratesID = new ArrayList<>();
         ArrayList<String> ratesName = new ArrayList<>();
-
-        //Declara lista para guardar las tarifas
         ArrayList<Double> rates = new ArrayList<>();
 
         try {
             String queryRates = "SELECT * FROM price WHERE business_id = ?";
             PreparedStatement ratesPS = link.prepareStatement(queryRates);
-            ratesPS.setString(1, String.valueOf(businessType));
+            ratesPS.setString(1, String.valueOf(businessID));
             ResultSet ratesRS = ratesPS.executeQuery();
 
             //Acumula tarifas en la lista en la columna asignada (PENDIENTE ASIGNAR LA COLUMNA CORRECTA)
             while (ratesRS.next()) {
-                ratesName.add(ratesRS.getString("rate_name")); //PENDIENTE CONFIRMAR SI ES ESE NOMBRE
-                rates.add(ratesRS.getDouble("rate_amount"));  //PENDIENTE CONFIRMAR SI ES ESE NOMBRE
+                ratesID.add(ratesRS.getInt("id"));
+                ratesName.add(ratesRS.getString("rate_name"));
+                rates.add(ratesRS.getDouble("rate_amount")); 
             }
 
             //Asigna valores de ArrayList´s locales a ArrayList´s globales
             addLocalRate(ratesName, rates);
             
-            //Iicializa ArrayList que guarda los otros 2 ArrayList (ratesName y rates)
-            ArrayList<Object> ratesData = new ArrayList<>();
+            ratesData.add(ratesID);
             ratesData.add(ratesName);
             ratesData.add(rates);
 
@@ -217,9 +214,6 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
         //Declara booleano que indica si se logro actualizar la tarifa
         boolean rateUpdated = false;
-
-        //Busca los datos del elemento ingresado, si lo encuentra guarda su informacion
-        //String[] ratesData = searchRate(elementName);
 
         //Ejecuta cosulta a DB para actualizar la tarifa. Si la actualizacion es exitosa devuelve true
         try {

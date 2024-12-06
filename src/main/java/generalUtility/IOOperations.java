@@ -4,9 +4,12 @@
  */
 package generalUtility;
 
+import corePackage.Rates;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import corePackage.User;
+import java.util.ArrayList;
+import network.QueryManagment;
 
 /**
  *
@@ -14,9 +17,6 @@ import corePackage.User;
  */
 public class IOOperations {
 
-    User user = new User();
-    
-    
     public static String replaceDateSlash(String dateToSearch) {
         
         int dateLength = dateToSearch.length();
@@ -67,122 +67,46 @@ public class IOOperations {
 
     //Comparan el valor del combo box y retorna el numero equivalente al vehiculo
     public static String parseVehicleTypeToCode(String type) {
-        switch (type) {
-            case "MOTO":
-                type = "1";
-                break;
-            case "CARRO":
-                type = "2";
-                break;
-            case "BICICLETA":
-                type = "3";
-                break;
+        QueryManagment queryManagment = new QueryManagment();
+        
+        //Pendiente hacer dinamico ID de negocio
+        ArrayList<Object> ratesData = queryManagment.getRatesName();
+        ArrayList<String> rate = (ArrayList<String>) ratesData.get(0);
+        ArrayList<String> rateName = (ArrayList<String>) ratesData.get(1);
+        
+        if(rateName.contains(type)) {
+            int index = rateName.indexOf(type);
+            type = rate.get(index);
         }
 
         return type;
     }
 
     public static String parseVehicleColorToCode(String color) {
-        switch (color) {
-            case "BLANCO":
-                color = "1";
-                break;
-            case "GRIS":
-                color = "2";
-                break;
-            case "NEGRO":
-                color = "3";
-                break;
-            case "ROJO":
-                color = "4";
-                break;
-            case "AZUL":
-                color = "5";
-                break;
-            default:
-                color = "6";
+        QueryManagment queryManagment = new QueryManagment();
+        
+        ArrayList<Object> colorData = queryManagment.getColorsName();
+        ArrayList<Integer> colorID = (ArrayList<Integer>) colorData.get(0);
+        ArrayList<String> colorName = (ArrayList<String>) colorData.get(1);
+        
+        if(colorName.contains(color)) {
+            color = String.valueOf(colorID.get(colorName.indexOf(color)));
         }
 
         return color;
     }
 
     public static String parseVehicleStateToCode(String state) {
-        switch (state) {
-            case "OK":
-                state = "1";
-                break;
-            case "RAYON(ES)":
-                state = "2";
-                break;
-            case "GOLPE(S)":
-                state = "3";
-                break;
-            case "DESCONOCIDO":
-                state = "4";
-                break;
+        QueryManagment queryManagment = new QueryManagment();
+        
+        ArrayList<Object> stateData = queryManagment.getStatesName();
+        ArrayList<Integer> stateID = (ArrayList<Integer>) stateData.get(0);
+        ArrayList<String> stateName = (ArrayList<String>) stateData.get(1);
+        
+        if(stateName.contains(state)) {
+            state = String.valueOf(stateID.get(stateName.indexOf(state)));
         }
 
         return state;
     }
-
-    //Comparan el valor del combo box y retorna el texto equivalente al vehiculo
-    public static String parseVehicleTypeToLetters(String type) {
-        switch (type) {
-            case "1":
-                type = "MOTO";
-                break;
-            case "2":
-                type = "CARRO";
-                break;
-            case "3":
-                type = "BICICLETA";
-                break;
-        }
-
-        return type;
-    }
-
-    public static String parseVehicleColorToLetters(String color) {
-        switch (color) {
-            case "1":
-                color = "BLANCO";
-                break;
-            case "2":
-                color = "GRIS";
-                break;
-            case "3":
-                color = "NEGRO";
-                break;
-            case "4":
-                color = "ROJO";
-                break;
-            case "5":
-                color = "AZUL";
-                break;
-            default:
-                color = "OTRO";
-        }
-
-        return color;
-    }
-
-    public static String parseVehicleStateToLetters(String state) {
-        switch (state) {
-            case "1":
-                state = "OK";
-                break;
-            case "2":
-                state = "RAYON(ES)";
-                break;
-            case "3":
-                state = "GOLPE(S)";
-                break;
-            case "4":
-                state = "DESCONOCIDO";
-                break;
-        }
-
-        return state;
-    }
-
 }
