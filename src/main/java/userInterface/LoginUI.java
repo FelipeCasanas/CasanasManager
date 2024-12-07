@@ -131,6 +131,7 @@ public class LoginUI extends javax.swing.JFrame {
             //Obtiene la informacion del usuario y la establece en la clase usuario
             String[] userData = user.getUserData(email, 1);
             user.setUserData(userData);
+            user.businessCategory();
             
             //Abre el dashboard y ciera el login
             DashboardUI dashboard = new DashboardUI();

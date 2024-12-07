@@ -56,15 +56,10 @@ public class SearchItemUI extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR ARTICULO");
 
-        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
+        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto", "Cedula responsable" }));
         searchDiscriminant.setEnabled(false);
 
         searchParam.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        searchParam.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchParamActionPerformed(evt);
-            }
-        });
 
         searchButton.setText("BUSCAR");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -110,13 +105,13 @@ public class SearchItemUI extends javax.swing.JFrame {
 
         vehicleTypeLabel.setText("TIPO:");
 
-        vehiclePlateLabel.setText("PLACA:");
+        vehiclePlateLabel.setText("IDENTIFICADOR:");
 
         vehicleOwnerLabel.setText("PROPIETARIO:");
 
         vehicleStateLabel.setText("ESTADO:");
 
-        inParkingLabel.setText("EN PARQUEADERO:");
+        inParkingLabel.setText("EN LUGAR:");
 
         javax.swing.GroupLayout resultCategoryContainerLayout = new javax.swing.GroupLayout(resultCategoryContainer);
         resultCategoryContainer.setLayout(resultCategoryContainerLayout);
@@ -161,7 +156,7 @@ public class SearchItemUI extends javax.swing.JFrame {
             .addGroup(resultPlaceContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
                     .addComponent(vehiclePlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleOwner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -181,7 +176,7 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addComponent(vehicleState)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inParking)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout resultContainerLayout = new javax.swing.GroupLayout(resultContainer);
@@ -201,7 +196,7 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(resultPlaceContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(resultCategoryContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(6, 6, 6))
+                .addContainerGap())
         );
 
         itsNotLabel.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
@@ -247,10 +242,10 @@ public class SearchItemUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputsContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resultContainer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(inputsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(resultContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(itsNotContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,10 +260,6 @@ public class SearchItemUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void searchParamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchParamActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_searchParamActionPerformed
 
     private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
         DashboardUI dashboard = new DashboardUI();

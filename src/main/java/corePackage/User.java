@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -15,12 +17,10 @@ import java.sql.SQLException;
  */
 public class User extends network.Connect implements abstractModel.ManageUsers {
 
-    private static String id, card_id, name, lastName, birth_day, business_id, email, password, active, admin;
-
+    private static String id, card_id, name, lastName, birth_day, business_id, businessCategory, email, password, active, admin;
 
     Connection link = this.getConnection();
-    
-    
+
     //PENDIENTE HACER INTERFAZ PARA CERRAR CONEXIONES
     //METODOS INTERFAZ MANAGEUSERS
     @Override
@@ -81,6 +81,7 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
                 loginPS.close();
                 queryResult.close();
                 this.closeConnection();
+
                 return userData;
             } else if (permissions == 0) {
                 String[] userData = new String[5];
@@ -100,8 +101,8 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
                 loginPS.close();
                 queryResult.close();
                 this.closeConnection();
-                return userData;
 
+                return userData;
             }
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -109,7 +110,25 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
 
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
+
+    public void businessCategory() {
+        this.connect();
+
+        try {
+            String businessIDQuery = "Select category FROM business WHERE id = ?";
+            PreparedStatement businessIDPS = link.prepareStatement(businessIDQuery);
+            businessIDPS.setString(1, business_id);
+            ResultSet businessIDRS = businessIDPS.executeQuery();
+
+            while (businessIDRS.next()) {
+                businessCategory = businessIDRS.getString("category");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     @Override
     public void setUserData(String[] userData) {
         setId(userData[0]);
@@ -123,7 +142,6 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
         setActive(userData[8]);
         setAdmin(userData[9]);
     }
-    
 
     @Override
     public boolean modifyUser(String[] arguments, int operationToDo) {
@@ -209,6 +227,14 @@ public class User extends network.Connect implements abstractModel.ManageUsers {
 
     public static void setAdmin(String admin) {
         User.admin = admin;
+    }
+
+    public static String getBusinessCategory() {
+        return businessCategory;
+    }
+
+    public static void setBusinessCategory(String category) {
+        User.businessCategory = category;
     }
 
 }

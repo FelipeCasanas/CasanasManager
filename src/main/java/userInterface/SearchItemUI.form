@@ -46,10 +46,10 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="inputsContainer" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="resultContainer" alignment="1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="inputsContainer" min="-2" max="-2" attributes="0"/>
+                  <Component id="resultContainer" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="itsNotContainer" min="-2" max="-2" attributes="0"/>
@@ -116,7 +116,7 @@
         <Component class="javax.swing.JComboBox" name="searchDiscriminant">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Placa&quot;, &quot;Cedula&quot; })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Identificador producto&quot;, &quot;Cedula responsable&quot; })" type="code"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -128,9 +128,6 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="searchParamActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="searchButton">
           <Properties>
@@ -171,7 +168,7 @@
                       <Component id="resultPlaceContainer" max="32767" attributes="0"/>
                       <Component id="resultCategoryContainer" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -215,7 +212,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="vehiclePlateLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="PLACA:"/>
+                <Property name="text" type="java.lang.String" value="IDENTIFICADOR:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="vehicleOwnerLabel">
@@ -230,7 +227,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="inParkingLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="EN PARQUEADERO:"/>
+                <Property name="text" type="java.lang.String" value="EN LUGAR:"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -243,7 +240,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="vehicleType" alignment="1" pref="79" max="32767" attributes="0"/>
+                          <Component id="vehicleType" alignment="1" pref="96" max="32767" attributes="0"/>
                           <Component id="vehiclePlate" alignment="1" max="32767" attributes="0"/>
                           <Component id="vehicleOwner" alignment="1" max="32767" attributes="0"/>
                           <Component id="vehicleState" alignment="1" max="32767" attributes="0"/>
@@ -266,7 +263,7 @@
                       <Component id="vehicleState" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="inParking" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="16" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

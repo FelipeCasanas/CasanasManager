@@ -74,7 +74,6 @@ network\Connect.class
 generalUtility\TimeMethods.class
 userInterface\CalculatorUI$19.class
 userInterface\LoginUI$4.class
-userInterface\SearchItemUI$4.class
 userInterface\ItemCheckInUI.class
 userInterface\SearchItemUI$1.class
 userInterface\ItemCheckOutUI$1.class

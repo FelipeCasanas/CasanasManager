@@ -5,11 +5,13 @@
 package userInterface;
 
 import abstractModel.ManageTable;
+import corePackage.User;
 import network.QueryManagment;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import generalUtility.SearchDiscriminant;
 import generalUtility.IOOperations;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,6 +21,9 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
 
     public ItemLogsUI() {
         initComponents();
+        
+        setRateTypeSelector();
+        setStateSelector();
     }
 
     /**
@@ -36,9 +41,9 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
         vehicleLogsTitleLabel = new javax.swing.JLabel();
         filtersAndSortContainer = new javax.swing.JPanel();
         filtersHeader = new javax.swing.JLabel();
-        vehicleTypeSelector = new javax.swing.JComboBox<>();
-        vehicleStateSelector = new javax.swing.JComboBox<>();
-        vehicleCheckoutBySelector = new javax.swing.JComboBox<>();
+        itemTypeSelector = new javax.swing.JComboBox<>();
+        itemStateSelector = new javax.swing.JComboBox<>();
+        itemCheckoutBySelector = new javax.swing.JComboBox<>();
         searchLogs = new javax.swing.JButton();
         logsContainer = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -63,11 +68,11 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
         filtersHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         filtersHeader.setText("FILTROS Y ORDENAMIENTO");
 
-        vehicleTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "CARRO", "MOTO", "BICICLETA"}));
+        itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehicleStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "OK", "RAYON(ES)", "GOLPE(S)", "DESCONOCIDO" }));
+        itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
-        vehicleCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
         searchLogs.setText("BUSCAR");
         searchLogs.addActionListener(new java.awt.event.ActionListener() {
@@ -84,9 +89,9 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filtersAndSortContainerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(vehicleCheckoutBySelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vehicleStateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vehicleTypeSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemCheckoutBySelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemStateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(itemTypeSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(searchLogs, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)))
         );
         filtersAndSortContainerLayout.setVerticalGroup(
@@ -95,11 +100,11 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
                 .addContainerGap()
                 .addComponent(filtersHeader)
                 .addGap(33, 33, 33)
-                .addComponent(vehicleTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(vehicleStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(vehicleCheckoutBySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(itemCheckoutBySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchLogs)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -250,16 +255,44 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
         fillTable(logsData);
     }//GEN-LAST:event_searchLogsActionPerformed
 
+    private void setRateTypeSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> ratesData = queryManagment.getRatesName(User.getBusiness_id());
+        ArrayList<String> ratesName = (ArrayList<String>) ratesData.get(1);
+
+        if (ratesName != null && !ratesName.isEmpty()) {
+            for (String rate : ratesName) {
+                itemTypeSelector.addItem(rate.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron tarifas para agregar al selector.");
+        }
+    }
+    
+    private void setStateSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+        ArrayList<Object> states = queryManagment.getStatesName();
+        ArrayList<String> stateName = (ArrayList<String>) states.get(1);
+        
+        if (stateName != null && !stateName.isEmpty()) {
+            for (String state : stateName) {
+                itemStateSelector.addItem(state.toUpperCase());
+            }
+        } else {
+            System.out.println("No se encontraron estados para agregar al selector.");
+        }
+    }
+    
     private String[][] requestLogsData() {
         //Declara array de 3 campos para los criterios: (1)Tipo vehiculo (2)Estado vehiculo (3)Salida por
         String[] fields = new String[3];
 
         //Obtiene tipo de vehiculo
-        fields[0] = vehicleTypeSelector.getSelectedItem().toString();
+        fields[0] = itemTypeSelector.getSelectedItem().toString();
         //Obtiene el estado del vehiculo
-        fields[1] = vehicleStateSelector.getSelectedItem().toString();
+        fields[1] = itemStateSelector.getSelectedItem().toString();
         //Obtiene usuario que dio salida
-        fields[2] = vehicleCheckoutBySelector.getSelectedItem().toString();
+        fields[2] = itemCheckoutBySelector.getSelectedItem().toString();
 
         //Se ingresa los campos  y retorna en array booleano de los que van a ser actualizados
         Boolean[] notEmptyFields = SearchDiscriminant.notEmptyFields(fields);
@@ -354,6 +387,9 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
     private javax.swing.JPanel filtersAndSortContainer;
     private javax.swing.JLabel filtersHeader;
     private javax.swing.JButton goBackButton;
+    private javax.swing.JComboBox<String> itemCheckoutBySelector;
+    private javax.swing.JComboBox<String> itemStateSelector;
+    private javax.swing.JComboBox<String> itemTypeSelector;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
@@ -361,10 +397,7 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
     private javax.swing.JScrollPane logsView;
     private javax.swing.JTable logsViewTable;
     private javax.swing.JButton searchLogs;
-    private javax.swing.JComboBox<String> vehicleCheckoutBySelector;
     private javax.swing.JLabel vehicleLogsTitleLabel;
-    private javax.swing.JComboBox<String> vehicleStateSelector;
-    private javax.swing.JComboBox<String> vehicleTypeSelector;
     // End of variables declaration//GEN-END:variables
 
 }

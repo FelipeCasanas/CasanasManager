@@ -70,7 +70,7 @@ public class IOOperations {
         QueryManagment queryManagment = new QueryManagment();
         
         //Pendiente hacer dinamico ID de negocio
-        ArrayList<Object> ratesData = queryManagment.getRatesName();
+        ArrayList<Object> ratesData = queryManagment.getRatesName(User.getBusiness_id());
         ArrayList<String> rate = (ArrayList<String>) ratesData.get(0);
         ArrayList<String> rateName = (ArrayList<String>) ratesData.get(1);
         

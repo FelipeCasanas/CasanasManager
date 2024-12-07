@@ -435,7 +435,7 @@ public class QueryManagment extends Connect {
         return colorData;
     }
     
-    public ArrayList<Object> getRatesName() {
+    public ArrayList<Object> getRatesName(String business_id) {
         this.connect();
         Connection link = getConnection();
 
@@ -444,8 +444,9 @@ public class QueryManagment extends Connect {
         ArrayList<String> rate = new ArrayList<>();
 
         try {
-            String rateQuery = "SELECT id, type_name FROM type";
+            String rateQuery = "SELECT id, type_name FROM type WHERE category_id = ?";
             PreparedStatement colorPS = link.prepareStatement(rateQuery);
+            colorPS.setString(1, User.getBusinessCategory());
             ResultSet colorRS = colorPS.executeQuery();
 
             while (colorRS.next()) {
@@ -472,9 +473,10 @@ public class QueryManagment extends Connect {
         ArrayList<Object> stateData = new ArrayList<>();
 
         try {
-            String stateQuery = "SELECT * FROM state";
+            String stateQuery = "SELECT * FROM state WHERE category_id = ?";
             PreparedStatement statePS = link.prepareStatement(stateQuery);
-            ResultSet stateRS = statePS.executeQuery(stateQuery);
+            statePS.setString(1, User.getBusinessCategory());
+            ResultSet stateRS = statePS.executeQuery();
 
             while (stateRS.next()) {
                 stateID.add(stateRS.getString("id"));

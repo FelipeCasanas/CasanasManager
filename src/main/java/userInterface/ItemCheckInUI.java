@@ -6,6 +6,7 @@ package userInterface;
 
 import javax.swing.JOptionPane;
 import corePackage.Parking;
+import corePackage.User;
 import generalUtility.IOOperations;
 import java.util.ArrayList;
 import network.QueryManagment;
@@ -143,7 +144,7 @@ public class ItemCheckInUI extends javax.swing.JFrame {
 
     private void setRateTypeSelector() {
         QueryManagment queryManagment = new QueryManagment();
-        ArrayList<Object> ratesData = queryManagment.getRatesName();
+        ArrayList<Object> ratesData = queryManagment.getRatesName(User.getBusiness_id());
         ArrayList<String> ratesName = (ArrayList<String>) ratesData.get(1);
 
         if (ratesName != null && !ratesName.isEmpty()) {
