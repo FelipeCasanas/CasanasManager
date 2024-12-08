@@ -118,30 +118,37 @@ public class LoginUI extends javax.swing.JFrame {
     }//GEN-LAST:event_loginEmailFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        //Obtiene los datos y los guarda
-        String email = loginEmailField.getText().toString().toLowerCase().trim();
-        String password = loginPasswordField.getText().toString().trim();
+        // Obtiene los datos de la interfaz y los procesa
+        String email = loginEmailField.getText().toLowerCase().trim();
+        String password = loginPasswordField.getText().trim();
 
-        //Obtiene verdadero o falso si existe o no el usuario
+        // Instancia el objeto User y valida las credenciales
         User user = new User();
-        boolean logged = user.authUser(email, password);
+        if (user.authUser(email, password)) {
+            // Si el usuario es válido, obtiene y guarda la información del usuario
+            user.setUserData(user.getUserData(email, 1));
 
-        //Si existe continua a Dashboard; Si no, muestra mensaje
-        if (logged) {
-            //Obtiene la informacion del usuario y la establece en la clase usuario
-            String[] userData = user.getUserData(email, 1);
-            user.setUserData(userData);
+            // Obtiene la categoría de negocio
             user.businessCategory();
-            
-            //Abre el dashboard y ciera el login
-            DashboardUI dashboard = new DashboardUI();
-            dashboard.setVisible(true);
-            dashboard.setLocationRelativeTo(null);
-            this.setVisible(false);
+
+            // Abre el Dashboard y cierra el Login
+            openDashboard();
         } else {
-            JOptionPane.showMessageDialog(this, "Correo y/o contaseña incorrectos");
+            // Si las credenciales son incorrectas, muestra un mensaje
+            showError("Correo y/o contraseña incorrectos");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
+
+    private void openDashboard() {
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }
+
+    private void showError(String message) {
+        JOptionPane.showMessageDialog(this, message);
+    }
 
     private void loginExitButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginExitButtomActionPerformed
         System.exit(0);

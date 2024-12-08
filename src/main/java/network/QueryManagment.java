@@ -18,398 +18,421 @@ import java.util.ArrayList;
  *
  * @author Felipe
  */
-public class QueryManagment extends Connect {
+public class QueryManagment {
 
     public boolean itemStillHere(String itemIdentiquer) {
-        this.connect();
-        Connection link = this.getConnection();
-        boolean stillHere = false;
+        String searchItemQuery = "SELECT 1 FROM item WHERE item_identifiquer = ? AND checkout_hour IS NULL";
 
-        try {
-            String searchItemQuery = "SELECT * FROM item WHERE item_identifiquer = ? AND checkout_hour IS NULL;";
-            PreparedStatement searchItemPS = link.prepareStatement(searchItemQuery);
+        // Obtener la conexión usando el Singleton Connect y ejecutar la consulta
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement searchItemPS = link.prepareStatement(searchItemQuery)) {
+
+            // Establecer el parámetro de la consulta
             searchItemPS.setString(1, itemIdentiquer);
-            ResultSet foundItemRS = searchItemPS.executeQuery();
 
-            if (foundItemRS.next()) {
-                stillHere = true;
+            // Ejecuta la consulta y verifica si el artículo está presente (sin checkout)
+            try (ResultSet foundItemRS = searchItemPS.executeQuery()) {
+                return foundItemRS.next();  // Retorna true si se encuentra el artículo
             }
 
-            searchItemPS.close();
-            foundItemRS.close();
-            this.closeConnection();
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE,
+                    "Error checking item presence for item_identifiquer: " + itemIdentiquer, ex);  // Manejo de errores
         }
 
-        return stillHere;
+        return false;  // Retorna false si ocurre un error o no se encuentra el artículo
     }
 
-    public String[] searchItem(String searchBy, String search) {
-        this.connect();
-        Connection link = getConnection();
+    public String[] searchItem(String search) {
+        // La conexión se obtiene a través del Singleton Connect
         String[] itemData = new String[12];
+        String query = """
+    SELECT 
+        i1.id, c1.color_name, s1.state_name AS checkin_state_name, 
+        s2.state_name AS checkout_state_name, u1.name AS checkin_by_user_name, 
+        u2.name AS checkout_by_user_name, b1.name AS business_name, 
+        i1.item_identifiquer, i1.client, t1.type_name, 
+        i1.checkin_hour, i1.checkout_hour 
+    FROM item i1 
+    LEFT JOIN color c1 ON i1.color = c1.id 
+    LEFT JOIN state s1 ON i1.checkin_state = s1.id 
+    LEFT JOIN state s2 ON i1.checkout_state = s2.id 
+    LEFT JOIN my_user u1 ON i1.checkin_by = u1.id 
+    LEFT JOIN my_user u2 ON i1.checkout_by = u2.id 
+    LEFT JOIN business b1 ON i1.business_id = b1.id 
+    LEFT JOIN type t1 ON i1.item_type = t1.id 
+    WHERE i1.item_identifiquer = ? 
+    ORDER BY i1.id DESC LIMIT 1;
+    """;
 
-        try {
-            String searchItemQuery = "SELECT "
-                    + "i1.id, "
-                    + "c1.color_name, "
-                    + "s1.state_name AS checkin_state_name, "
-                    + "s2.state_name AS checkout_state_name, "
-                    + "u1.name AS checkin_by_user_name, "
-                    + "u2.name AS checkout_by_user_name, "
-                    + "b1.name AS business_name, "
-                    + "i1.item_identifiquer, "
-                    + "i1.client, "
-                    + "t1.type_name, "
-                    + "i1.checkin_hour, "
-                    + "i1.checkout_hour "
-                    + "FROM item i1 "
-                    + "LEFT JOIN color c1 ON i1.color = c1.id "
-                    + "LEFT JOIN state s1 ON i1.checkin_state = s1.id "
-                    + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
-                    + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
-                    + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
-                    + "LEFT JOIN business b1 ON i1.business_id = b1.id "
-                    + "LEFT JOIN type t1 ON i1.item_type = t1.id "
-                    + "WHERE i1.item_identifiquer = ?"
-                    + "ORDER BY i1.id DESC LIMIT 1;";
-
-            PreparedStatement searchItemPS = link.prepareStatement(searchItemQuery);
-            searchItemPS.setString(1, search);
-            ResultSet foundItemRS = searchItemPS.executeQuery();
-
-            if (foundItemRS.next()) {
-                itemData[0] = foundItemRS.getString("id");
-                itemData[1] = foundItemRS.getString("color_name");
-                itemData[2] = foundItemRS.getString("checkin_state_name");
-                itemData[3] = foundItemRS.getString("checkout_state_name");
-                itemData[4] = foundItemRS.getString("checkin_by_user_name");
-                itemData[5] = foundItemRS.getString("checkout_by_user_name");
-                itemData[6] = foundItemRS.getString("business_name");
-                itemData[7] = foundItemRS.getString("item_identifiquer");
-                itemData[8] = foundItemRS.getString("client");
-                itemData[9] = foundItemRS.getString("type_name"); // Ajustado a type_name
-                itemData[10] = foundItemRS.getString("checkin_hour");
-                itemData[11] = foundItemRS.getString("checkout_hour");
+        try (Connection link = Connect.getInstance().getConnection()) {  // Usando Singleton
+            // Verificar si la conexión está cerrada
+            if (link == null || link.isClosed()) {
+                throw new SQLException("Connection is closed or null");
             }
-            this.closeConnection();
+
+            try (PreparedStatement ps = link.prepareStatement(query)) {
+                ps.setString(1, search);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        for (int i = 0; i < itemData.length; i++) {
+                            itemData[i] = rs.getString(i + 1);  // Asigna los resultados al array
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error fetching item data", ex);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Database connection error", ex);
         }
 
-        return itemData;
+        return itemData;  // Retorna los datos obtenidos o un array vacío si no se encuentran datos
     }
 
     public boolean insertItem(String[] itemData, String workerId, String formattedDate) {
-        this.connect();
-        Connection link = this.getConnection();
-        boolean inserted = false;
+        String query = """
+    INSERT INTO item (
+        item_identifiquer, item_type, color, client, checkin_state, checkout_state, 
+        checkin_by, checkout_by, business_id, checkin_hour, checkout_hour
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+    """;
 
-        try {
-            User user = new User();
-
-            String insertItemQuery = "INSERT INTO item(item_identifiquer, item_type, color, client, checkin_state, checkout_state, checkin_by, checkout_by, business_id, checkin_hour, checkout_hour) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-            PreparedStatement insertItemPS = link.prepareStatement(insertItemQuery);
-            insertItemPS.setString(1, itemData[4]);  // item_identifiquer
-            insertItemPS.setInt(2, Integer.parseInt(itemData[0]));  // type
-            insertItemPS.setString(3, itemData[1]);  // color
-            insertItemPS.setString(4, itemData[3]);  // cedula del cliente
-            insertItemPS.setString(5, itemData[2]);  // checkin_state
-            insertItemPS.setInt(6, 0);                  // checkout_state (inicialmente 0)
-            insertItemPS.setString(7, workerId);        // checkin_by
-            insertItemPS.setInt(8, 0);                  // checkout_by (inicialmente 0)
-            insertItemPS.setString(9, user.getBusiness_id());  // business_id
-            insertItemPS.setString(10, formattedDate);   // checkin_hour
-            insertItemPS.setString(11, null);           // checkout_hour (inicialmente null)
-            int insertStatus = insertItemPS.executeUpdate();
-
-            if (insertStatus == 1) {
-                inserted = true;
+        try (Connection link = Connect.getInstance().getConnection()) {  // Usando Singleton para la conexión
+            // Verificar si la conexión está cerrada
+            if (link == null || link.isClosed()) {
+                throw new SQLException("Connection is closed or null");
             }
 
-            link.commit();
-            insertItemPS.close();
-            this.closeConnection();
+            link.setAutoCommit(false);  // Desactivar auto-commit para controlar manualmente la transacción
+
+            try (PreparedStatement ps = link.prepareStatement(query)) {
+                User user = new User(); // Obtener información del usuario si es necesario.
+
+                // Configurar parámetros del `PreparedStatement`...
+                ps.setString(1, itemData[4]);  // item_identifiquer
+                ps.setInt(2, Integer.parseInt(itemData[0]));  // item_type
+                ps.setString(3, itemData[1]);  // color
+                ps.setString(4, itemData[3]);  // client
+                ps.setString(5, itemData[2]);  // checkin_state
+                ps.setInt(6, 0);               // checkout_state (inicialmente 0)
+                ps.setString(7, workerId);     // checkin_by
+                ps.setInt(8, 0);               // checkout_by (inicialmente 0)
+                ps.setString(9, user.getBusiness_id());  // business_id
+                ps.setString(10, formattedDate);  // checkin_hour
+                ps.setNull(11, java.sql.Types.TIMESTAMP); // checkout_hour (nulo)
+
+                // Ejecutar la inserción
+                int rowsAffected = ps.executeUpdate();
+
+                if (rowsAffected == 1) {
+                    link.commit();  // Confirmar cambios si la inserción fue exitosa
+                    return true;
+                } else {
+                    link.rollback();  // Revertir si no se insertó correctamente
+                    return false;
+                }
+
+            } catch (SQLException ex) {
+                link.rollback();  // Revertir en caso de error
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error inserting item", ex);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Database connection error", ex);
         }
 
-        return inserted;
+        return false;  // Retorna false si ocurrió un error en la inserción
     }
 
-    public boolean checkOutItem(String itemId, String businessId, String checkoutState, String checkoutBy, String checkoutHour, Double parkingPrice) throws SQLException {
-        //Se conecta a base de datos
-        this.connect();
-        Connection link = getConnection();
-        boolean checkout = false;
+    public boolean checkOutItem(String itemId, String businessId, String checkoutState,
+            String checkoutBy, String checkoutHour, Double parkingPrice) {
 
-        try {
-            // Se prepara la sentencia, se asignan valores y se ejecuta para dar salida
-            String checkoutItemQuery = "UPDATE item SET checkout_state = ?, checkout_by = ?, checkout_hour = ? WHERE id = ?";
-            PreparedStatement checkoutItemPS = link.prepareStatement(checkoutItemQuery);
-            checkoutItemPS.setString(1, checkoutState);    // Estado de salida (checkout_state)
-            checkoutItemPS.setString(2, checkoutBy);       // Usuario que realiza el checkout (checkout_by)
-            checkoutItemPS.setString(3, checkoutHour);     // Hora de salida (checkout_hour)
-            checkoutItemPS.setString(4, itemId);           // ID del ítem
-            int checkoutExecuted = checkoutItemPS.executeUpdate();
+        String updateItemQuery = """
+    UPDATE item 
+    SET checkout_state = ?, checkout_by = ?, checkout_hour = ? 
+    WHERE id = ?;
+    """;
 
-            // Se prepara la sentencia, se asignan valores y se ejecuta para establecer el pago
-            String checkoutPaymentQuery = "INSERT INTO `income`(`business_id`, `item_id`, `rate_amount`) VALUES (?, ?, ?)";
-            PreparedStatement checkoutPaymentPS = link.prepareStatement(checkoutPaymentQuery);
-            checkoutPaymentPS.setString(1, businessId);
-            checkoutPaymentPS.setString(2, itemId);     // ID del ítem (antes vehicle_id)
-            checkoutPaymentPS.setDouble(3, parkingPrice); // Monto del pago (pay_amount)
-            int checkoutPaymentExecuted = checkoutPaymentPS.executeUpdate();
+        String insertIncomeQuery = """
+    INSERT INTO income (business_id, item_id, rate_amount) 
+    VALUES (?, ?, ?);
+    """;
 
-            //Valida si se hizo la actualizacion
-            if (checkoutExecuted == 1 && checkoutPaymentExecuted == 1) {
-                checkout = true;
-                link.commit();
-            } else {
-                link.rollback();
+        // Usamos try-with-resources para la conexión y los prepared statements
+        try (Connection link = Connect.getInstance().getConnection()) {
+
+            // Verificar si la conexión está cerrada
+            if (link == null || link.isClosed()) {
+                throw new SQLException("Connection is closed or null");
             }
 
-            checkoutItemPS.close();
-            checkoutPaymentPS.close();
+            link.setAutoCommit(false);  // Desactivar auto-commit para manejar transacciones manualmente
+
+            try (PreparedStatement updateItemPS = link.prepareStatement(updateItemQuery); PreparedStatement insertIncomePS = link.prepareStatement(insertIncomeQuery)) {
+
+                // Configurar y ejecutar la actualización del item
+                updateItemPS.setString(1, checkoutState);
+                updateItemPS.setString(2, checkoutBy);
+                updateItemPS.setString(3, checkoutHour);
+                updateItemPS.setString(4, itemId);
+
+                // Si la actualización no se realizó correctamente, revertir cambios
+                if (updateItemPS.executeUpdate() != 1) {
+                    link.rollback();  // Revertir transacción en caso de error
+                    return false;
+                }
+
+                // Configurar y ejecutar el registro del ingreso
+                insertIncomePS.setString(1, businessId);
+                insertIncomePS.setString(2, itemId);
+                insertIncomePS.setDouble(3, parkingPrice);
+
+                // Si no se insertó correctamente, revertir cambios
+                if (insertIncomePS.executeUpdate() != 1) {
+                    link.rollback();  // Revertir transacción en caso de error
+                    return false;
+                }
+
+                // Confirmar transacción si todo salió bien
+                link.commit();
+                return true;
+
+            } catch (SQLException ex) {
+                // Revertir en caso de cualquier error durante el procesamiento
+                link.rollback();
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error during checkout", ex);
+            }
+
         } catch (SQLException ex) {
-            link.rollback();
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            this.closeConnection();
+            // Manejo de error en la conexión a la base de datos
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Database connection error", ex);
         }
 
-        return checkout;
+        return false;  // Retornar false si ocurrió algún error
     }
 
     public String[][] queryLogs(Boolean[] searchFilters, String[] fields) {
-        this.connect();
-        Connection link = getConnection();
+        // Base de la consulta SQL
+        String baseQuery = """
+    SELECT i1.*, c1.color_name, s1.state_name AS checkin_state_name, 
+    s2.state_name AS checkout_state_name, u1.name AS checkin_by_user_name, 
+    u2.name AS checkout_by_user_name, i1.business_id, inc1.rate_amount, it.type_name 
+    FROM item i1 
+    LEFT JOIN color c1 ON i1.color = c1.id 
+    LEFT JOIN state s1 ON i1.checkin_state = s1.id 
+    LEFT JOIN state s2 ON i1.checkout_state = s2.id 
+    LEFT JOIN my_user u1 ON i1.checkin_by = u1.id 
+    LEFT JOIN my_user u2 ON i1.checkout_by = u2.id 
+    LEFT JOIN income inc1 ON i1.id = inc1.item_id 
+    LEFT JOIN type it ON i1.item_type = it.id
+    """;
 
-        // Actualizar la consulta SQL para la nueva base de datos
-        String searchLogsQuery = "SELECT i1.*, "
-                + "c1.color_name, "
-                + "s1.state_name AS checkin_state_name, "
-                + "s2.state_name AS checkout_state_name, "
-                + "u1.name AS checkin_by_user_name, "
-                + "u2.name AS checkout_by_user_name, "
-                + "i1.business_id, "
-                + "inc1.rate_amount, "
-                + "it.type_name " // Se asume que item_type_name es el campo que tiene el nombre del tipo de ítem
-                + "FROM item i1 "
-                + "LEFT JOIN color c1 ON i1.color = c1.id "
-                + "LEFT JOIN state s1 ON i1.checkin_state = s1.id "
-                + "LEFT JOIN state s2 ON i1.checkout_state = s2.id "
-                + "LEFT JOIN my_user u1 ON i1.checkin_by = u1.id "
-                + "LEFT JOIN my_user u2 ON i1.checkout_by = u2.id "
-                + "LEFT JOIN income inc1 ON i1.id = inc1.item_id "
-                + "LEFT JOIN type it ON i1.item_type = it.id ", whereQuery = "",
-                orderByQuery = " ORDER BY i1.id ASC";
+        // Inicializar cláusula WHERE y ORDER BY
+        StringBuilder whereClause = new StringBuilder(" WHERE 1=1 ");
+        String orderByClause = " ORDER BY i1.id ASC";
 
-        // Se pregunta qué condiciones de búsqueda se van a aplicar a la consulta
-        String caseKey = (searchFilters[0] ? "1" : "0")
-                + (searchFilters[1] ? "1" : "0")
-                + (searchFilters[2] ? "1" : "0");
-
-        // Se evalúa la cadena de caracteres y se guarda la consulta del case que sea verdadera 
-        switch (caseKey) {
-            case "111":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1] + " AND i1.checkin_by = " + fields[2];
-                searchLogsQuery += whereQuery;
-                break;
-            case "110":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_state = " + fields[1];
-                searchLogsQuery += whereQuery;
-                break;
-            case "011":
-                whereQuery = " WHERE i1.checkin_state = " + fields[1] + " AND i1.checkin_by = " + fields[2];
-                searchLogsQuery += whereQuery;
-                break;
-            case "101":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0] + " AND i1.checkin_by = " + fields[2];
-                searchLogsQuery += whereQuery;
-                break;
-            case "100":
-                whereQuery = " WHERE i1.item_identifiquer = " + fields[0];
-                searchLogsQuery += whereQuery;
-                break;
-            case "010":
-                whereQuery = " WHERE i1.checkin_state = " + fields[1];
-                searchLogsQuery += whereQuery;
-                break;
-            case "001":
-                whereQuery = " WHERE i1.checkin_by = " + fields[2];
-                searchLogsQuery += whereQuery;
-                break;
-            default:
-                whereQuery = searchLogsQuery + orderByQuery;
-                break;
+        // Construir la cláusula WHERE dinámica basada en los filtros de búsqueda
+        if (searchFilters[0] && !searchFilters[1] && !searchFilters[2]) {
+            whereClause = new StringBuilder(" WHERE i1.id = ? ");
+        } else {
+            if (searchFilters[0]) {
+                whereClause.append(" AND i1.item_identifiquer = ? ");
+            }
+            if (searchFilters[1]) {
+                whereClause.append(" AND i1.checkin_state = ? ");
+            }
+            if (searchFilters[2]) {
+                whereClause.append(" AND i1.checkin_by = ? ");
+            }
         }
 
-        try {
-            int totalRows = 0, range = 0;
+        String finalQuery = baseQuery + whereClause + orderByClause;
 
-            // Se prepara la consulta y se ejecuta
-            PreparedStatement searchLogsPS = link.prepareStatement(searchLogsQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            ResultSet searchLogsRS = searchLogsPS.executeQuery();
+        // Manejo de conexión a la base de datos y ejecución de la consulta
+        try (Connection link = Connect.getInstance().getConnection()) {
 
-            // Contar el número total de filas
-            while (searchLogsRS.next()) {
-                totalRows++;
+            // Verificar si la conexión está cerrada
+            if (link == null || link.isClosed()) {
+                throw new SQLException("Connection is closed or null");
             }
 
-            // Si existe al menos una fila se guarda la información en la matriz
-            if (totalRows > 0) {
-                // Instancia matriz que guarda los registros
-                String[][] logsData = new String[totalRows][12];
+            try (PreparedStatement ps = link.prepareStatement(finalQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
 
-                // Mover el puntero al inicio del ResultSet
-                searchLogsRS.beforeFirst();
-
-                // Llenar la matriz con los datos
-                while (searchLogsRS.next()) {
-                    logsData[range][0] = searchLogsRS.getString("id");
-                    logsData[range][1] = searchLogsRS.getString("type_name"); // Se agrega el valor de item_type
-                    logsData[range][2] = searchLogsRS.getString("color_name");
-                    logsData[range][3] = searchLogsRS.getString("checkin_state_name");
-                    logsData[range][4] = searchLogsRS.getString("checkout_state_name");
-                    logsData[range][5] = searchLogsRS.getString("checkin_by_user_name");
-                    logsData[range][6] = searchLogsRS.getString("checkout_by_user_name");
-                    logsData[range][7] = searchLogsRS.getString("client");
-                    logsData[range][8] = searchLogsRS.getString("item_identifiquer");
-                    logsData[range][9] = searchLogsRS.getString("checkin_hour");
-                    logsData[range][10] = searchLogsRS.getString("checkout_hour");
-                    logsData[range][11] = searchLogsRS.getString("rate_amount");
-
-                    range++;
+                // Configurar los parámetros del PreparedStatement
+                int paramIndex = 1;
+                if (searchFilters[0]) {
+                    ps.setString(paramIndex++, fields[0]);
+                }
+                if (searchFilters[1]) {
+                    ps.setString(paramIndex++, fields[1]);
+                }
+                if (searchFilters[2]) {
+                    ps.setString(paramIndex++, fields[2]);
                 }
 
-                searchLogsPS.close();
-                searchLogsRS.close();
-                return logsData;
+                // Ejecutar la consulta y procesar el resultado
+                try (ResultSet rs = ps.executeQuery()) {
+                    // Contar el total de filas
+                    rs.last();
+                    int totalRows = rs.getRow();
+                    if (totalRows == 0) {
+                        return null;
+                    }
+
+                    // Crear una matriz para almacenar los resultados
+                    String[][] logsData = new String[totalRows][12];
+                    rs.beforeFirst();
+
+                    int rowIndex = 0;
+                    while (rs.next()) {
+                        logsData[rowIndex][0] = rs.getString("id");
+                        logsData[rowIndex][1] = rs.getString("type_name");
+                        logsData[rowIndex][2] = rs.getString("color_name");
+                        logsData[rowIndex][3] = rs.getString("checkin_state_name");
+                        logsData[rowIndex][4] = rs.getString("checkout_state_name");
+                        logsData[rowIndex][5] = rs.getString("checkin_by_user_name");
+                        logsData[rowIndex][6] = rs.getString("checkout_by_user_name");
+                        logsData[rowIndex][7] = rs.getString("client");
+                        logsData[rowIndex][8] = rs.getString("item_identifiquer");
+                        logsData[rowIndex][9] = rs.getString("checkin_hour");
+                        logsData[rowIndex][10] = rs.getString("checkout_hour");
+                        logsData[rowIndex][11] = rs.getString("rate_amount");
+                        rowIndex++;
+                    }
+                    return logsData;
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error executing query", ex);
             }
 
-            searchLogsPS.close();
-            searchLogsRS.close();
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                this.closeConnection();
-            } catch (SQLException ex) {
-                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            // Manejo de error en la conexión a la base de datos
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Database connection error", ex);
         }
 
-        return null;
+        return null;  // Retornar null si hubo un error o no se encontraron resultados
     }
 
     public int[] countLogs(String dateToSearch) {
-        this.connect();
-        Connection link = getConnection();
-
-        int[] totalItemsCount = new int[3];
-
+        // Formatear las fechas de inicio y fin del día para la consulta
         String dayStart = TimeMethods.formatDate() + " 00:00:00";
         String dayEnd = TimeMethods.formatDate() + " 23:59:59";
 
-        String query = "SELECT ct.business_type FROM item i "
-                + "INNER JOIN category ct ON i.business_id = ct.id "
-                + "WHERE i.checkin_hour BETWEEN ? AND ?";
+        // Consulta SQL para contar los logs según la hora de check-in
+        String query = """
+    SELECT ct.business_type 
+    FROM item i
+    INNER JOIN category ct ON i.business_id = ct.id
+    WHERE i.checkin_hour BETWEEN ? AND ? 
+    """;
 
-        try {
-            PreparedStatement countItemsPS = link.prepareStatement(query);
+        // Array para almacenar el total de elementos por tipo
+        int[] totalItemsCount = new int[3]; // [carro, moto, bicicleta]
+
+        // Manejo de la conexión y ejecución de la consulta
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement countItemsPS = link.prepareStatement(query)) {
+
+            // Verificar que la conexión es válida antes de continuar
+            if (link == null || link.isClosed()) {
+                throw new SQLException("Connection is closed or null");
+            }
+
+            // Configurar los parámetros de la consulta
             countItemsPS.setString(1, dayStart);
             countItemsPS.setString(2, dayEnd);
-            ResultSet countItemsRS = countItemsPS.executeQuery();
 
-            while (countItemsRS.next()) {
-                String businessType = countItemsRS.getString("business_type");
-
-                if (businessType.equals("carro")) {
-                    totalItemsCount[0]++;
-                } else if (businessType.equals("moto")) {
-                    totalItemsCount[1]++;
-                } else if (businessType.equals("bicicleta")) {
-                    totalItemsCount[2]++;
+            // Ejecutar la consulta y contar los tipos de negocios
+            try (ResultSet countItemsRS = countItemsPS.executeQuery()) {
+                while (countItemsRS.next()) {
+                    String businessType = countItemsRS.getString("business_type");
+                    switch (businessType) {
+                        case "carro":
+                            totalItemsCount[0]++;
+                            break;
+                        case "moto":
+                            totalItemsCount[1]++;
+                            break;
+                        case "bicicleta":
+                            totalItemsCount[2]++;
+                            break;
+                        default:
+                            // Si el tipo de negocio es desconocido, no hacer nada
+                            break;
+                    }
                 }
             }
 
-            return totalItemsCount;
-
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Database error", ex);
+            return null;  // Retornar null si ocurre un error en la base de datos
         }
 
-        return null;
+        return totalItemsCount; // Retornar el array con los conteos por tipo
     }
 
     public String[][] getCheckoutData(String dateToSearch) {
-        this.connect();
-        Connection link = getConnection();
+        // Validar el formato de la fecha
+        if (dateToSearch == null || dateToSearch.trim().isEmpty()) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Invalid dateToSearch parameter");
+            return null;
+        }
 
-        // Actualizar la consulta SQL para la nueva base de datos
-        String innerJoinQuery = " INNER JOIN type t1 ON i1.item_type = t1.id "
-                + "INNER JOIN my_user mu ON i1.checkout_by = mu.id "
-                + "INNER JOIN income inc1 ON i1.id = inc1.item_id AND i1.business_id = inc1.business_id";
+        // Definir la consulta SQL para obtener los datos de checkout
+        String innerJoinQuery = """
+    INNER JOIN type t1 ON i1.item_type = t1.id
+    INNER JOIN my_user mu ON i1.checkout_by = mu.id
+    INNER JOIN income inc1 ON i1.id = inc1.item_id AND i1.business_id = inc1.business_id
+    """;
 
-        String whereQuery = " WHERE i1.checkout_hour BETWEEN '" + dateToSearch + " 00:00:00' AND '" + dateToSearch + " 23:59:59'";
-
+        String whereQuery = " WHERE i1.checkout_hour BETWEEN ? AND ?";
         String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.rate_amount "
-                + "FROM item i1" + innerJoinQuery + whereQuery;
+                + "FROM item i1 " + innerJoinQuery + whereQuery;
 
         String[][] checkoutData = null;
-        PreparedStatement checkoutCountPS = null;
-        ResultSet checkoutCountRS = null;
 
-        try {
-            // Prepara la consulta
-            checkoutCountPS = link.prepareStatement(checkoutCountQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            checkoutCountRS = checkoutCountPS.executeQuery();
+        // Manejo de la conexión y ejecución de la consulta
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement checkoutCountPS = link.prepareStatement(checkoutCountQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
 
-            // Contar las filas
-            checkoutCountRS.last();
-            int totalRows = checkoutCountRS.getRow();
+            // Configurar los parámetros de la consulta
+            String startDateTime = dateToSearch + " 00:00:00";
+            String endDateTime = dateToSearch + " 23:59:59";
 
-            // Si hay filas, inicializa el arreglo
-            if (totalRows > 0) {
-                checkoutData = new String[totalRows][5];
-                checkoutCountRS.beforeFirst();
+            checkoutCountPS.setString(1, startDateTime);
+            checkoutCountPS.setString(2, endDateTime);
 
-                int range = 0;
-                while (checkoutCountRS.next()) {
-                    checkoutData[range][0] = checkoutCountRS.getString("id");
-                    checkoutData[range][1] = checkoutCountRS.getString("type_name");
-                    checkoutData[range][2] = checkoutCountRS.getString("rate_amount");
-                    checkoutData[range][3] = checkoutCountRS.getString("name");
-                    checkoutData[range][4] = checkoutCountRS.getString("last_name");
-                    range++;
+            try (ResultSet checkoutCountRS = checkoutCountPS.executeQuery()) {
+                // Mover al final para obtener el total de filas
+                if (checkoutCountRS.last()) {
+                    int totalRows = checkoutCountRS.getRow();
+                    if (totalRows > 0) {
+                        checkoutData = new String[totalRows][5];
+                        checkoutCountRS.beforeFirst(); // Volver al inicio para leer los resultados
+
+                        // Iterar sobre el ResultSet y almacenar los resultados
+                        int index = 0;
+                        while (checkoutCountRS.next()) {
+                            checkoutData[index][0] = checkoutCountRS.getString("id");
+                            checkoutData[index][1] = checkoutCountRS.getString("type_name");
+                            checkoutData[index][2] = checkoutCountRS.getString("rate_amount");
+                            checkoutData[index][3] = checkoutCountRS.getString("name");
+                            checkoutData[index][4] = checkoutCountRS.getString("last_name");
+                            index++;
+                        }
+                    }
                 }
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            // Asegúrate de cerrar los recursos
-            try {
-                if (checkoutCountRS != null) {
-                    checkoutCountRS.close();
-                }
-
-                if (link != null) {
-                    link.close();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            // Registrar el error en el log con detalle de la excepción
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error fetching checkout data for date: " + dateToSearch, ex);
         }
 
-        return checkoutData;
+        return checkoutData; // Retornar los datos obtenidos
     }
 
     public ArrayList<Object> getColorsName() {
-        this.connect();
-        Connection link = getConnection();
+        Connection link = Connect.getInstance().getConnection();
 
         ArrayList<Object> colorData = new ArrayList<>();
         ArrayList<String> colorID = new ArrayList<>();
@@ -434,10 +457,9 @@ public class QueryManagment extends Connect {
 
         return colorData;
     }
-    
+
     public ArrayList<Object> getRatesName(String business_id) {
-        this.connect();
-        Connection link = getConnection();
+        Connection link = Connect.getInstance().getConnection();
 
         ArrayList<Object> rateData = new ArrayList<>();
         ArrayList<String> rateID = new ArrayList<>();
@@ -465,8 +487,7 @@ public class QueryManagment extends Connect {
     }
 
     public ArrayList<Object> getStatesName() {
-        this.connect();
-        Connection link = getConnection();
+        Connection link = Connect.getInstance().getConnection();
 
         ArrayList<String> stateID = new ArrayList<>();
         ArrayList<String> state = new ArrayList<>();

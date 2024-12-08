@@ -18,13 +18,12 @@ import network.Connect;
  *
  * @author Felipe
  */
-public class PrintingMethods extends Connect {
+public class PrintingMethods {
 
     private static String[] businessData = new String[14];
     
     public void getBusinessData() {
-        this.connect();
-        Connection link = getConnection();
+        Connection link = Connect.getInstance().getConnection(); 
 
         try {
             String queryBusinnessData = "SELECT b1.*, im1.icon, im1.jrxml_file, im1.jasper_model "

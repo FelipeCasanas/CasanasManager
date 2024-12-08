@@ -12,22 +12,17 @@ import java.util.Date;
  * @author Felipe
  */
 public class TimeMethods {
-    
+
     public static String formatFullDate() {
-        Date date = new Date();
-        SimpleDateFormat doFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        return doFormat.format(date);
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
     }
-    
+
     public static String formatDate() {
-        Date date = new Date();
-        SimpleDateFormat doFormat = new SimpleDateFormat("yyyy/MM/dd");
-        return doFormat.format(date);
+        return new SimpleDateFormat("yyyy/MM/dd").format(new Date());
     }
-    
+
     public static String formatHour() {
-        Date date = new Date();
-        SimpleDateFormat doFormat = new SimpleDateFormat("HH:mm:ss");
-        return doFormat.format(date);
+        return new SimpleDateFormat("HH:mm:ss").format(new Date());
     }
+
 }

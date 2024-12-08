@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import corePackage.Parking;
 import generalUtility.IOOperations;
 import java.util.ArrayList;
+import javax.swing.JComboBox;
 import network.QueryManagment;
 
 /**
@@ -18,7 +19,7 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
     public ItemCheckOutUI() {
         initComponents();
-        
+
         setStateSelector();
     }
 
@@ -119,42 +120,38 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void setSelector(JComboBox<String> selector, ArrayList<Object> data, int index) {
+        ArrayList<String> names = (ArrayList<String>) data.get(index);
+
+        if (names != null && !names.isEmpty()) {
+            names.forEach(name -> selector.addItem(name.toUpperCase()));
+        } else {
+            System.out.println("No se encontraron elementos para agregar al selector.");
+        }
+    }
+
     private void setStateSelector() {
         QueryManagment queryManagment = new QueryManagment();
         ArrayList<Object> states = queryManagment.getStatesName();
-        ArrayList<String> stateName = (ArrayList<String>) states.get(1);
-        
-        if (stateName != null && !stateName.isEmpty()) {
-            for (String state : stateName) {
-                itemDepartureState.addItem(state.toUpperCase());
-            }
-        } else {
-            System.out.println("No se encontraron estados para agregar al selector.");
-        }
+        setSelector(itemDepartureState, states, 1);
     }
-    
+
+
     private void itemDepartureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemDepartureButtonActionPerformed
-        //Se inicializa con los nombres de los campos de la entrada
-        String[] itemInputData = new String[3], fields = {"estado", "cedula", "placa"};;
+        // Definir los campos a verificar y los datos de la entrada
+        String[] fields = {"estado", "cedula", "placa"};
+        String[] itemInputData = new String[3];
 
-        //Obtiene el estado del vehiculo y lo parsea
-        String state = itemDepartureState.getSelectedItem().toString();
-        itemInputData[0] = IOOperations.parseVehicleStateToCode(state);
-        
-        //Obtiene la identificacion del usuario
+        // Obtener y procesar los datos de entrada
+        itemInputData[0] = IOOperations.parseVehicleStateToCode(itemDepartureState.getSelectedItem().toString().toLowerCase());
         itemInputData[1] = itemDepartureOwnerID.getText().toString().toLowerCase().trim();
-        
-        //Obtiene la placa del vehiculo
         itemInputData[2] = itemDepartureIdentifiquer.getText().toString().toLowerCase().trim();
-        
-        //Valida si hay campos vacios
-        boolean isFull = IOOperations.validateNonEmptyFields(this, itemInputData, fields);
 
-        //Si no hay campos vacios se ejecuta
-        if (isFull) {
-            Parking parking = new Parking();
-            parking.checkOut(this, itemInputData, fields);
+        // Validar si los campos están completos
+        if (IOOperations.validateNonEmptyFields(this, itemInputData, fields)) {
+            new Parking().checkOut(this, itemInputData, fields);
         }
+
     }//GEN-LAST:event_itemDepartureButtonActionPerformed
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed

@@ -88,22 +88,27 @@ public class CashCheckoutUI extends javax.swing.JFrame {
             .addGroup(leftContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(leftContainerLayout.createSequentialGroup()
+                        .addComponent(counterTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
-                        .addGap(0, 108, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(motorcycleCounter, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bikeCounter, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(carCounter, javax.swing.GroupLayout.Alignment.TRAILING)))
-                    .addComponent(counterTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(carCounter, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(motorcycleCounter, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, leftContainerLayout.createSequentialGroup()
+                .addComponent(bikeCounterLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(bikeCounter)
                 .addContainerGap())
             .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(leftContainerLayout.createSequentialGroup()
                     .addGap(1, 1, 1)
                     .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(bikeCounterLabel)
                         .addComponent(carCounterLabel, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(motorcycleCounterLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addContainerGap(78, Short.MAX_VALUE)))
+                    .addContainerGap(94, Short.MAX_VALUE)))
         );
         leftContainerLayout.setVerticalGroup(
             leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +120,9 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(motorcycleCounter)
                 .addGap(18, 18, 18)
-                .addComponent(bikeCounter)
+                .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bikeCounter)
+                    .addComponent(bikeCounterLabel))
                 .addContainerGap(9, Short.MAX_VALUE))
             .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(leftContainerLayout.createSequentialGroup()
@@ -123,9 +130,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                     .addComponent(carCounterLabel)
                     .addGap(18, 18, 18)
                     .addComponent(motorcycleCounterLabel)
-                    .addGap(18, 18, 18)
-                    .addComponent(bikeCounterLabel)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addContainerGap(43, Short.MAX_VALUE)))
         );
 
         incomeTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -304,33 +309,28 @@ public class CashCheckoutUI extends javax.swing.JFrame {
 
         //Establece la fecha actual en el campo de texto
         otherDayReportField.setText(actualDate);
-        
+
         //Desactiva el campo de texto y activa el boton de busqueda
         otherDayReportField.setEnabled(false);
         otherDaySearchReport.setEnabled(true);
     }//GEN-LAST:event_todayReportActionPerformed
 
     private void otherDaySearchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDaySearchReportActionPerformed
-        //Obtiene la fecha ingresada en el campo de texto
-        String dateToSearch = otherDayReportField.getText().toString();
-        
-        //Reemplaza slash de la fecha por guion
-        dateToSearch = IOOperations.replaceDateSlash(dateToSearch);
+        // Obtiene la fecha ingresada y la formatea
+        String dateToSearch = IOOperations.replaceDateSlash(otherDayReportField.getText());
 
-        //Obtiene la informacion para hacer el reporte de la fecha ingresada
-        QueryManagment QuerycheckoutData = new QueryManagment();
-        String[][] checkoutData = QuerycheckoutData.getCheckoutData(dateToSearch);
-        
-        //Obtiene el conteo por cada tipo de vehiculo y el ingreso en cada categoria y en total
+        // Obtiene el conteo y los totales desde la base de datos
+        QueryManagment queryCheckoutData = new QueryManagment();
+        String[][] checkoutData = queryCheckoutData.getCheckoutData(dateToSearch);
+
+        // Procesa los datos de checkout para obtener los conteos y totales por tipo de vehículo
         CheckoutDataProcessing checkoutDataProcessing = new CheckoutDataProcessing();
         double[] countedData = checkoutDataProcessing.getCountCheckoutLogs(checkoutData);
 
-        //Imprime en interfaz el total de vehiculos por categoria y la suma de ellos
+        // Actualiza los campos de la interfaz con los resultados
         carCounter.setText(String.valueOf(countedData[0]));
         motorcycleCounter.setText(String.valueOf(countedData[1]));
         bikeCounter.setText(String.valueOf(countedData[2]));
-
-        //Imprime en interfaz el total de ingresos por categoria y la suma de ellos
         carIncome.setText(String.valueOf(countedData[4]));
         motorcycleIncome.setText(String.valueOf(countedData[5]));
         bikeIncome.setText(String.valueOf(countedData[6]));

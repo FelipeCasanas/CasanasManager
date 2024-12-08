@@ -10,135 +10,124 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 import generalUtility.TimeMethods;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Felipe
  */
 public class Parking extends ManageBussiness {
-    
+
     public ArrayList<Double> getRates() {
         ArrayList<Double> returnedRates = new ArrayList<>();
-        
+
         Rates rates = new Rates();
         ArrayList<Object> ratesData = rates.getRates(1);
-        ArrayList<String> rateName = (ArrayList<String>) ratesData.get(1);
-        ArrayList<Double> ratesValues = (ArrayList<Double>) ratesData.get(2);
-        
-        if(rateName.contains("carro")) {
-            returnedRates.add(ratesValues.get(rateName.indexOf("carro")));
-        } else {
-            returnedRates.add(0.0);
+        ArrayList<String> rateNames = (ArrayList<String>) ratesData.get(1);
+        ArrayList<Double> rateValues = (ArrayList<Double>) ratesData.get(2);
+
+        // Mapeo de los nombres de las tarifas a los tipos de vehículo
+        String[] vehicleTypes = {"carro", "moto", "bicicleta"};
+
+        // Iterar sobre cada tipo de vehículo para verificar si existe la tarifa correspondiente
+        for (String vehicle : vehicleTypes) {
+            int index = rateNames.indexOf(vehicle);
+            if (index >= 0) {
+                returnedRates.add(rateValues.get(index));  // Agregar tarifa si se encuentra
+            } else {
+                returnedRates.add(0.0);  // Agregar 0.0 si no se encuentra
+            }
         }
-        
-        if(rateName.contains("moto")) {
-            returnedRates.add(ratesValues.get(rateName.indexOf("moto")));
-        } else {
-            returnedRates.add(0.0);
-        }
-        
-        if(rateName.contains("bicicleta")) {
-            returnedRates.add(ratesValues.get(rateName.indexOf("bicicleta")));
-        } else {
-            returnedRates.add(0.0);
-        }
-        
+
         return returnedRates;
     }
-    
+
     @Override
     public void checkIn(Component view, String[] elementArguments, String[] auxuliarData) {
-
         try {
-            //Busca en DB si existe una coincidencia de vehiculo (MISMA PLACA Y QUE NO HAYA SALIDO)
+            // Verifica si el vehículo ya está en el parqueadero
             QueryManagment queryManagment = new QueryManagment();
             boolean vehicleExists = queryManagment.itemStillHere(elementArguments[4]);
 
-            //Ejecuta si el vehiculo no se encuentra en el parqueadero
-            if (!vehicleExists) {
-                int checkIn = JOptionPane.showConfirmDialog(view, "Esta seguro que desea hacer el ingreso?");
-
-                //Se inicia proceso para ingresar el vehiculo
-                if (checkIn == 0) {
-                    //Obtiene el id del trabajador en turno
-                    User userManagment = new User();
-                    String workerId = userManagment.getId();
-
-                    //Obtiene la fecha y hora actual (EN ESTE CASO PARA CHECKIN)
-                    String formattedDate = TimeMethods.formatFullDate();
-
-                    //Intenta hacer consulta de insercion, si retorna verdadero se logro; en caco contrario no
-                    boolean vehicleInserted = queryManagment.insertItem(elementArguments, workerId, formattedDate);
-
-                    if (vehicleInserted) {
-                        JOptionPane.showMessageDialog(view, "Se realizo el ingreso");
-                    } else {
-                        JOptionPane.showMessageDialog(view, "ERROR, no se pudo ingresar el vehiculo");
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(view, "El vehiculo ya se encuentra en el parqueadero");
+            // Si el vehículo no está en el parqueadero, procede con el check-in
+            if (!vehicleExists && JOptionPane.showConfirmDialog(view, "¿Está seguro que desea hacer el ingreso?") == 0) {
+                // Realiza la inserción del vehículo
+                boolean vehicleInserted = queryManagment.insertItem(
+                        elementArguments, new User().getId(), TimeMethods.formatFullDate()
+                );
+                // Muestra mensaje dependiendo del resultado de la inserción
+                JOptionPane.showMessageDialog(view, vehicleInserted ? "Se realizó el ingreso con éxito" : "ERROR, no se pudo ingresar el vehículo");
+            } else if (vehicleExists) {
+                JOptionPane.showMessageDialog(view, "El vehículo ya se encuentra en el parqueadero");
             }
-
         } catch (Exception e) {
             System.out.println(e);
         }
     }
 
     @Override
-    public boolean checkOut(Component view, String[] elementArguments, String[] auxuliarData) {
+    public boolean checkOut(Component view, String[] elementArguments, String[] auxiliaryData) {
         boolean checkoutCompleted = false;
 
         try {
             QueryManagment queryManagment = new QueryManagment();
-            boolean stillHere = queryManagment.itemStillHere(elementArguments[2]);
-
-            //Si sigue en parqueadero sigue proceso; Si no, muestra mensaje que vehiculo ya salio del parquedero
-            if (stillHere) {
-                //Pide la informacion del vehiculo(TIPO VEHICULO) y lo envia a confirmDeparture()
-                String[] vehicleData = queryManagment.searchItem("plate", elementArguments[2]);
-
-                //PENDIENTE REFACTORIZAR
-                //Instancia Double y pregunta si va a cobrar tarifa regular
-                double parkingPrice = 0;
-                //int rateType = JOptionPane.showConfirmDialog(view, "Desea cobrar la tarifa regular?");
-                parkingPrice = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor a cobrar"));
-
-                //Cobra tarifa regular 
-                /*
-                if (rateType == 0) {
-                    //Envia a metodo especifico para hacer proceso de obtener tarifas de vehiculos
-                    parkingPrice = getParkingRates(parkingPrice);
-                } else if (rateType == 1) {
-                    parkingPrice = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el valor a cobrar"));
-                }
-                 */
-                //Obtiene la fecha y hora parseada a String
-                String formattedDate = TimeMethods.formatFullDate();
-
-                //Obtiene el ID del trabajador que tiene sesion iniciada y lo convierte a String
-                User userManagment = new User();
-                String userId = String.valueOf(userManagment.getId());
-
-                //Ejecuta el Checkout con los datos necesarios. (ID vehiculo, estado salida(El que esta en el combo box), quien realiza salida, fecha y hora salida)
-                boolean checkout = queryManagment.checkOutItem(vehicleData[0], "1", elementArguments[0], userId, formattedDate, parkingPrice);
-
-                if (checkout) {
-                    JOptionPane.showMessageDialog(view, "SALIDA COMPLETADA");
-                    checkoutCompleted = true;
-                } else {
-                    JOptionPane.showMessageDialog(view, "No se pudo realizar la salida, intentelo de nuevo");
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(view, "El vehiculo no se encuentra en el parqueadero");
+            if (!queryManagment.itemStillHere(elementArguments[2])) {
+                JOptionPane.showMessageDialog(view, "El vehículo no se encuentra en el parqueadero.");
+                return checkoutCompleted; // Termina temprano si el vehículo no está
             }
+
+            // Obtiene la información del vehículo y la tarifa
+            String[] vehicleData = queryManagment.searchItem(elementArguments[2]);
+            double parkingPrice = setCheckoutRate(view, elementArguments[0]);
+
+            // Realiza el checkout
+            String userId = String.valueOf(new User().getId());
+            boolean checkout = queryManagment.checkOutItem(
+                    vehicleData[0], User.getBusiness_id(), elementArguments[0], userId, TimeMethods.formatFullDate(), parkingPrice
+            );
+
+            // Resultado del proceso de checkout
+            JOptionPane.showMessageDialog(view, checkout ? "SALIDA COMPLETADA" : "No se pudo realizar la salida, intente de nuevo.");
+            checkoutCompleted = checkout;
+
         } catch (Exception e) {
-            System.out.println(e);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error during checkout", e);
+            JOptionPane.showMessageDialog(view, "Error al procesar la salida. Por favor, intente de nuevo.");
         }
 
-        //  PENDIENTE REVISAR
         return checkoutCompleted;
+    }
+
+    // Método para manejar la tarifa de estacionamiento
+    private double setCheckoutRate(Component view, String vehicleType) {
+        // Preguntar al usuario si quiere asignar la tarifa automática o manual
+        int option = JOptionPane.showOptionDialog(
+                view,
+                "¿Asignar tarifa automáticamente o manualmente?",
+                "Seleccionar tarifa",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new String[]{"Automática", "Manual"},
+                "Automática"
+        );
+
+        if (option == 0) { // Automática
+            Rates rate = new Rates();
+            String[] rateData = rate.searchRate(vehicleType);
+            if (rateData.length > 0) {
+                return Double.parseDouble(rateData[2]); // Tarifa automática
+            }
+            JOptionPane.showMessageDialog(view, "Tarifa no encontrada.");
+        } else if (option == 1) { // Manual
+            try {
+                return Double.parseDouble(JOptionPane.showInputDialog(view, "Ingrese valor manual:"));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(view, "Valor no válido.");
+            }
+        }
+        return 0.0; // Retorna 0 en caso de error o cancelación
     }
 
     @Override

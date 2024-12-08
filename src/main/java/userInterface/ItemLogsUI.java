@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import generalUtility.SearchDiscriminant;
 import generalUtility.IOOperations;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -21,7 +24,7 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
 
     public ItemLogsUI() {
         initComponents();
-        
+
         setRateTypeSelector();
         setStateSelector();
     }
@@ -68,9 +71,9 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
         filtersHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         filtersHeader.setText("FILTROS Y ORDENAMIENTO");
 
-        itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
-        itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
         itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
 
@@ -268,12 +271,12 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
             System.out.println("No se encontraron tarifas para agregar al selector.");
         }
     }
-    
+
     private void setStateSelector() {
         QueryManagment queryManagment = new QueryManagment();
         ArrayList<Object> states = queryManagment.getStatesName();
         ArrayList<String> stateName = (ArrayList<String>) states.get(1);
-        
+
         if (stateName != null && !stateName.isEmpty()) {
             for (String state : stateName) {
                 itemStateSelector.addItem(state.toUpperCase());
@@ -282,64 +285,66 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
             System.out.println("No se encontraron estados para agregar al selector.");
         }
     }
-    
+
     private String[][] requestLogsData() {
-        //Declara array de 3 campos para los criterios: (1)Tipo vehiculo (2)Estado vehiculo (3)Salida por
+        // Inicializar array para los criterios de búsqueda: (1)Tipo de vehículo, (2)Estado, (3)Usuario de salida
         String[] fields = new String[3];
 
-        //Obtiene tipo de vehiculo
-        fields[0] = itemTypeSelector.getSelectedItem().toString();
-        //Obtiene el estado del vehiculo
-        fields[1] = itemStateSelector.getSelectedItem().toString();
-        //Obtiene usuario que dio salida
-        fields[2] = itemCheckoutBySelector.getSelectedItem().toString();
+        try {
+            // Obtener y asignar valores seleccionados con operadores ternarios más legibles
+            fields[0] = getSelectedItemValue(itemTypeSelector);
+            fields[1] = getSelectedItemValue(itemStateSelector);
+            fields[2] = getSelectedItemValue(itemCheckoutBySelector);
 
-        //Se ingresa los campos  y retorna en array booleano de los que van a ser actualizados
-        Boolean[] notEmptyFields = SearchDiscriminant.notEmptyFields(fields);
+            // Verificar cuáles campos están llenos
+            Boolean[] notEmptyFields = SearchDiscriminant.notEmptyFields(fields);
 
-        //Parsea fields de texto a su numero ID
-        fields[0] = IOOperations.parseVehicleTypeToCode(fields[0]);
-        fields[1] = IOOperations.parseVehicleStateToCode(fields[1]);
+            // Convertir campos de texto a sus códigos correspondientes
+            fields[0] = IOOperations.parseVehicleTypeToCode(fields[0]);
+            fields[1] = IOOperations.parseVehicleStateToCode(fields[1]);
 
-        //Llama metodo para obtener los registros de la base de datos
-        QueryManagment queryManagment = new QueryManagment();
-        String[][] logsData = queryManagment.queryLogs(notEmptyFields, fields);
+            // Obtener registros de la base de datos
+            return new QueryManagment().queryLogs(notEmptyFields, fields);
 
-        return logsData;
+        } catch (Exception ex) {
+            // Manejo de errores: loguear y devolver nulo
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Error al solicitar datos de logs", ex);
+            return null;
+        }
+    }
+
+// Método auxiliar para obtener el valor seleccionado de un JComboBox
+    private String getSelectedItemValue(JComboBox<?> comboBox) {
+        return comboBox.getSelectedItem() != null
+                ? comboBox.getSelectedItem().toString().toLowerCase()
+                : "";
     }
 
     @Override
     public void fillTable(String[][] logsData) {
-        //Si la matriz con los datos esta vacia indica que no se encontraron registros; Si no esta vacio imprime los datos
-        if (logsData != null) {
-            //Obtiene el largo de la matriz
-            int range = logsData.length;
-
-            //Instancia la clase con el modelo de la tabla
-            DefaultTableModel tableModel = (DefaultTableModel) logsViewTable.getModel();
-
-            //Limpia la tabla para eliminar elementos anteriores (En caso que los tenga)
-            clearTable(tableModel);
-
-            //Imprime las columnas de la matriz e itera en 1 para repetir el proceso imprimiendo la siguiente fila
-            for (int row = 0; row < range; row++) {
-                tableModel.addRow(new Object[]{logsData[row][0], logsData[row][1], logsData[row][2], logsData[row][3], logsData[row][4], logsData[row][5], logsData[row][6], logsData[row][7], logsData[row][8], logsData[row][9], logsData[row][10], "$" + logsData[row][11]});
-            }
-        } else {
+        if (logsData == null || logsData.length == 0) {
             JOptionPane.showMessageDialog(this, "No se encontraron registros");
+            return;
+        }
+
+        // Instancia el modelo de la tabla
+        DefaultTableModel tableModel = (DefaultTableModel) logsViewTable.getModel();
+
+        // Limpia la tabla para eliminar elementos anteriores
+        clearTable(tableModel);
+
+        // Agrega las filas a la tabla
+        for (String[] rowData : logsData) {
+            Object[] row = new Object[12];
+            System.arraycopy(rowData, 0, row, 0, rowData.length);
+            row[11] = "$" + row[11];  // Formato de valor monetario
+            tableModel.addRow(row);
         }
     }
 
     @Override
     public void clearTable(DefaultTableModel tableModel) {
-        //Obtiene la cantidad de filas de la tabla y lo guarda en rowsCount
-        int rowsCount = tableModel.getRowCount();
-
-        //Inicia bucle desde la cantidad de filas-1 hasta que llega a 0 (Bucle decrementable)
-        for (int i = rowsCount - 1; i >= 0; i--) {
-            //Elimina la fila en la posicion de i
-            tableModel.removeRow(i);
-        }
+        tableModel.setRowCount(0);  // Resetea directamente las filas de la tabla
     }
 
     /**

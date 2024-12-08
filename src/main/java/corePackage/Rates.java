@@ -13,60 +13,55 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import network.Connect;
 import network.QueryManagment;
 
 /**
  *
  * @author Felipe
  */
-public class Rates extends network.Connect implements abstractModel.ManageRates {
+public class Rates implements abstractModel.ManageRates {
 
     //Declara 2 listas, el primero String para darle nombre a la tarifa. El segundo tipo Double para el valor de la tarifa
     private static ArrayList<String> newRateName = new ArrayList<>();
     private static ArrayList<Double> rate = new ArrayList<>();
 
-    //Recibe el componente desde el que ha sido llamado el metodo
     @Override
     public void addRate(Component view, int[] searchDiscriminant) {
-        boolean stop = false;
-
-        //Declara 2 listas, guardan los valores temporalmente hasta que sean integradas a la DB
+        // Listas para almacenar temporalmente los valores
         ArrayList<String> newRateName = new ArrayList<>();
         ArrayList<Double> newRate = new ArrayList<>();
 
-        while (stop == false) {
-            //Obtiene el nombre de la nueva tarifa
+        while (true) {
+            // Solicita el nombre y valor de la nueva tarifa
             String newElementName = JOptionPane.showInputDialog(view, "Como se llamara el nuevo elemento?");
-
-            //Obtiene el valor de la nueva tarifa
             String newElementValue = JOptionPane.showInputDialog(view, "Que valor tendra el nuevo elemento?");
 
-            //Valida que ambos campos no esten vacios; Si alguno lo esta muestra mensaje indicandolo
-            if (newElementName.length() > 0 && newElementValue.length() > 0) {
-                //Si no existe tarifa con ese nombre entonces la añade; Si no, muestra mensaje indicando que ya existe
-                if (!newRateName.contains(newElementName)) {
-                    newRateName.add(newElementName);
-                    newRate.add(Double.parseDouble(newElementValue));
-                } else {
-                    JOptionPane.showMessageDialog(view, "Ya existe un elemento con ese nombre");
-                }
-            } else {
+            // Valida la entrada
+            if (newElementName.isEmpty() || newElementValue.isEmpty()) {
                 JOptionPane.showMessageDialog(view, "Alguno de los campos esta vacio");
+                continue;
             }
 
-            //Pregunta si usuario quiere seguir añadiento elementos
-            int continueAdding = JOptionPane.showConfirmDialog(view, "Quiere continuar añadiendo elementos");
+            // Verifica si la tarifa ya existe
+            if (newRateName.contains(newElementName)) {
+                JOptionPane.showMessageDialog(view, "Ya existe un elemento con ese nombre");
+            } else {
+                // Añade la tarifa si no existe
+                newRateName.add(newElementName);
+                newRate.add(Double.parseDouble(newElementValue));
+            }
 
-            //Si valor de continueAdding es diferente de 1 entonces deja de iterar bucle para añadir registros
-            if (continueAdding == 0) {
-                stop = true;
+            // Pregunta si continuar añadiendo tarifas
+            if (JOptionPane.showConfirmDialog(view, "Quiere continuar añadiendo elementos") != JOptionPane.YES_OPTION) {
+                break;
             }
         }
 
-        //Llama metodo para subir tarifas a base de datos
+        // Sube las tarifas a la base de datos
         uploadRateToDB(newRateName, newRate);
     }
-    
+
     @Override
     public void addLocalRate(ArrayList<String> ratesName, ArrayList<Double> rates) {
         this.newRateName = ratesName;
@@ -75,167 +70,136 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
 
     @Override
     public boolean uploadRateToDB(ArrayList<String> newRateName, ArrayList<Double> newRate) {
-        //Abre la conexion a la base de datos
-        this.connect();
-        Connection link = getConnection();
-
-        //Variable temporal que indica el id del negocio que esta funcionando en este momento
-        int businessID = 1;
-
-        //Retorna true si la insercion se ejecuta correctamente
-        //Si algun dato no se actualiza retorna false y se hace rollback
-        boolean upload = true;
+        // Obtiene la instancia de la conexión usando el patrón Singleton
+        Connection link = Connect.getInstance().getConnection();
 
         try {
-            //String con consulta para insertar nuevas tarifas
+            // Variable temporal que indica el id del negocio que está funcionando en este momento
+            int businessID = 1;
+
+            // Inicia la transacción
+            link.setAutoCommit(false);
+
+            // String con consulta para insertar nuevas tarifas
             String insertRate = "INSERT INTO price(business_id, rate_name, rate_amount) VALUES (?, ?, ?);";
 
-            for (int i = 0; i < newRateName.size(); i++) {
-                //Se crea PreparedStatement y en cada posicion inserta el valor correspondiente en la posicion de i para cada elemento
-                PreparedStatement insertRatePS = link.prepareStatement(insertRate);
-                insertRatePS.setInt(1, businessID);
-                insertRatePS.setString(2, newRateName.get(i));
-                insertRatePS.setDouble(3, newRate.get(i));
+            try (PreparedStatement insertRatePS = link.prepareStatement(insertRate)) {
+                for (int i = 0; i < newRateName.size(); i++) {
+                    insertRatePS.setInt(1, businessID);
+                    insertRatePS.setString(2, newRateName.get(i));
+                    insertRatePS.setDouble(3, newRate.get(i));
 
-                //Ejecuta consulta de insercion
-                int inserted = insertRatePS.executeUpdate();
+                    // Ejecuta la consulta de inserción
+                    int inserted = insertRatePS.executeUpdate();
 
-                //Si consulta retorno 0 entonces upload = false
-                if (inserted == 0) {
-                    upload = false;
+                    // Si no se insertó, realiza rollback y retorna false
+                    if (inserted == 0) {
+                        link.rollback();
+                        return false;
+                    }
                 }
 
-                //Cierra la consulta
-                insertRatePS.close();
-            }
-
-            //Valida que upload sea true; Si es false significa que en algun punto algun elemento no se inserto y hace rollback
-            if (upload == false) {
+                // Si todo ha ido bien, hace commit de la transacción
+                link.commit();
+                return true;
+            } catch (SQLException ex) {
+                // Si ocurre un error, hace rollback
                 link.rollback();
+                Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, "Error al insertar tarifas", ex);
+                return false;
             }
 
-            //Cierra la conexion a la base de datos
-            this.closeConnection();
         } catch (SQLException ex) {
-            try {
-                link.rollback();
-            } catch (SQLException ex1) {
-                Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, null, ex1);
-            }
+            Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, "Error al conectar a la base de datos", ex);
+            return false;
         }
-
-        //Retorna las tarifas obtenidas
-        return upload;
     }
 
-    //searchDiscriminant[0] tiene el discriminante de id del negocio que solicita las tarifas
-    //searchDiscriminant[1] determina la cantidad de tarifas que se pediran a la DB, -1 deslimita (PENDIENTE)
     @Override
     public ArrayList<Object> getRates(int businessID) {
-        //Abre la conexion a la base de datos
-        this.connect();
-        Connection link = getConnection();
-
-        //Declara lista para guardar el id, nombre y monto de las tarifas
         ArrayList<Object> ratesData = new ArrayList<>();
-        ArrayList<Integer> ratesID = new ArrayList<>();
-        ArrayList<String> ratesName = new ArrayList<>();
-        ArrayList<Double> rates = new ArrayList<>();
 
-        try {
-            String queryRates = "SELECT * FROM price WHERE business_id = ?";
-            PreparedStatement ratesPS = link.prepareStatement(queryRates);
-            ratesPS.setString(1, String.valueOf(businessID));
-            ResultSet ratesRS = ratesPS.executeQuery();
+        // Consulta SQL para obtener tarifas
+        String queryRates = "SELECT id, rate_name, rate_amount FROM price WHERE business_id = ?";
 
-            //Acumula tarifas en la lista en la columna asignada (PENDIENTE ASIGNAR LA COLUMNA CORRECTA)
-            while (ratesRS.next()) {
-                ratesID.add(ratesRS.getInt("id"));
-                ratesName.add(ratesRS.getString("rate_name"));
-                rates.add(ratesRS.getDouble("rate_amount")); 
+        // Manejo automático de la conexión y recursos con try-with-resources
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement ratesPS = link.prepareStatement(queryRates)) {
+
+            // Configura el parámetro de la consulta
+            ratesPS.setInt(1, businessID);
+
+            // Ejecuta la consulta y obtiene los resultados
+            try (ResultSet ratesRS = ratesPS.executeQuery()) {
+
+                // Declara listas para almacenar los resultados de las tarifas
+                ArrayList<Integer> ratesID = new ArrayList<>();
+                ArrayList<String> ratesName = new ArrayList<>();
+                ArrayList<Double> rates = new ArrayList<>();
+
+                // Recorre el ResultSet y agrega los datos a las listas
+                while (ratesRS.next()) {
+                    ratesID.add(ratesRS.getInt("id"));
+                    ratesName.add(ratesRS.getString("rate_name"));
+                    rates.add(ratesRS.getDouble("rate_amount"));
+                }
+
+                // Asigna los datos al objeto ratesData
+                ratesData.add(ratesID);
+                ratesData.add(ratesName);
+                ratesData.add(rates);
             }
 
-            //Asigna valores de ArrayList´s locales a ArrayList´s globales
-            addLocalRate(ratesName, rates);
-            
-            ratesData.add(ratesID);
-            ratesData.add(ratesName);
-            ratesData.add(rates);
-
-            //Cierra el ResultSet
-            ratesRS.close();
-
-            //Cierra la consulta
-            ratesPS.close();
-
-            //Cierra la conexion a la base de datos
-            this.closeConnection();
-
-            //Retorna las tarifas obtenidas
-            return ratesData;
         } catch (SQLException ex) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error al obtener tarifas", ex);
         }
 
-        return null;
+        // Retorna las tarifas obtenidas o null si hubo un error
+        return ratesData.isEmpty() ? null : ratesData;
     }
 
-    //Recibe como argumento el nombre del elemento a buscar
     @Override
     public String[] searchRate(String elementName) {
-        //Busca el nombre del elemento ingresado, si lo encuentra lo guarda en elementIndex
+        // Busca el índice del nombre del elemento
         int elementIndex = newRateName.indexOf(elementName);
-        String[] ratesData = new String[3];
 
-        //Si elementIndex es diferente a -1 elimina el elemento en esa posicion en rateIdentifiquer y rate
-        if (elementIndex != -1) {
-            //ratesData[0] contiene el codigo de la tarifa
-            ratesData[0] = String.valueOf(elementIndex);
-
-            //ratesData[1] contiene el nombre de la tarifa
-            ratesData[1] = newRateName.get(elementIndex);
-
-            //ratesData[2] contiene el valor de la tarifa
-            ratesData[2] = String.valueOf(rate.get(elementIndex));
-
-            //Devuelve el array completo
-            return ratesData;
-        } else {
-            return null;
+        // Si el elemento no se encuentra, retorna un array vacío
+        if (elementIndex == -1) {
+            return new String[0];
         }
+
+        // Si el elemento se encuentra, construye el array con la información
+        return new String[]{
+            String.valueOf(elementIndex), // Código de la tarifa
+            newRateName.get(elementIndex), // Nombre de la tarifa
+            String.valueOf(rate.get(elementIndex)) // Valor de la tarifa
+        };
     }
 
-    //PENDIENTE 
     @Override
     public boolean updateRate(Component view, int businessId, String elementName, double newRate) {
-        //Abre la conexion a la base de datos
-        this.connect();
-        Connection link = getConnection();
-
-        //Declara booleano que indica si se logro actualizar la tarifa
+        // Declara la variable que indica si se logró actualizar la tarifa
         boolean rateUpdated = false;
 
-        //Ejecuta cosulta a DB para actualizar la tarifa. Si la actualizacion es exitosa devuelve true
-        try {
-            String updateRateQuery = "UPDATE price SET rate_amount = ? WHERE business_id = ? AND rate_name = ?";    //rate_name es temporal, despues sera id
-            PreparedStatement updateRatePS = link.prepareStatement(updateRateQuery);
+        // Utiliza try-with-resources para asegurar el cierre de los recursos
+        String updateRateQuery = "UPDATE price SET rate_amount = ? WHERE business_id = ? AND rate_name = ?";
+
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement updateRatePS = link.prepareStatement(updateRateQuery)) {
+
+            // Establece los parámetros de la consulta
             updateRatePS.setDouble(1, newRate);
             updateRatePS.setInt(2, businessId);
-            updateRatePS.setString(3, elementName/*ratesData[0]*/);     //Esto es temporal mientras hago que los ArrayList guarden los datos
+            updateRatePS.setString(3, elementName);  // El nombre del elemento a actualizar
+
+            // Ejecuta la actualización
             int executedUpdate = updateRatePS.executeUpdate();
 
+            // Si la actualización fue exitosa, cambia rateUpdated a true
             if (executedUpdate == 1) {
                 rateUpdated = true;
-                link.commit();
+                link.commit(); // Confirmar la transacción
             } else {
-                link.rollback();
+                link.rollback(); // Revertir cambios si no se actualizó
             }
-
-            //Cierra la consulta
-            updateRatePS.close();
-
-            //Cierra la conexion a la base de datos
-            this.closeConnection();
 
         } catch (SQLException ex) {
             Logger.getLogger(Rates.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,27 +208,9 @@ public class Rates extends network.Connect implements abstractModel.ManageRates 
         return rateUpdated;
     }
 
-    //Recibe como argumentos el componente donde se esta llamando el metodo y el nombre del elemento a eliminar
     @Override
     public boolean deleteRate(Component view, String elementName) {
-        //Valor booleano que retornara la funcion para confirmar que se realizo el proceso
-        boolean remove = false;
-
-        //Busca el nombre del elemento ingresado, si lo encuentra lo guarda en elementIndex
-        int elementIndex = newRateName.indexOf(elementName);
-        String[] searchResult = searchRate(elementName);
-
-        //Si elementIndex es diferente a -1 elimina el elemento en esa posicion en rateIdentifiquer y rate
-        if (searchResult != null) {
-            newRateName.remove(elementIndex);
-            rate.remove(elementIndex);
-            remove = true;
-        } else {
-            JOptionPane.showMessageDialog(view, "Elemento no encontrado");
-            remove = false;
-        }
-
-        return remove;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -10,28 +10,16 @@ package generalUtility;
  */
 public class SearchDiscriminant {
 
-    //Recibe los datos a comprobar si estan vacios y retorna array booleano; true para datos que se actualizaran
     public static Boolean[] notEmptyFields(String[] fields) {
-        
-        //Obtiene el largo de la entrada de fields y define el inicio del bucle en 0
-        int inputSize = fields.length, range = 0;
+        // Crea un array booleano del mismo tamaño que el array de entrada
+        Boolean[] binarySelectionEmptyFields = new Boolean[fields.length];
 
-        //Array booleano para guardar los campos que se actualizaran
-        Boolean[] binarySelectionEmptyFields = new Boolean[inputSize];
-
-        //Ejecuta mientras sea menor al numero de entradas de campos
-        do {
-            //Si field no esta vacio retorna verdadero; Si no, falso
-            if (!fields[range].isEmpty()) {
-                binarySelectionEmptyFields[range] = true;
-            } else {
-                binarySelectionEmptyFields[range] = false;
-            }
-            
-            //Aumenta el valor actual del bucle en 1
-            range++;
-        } while (range < fields.length);
+        // Recorre los campos y verifica si están vacíos
+        for (int i = 0; i < fields.length; i++) {
+            binarySelectionEmptyFields[i] = !fields[i].isEmpty();
+        }
 
         return binarySelectionEmptyFields;
     }
+
 }

@@ -9,6 +9,8 @@ import corePackage.Parking;
 import corePackage.User;
 import generalUtility.IOOperations;
 import java.util.ArrayList;
+import java.util.function.Function;
+import javax.swing.JComboBox;
 import network.QueryManagment;
 
 /**
@@ -142,85 +144,61 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
 
+    private void setSelector(JComboBox<String> selector, ArrayList<Object> data, int index) {
+        ArrayList<String> names = (ArrayList<String>) data.get(index);
+
+        if (names != null && !names.isEmpty()) {
+            names.forEach(name -> selector.addItem(name.toUpperCase()));
+        } else {
+            System.out.println("No se encontraron elementos para agregar al selector.");
+        }
+    }
+
     private void setRateTypeSelector() {
         QueryManagment queryManagment = new QueryManagment();
         ArrayList<Object> ratesData = queryManagment.getRatesName(User.getBusiness_id());
-        ArrayList<String> ratesName = (ArrayList<String>) ratesData.get(1);
-
-        if (ratesName != null && !ratesName.isEmpty()) {
-            for (String rate : ratesName) {
-                itemTypeSelector.addItem(rate.toUpperCase());
-            }
-        } else {
-            System.out.println("No se encontraron tarifas para agregar al selector.");
-        }
+        setSelector(itemTypeSelector, ratesData, 1);
     }
-    
+
     private void setColorSelector() {
         QueryManagment queryManagment = new QueryManagment();
         ArrayList<Object> colors = queryManagment.getColorsName();
-        
-        ArrayList<String> colorName = (ArrayList<String>) colors.get(1);
-        
-        if (colorName != null && !colorName.isEmpty()) {
-            for (String color : colorName) {
-                itemColorSelector.addItem(color.toUpperCase());
-            }
-        } else {
-            System.out.println("No se encontraron colores para agregar al selector.");
-        }
+        setSelector(itemColorSelector, colors, 1);
     }
-    
+
     private void setStateSelector() {
         QueryManagment queryManagment = new QueryManagment();
         ArrayList<Object> states = queryManagment.getStatesName();
-        ArrayList<String> stateName = (ArrayList<String>) states.get(1);
-        
-        if (stateName != null && !stateName.isEmpty()) {
-            for (String state : stateName) {
-                itemStateSelector.addItem(state.toUpperCase());
-            }
-        } else {
-            System.out.println("No se encontraron estados para agregar al selector.");
-        }
+        setSelector(itemStateSelector, states, 1);
     }
 
     private String[] getAndParseComboboxData() {
         String[] itemInputData = new String[5];
 
-        //Obtiene valor tipo de vehiculo y lo parsea a su codigo
-        String type = itemTypeSelector.getSelectedItem().toString();
-        itemInputData[0] = IOOperations.parseVehicleTypeToCode(type.toLowerCase());
-
-        //Obtiene valor color de vehiculo y lo parsea a su codigo
-        String color = itemColorSelector.getSelectedItem().toString();
-        itemInputData[1] = IOOperations.parseVehicleColorToCode(color.toLowerCase());
-
-        //Obtiene estado de vehiculo y lo parsea a su codigo
-        String state = itemStateSelector.getSelectedItem().toString();
-        itemInputData[2] = IOOperations.parseVehicleStateToCode(state.toLowerCase());
-
-        //Obtiene identificacion de dueño y placa
-        itemInputData[3] = itemOwnerID.getText().toString().toLowerCase().trim();
-        itemInputData[4] = itemIdentifiquer.getText().toString().toLowerCase().trim();
+        // Procesa cada dato del comboBox y los campos de texto, convirtiéndolos a su código o valor correspondiente
+        itemInputData[0] = parseAndConvert(itemTypeSelector, IOOperations::parseVehicleTypeToCode);
+        itemInputData[1] = parseAndConvert(itemColorSelector, IOOperations::parseVehicleColorToCode);
+        itemInputData[2] = parseAndConvert(itemStateSelector, IOOperations::parseVehicleStateToCode);
+        itemInputData[3] = itemOwnerID.getText().toLowerCase().trim();
+        itemInputData[4] = itemIdentifiquer.getText().toLowerCase().trim();
 
         return itemInputData;
     }
 
-    private void itemEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntryButtonActionPerformed
-        //Se inicializa con los nombres de los campos de la entrada
-        String[] fields = {"tipo", "color", "estado", "cedula", "placa"};
+    private String parseAndConvert(JComboBox<String> selector, Function<String, String> parser) {
+        String selectedItem = (String) selector.getSelectedItem();
+        return selectedItem != null ? parser.apply(selectedItem.toLowerCase()) : "";
+    }
 
-        //Se inicializa con los datos de la entrada
+
+    private void itemEntryButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntryButtonActionPerformed
+        // Definir los campos a verificar y los datos a ingresar
+        String[] fields = {"tipo", "color", "estado", "cedula", "placa"};
         String[] itemInputData = getAndParseComboboxData();
 
-        //Valida si hay campos vacios
-        boolean isFull = IOOperations.validateNonEmptyFields(this, itemInputData, fields);
-
-        //Si no hay campos vacios se ejecuta
-        if (isFull) {
-            Parking parking = new Parking();
-            parking.checkIn(this, itemInputData, fields);
+        // Validar que no haya campos vacíos
+        if (IOOperations.validateNonEmptyFields(this, itemInputData, fields)) {
+            new Parking().checkIn(this, itemInputData, fields);
         }
     }//GEN-LAST:event_itemEntryButtonActionPerformed
 

@@ -275,7 +275,7 @@ public class SearchItemUI extends javax.swing.JFrame {
 
         //Busca la informacion del vehiculo en la base de datos
         QueryManagment queryManagment = new QueryManagment();
-        String[] vehicleData = queryManagment.searchItem(searchBy, search);
+        String[] vehicleData = queryManagment.searchItem(search);
 
         //Valida que el array tenga informacion; Si no la tiene imprime mensaje indicando que no se entrontro coincidencia
         if (vehicleData[0] != null) {
