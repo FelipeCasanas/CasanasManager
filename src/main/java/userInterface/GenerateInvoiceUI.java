@@ -42,12 +42,14 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         developerLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
+        setResizable(false);
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("GENERADOR FACTURAS");
 
-        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa", "Cedula" }));
+        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto", "Cedula responsable" }));
         searchMethodSelector.setEnabled(false);
 
         searchMethodField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -181,7 +183,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
 
         //Declara array para campos
         String[] fields = new String[2];
-        
+
         //Guarda los datos
         fields[0] = searchMethodSelector.getSelectedItem().toString();
         fields[1] = searchMethodField.getText().toString();
@@ -215,10 +217,10 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
-        
+
         PrintingMethods printingMethods = new PrintingMethods();
         printingMethods.getBusinessData();
-        
+
         PrintingMethods printInvoice = new PrintingMethods();
         printInvoice.print(vehicleData);
     }//GEN-LAST:event_printInvoiceActionPerformed

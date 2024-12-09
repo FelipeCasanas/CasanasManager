@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import generalUtility.SearchDiscriminant;
 import generalUtility.IOOperations;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -27,6 +28,7 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
 
         setRateTypeSelector();
         setStateSelector();
+        setEmployeeSelector();
     }
 
     /**
@@ -75,7 +77,7 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
 
         itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
 
-        itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1" }));
+        itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         searchLogs.setText("BUSCAR");
         searchLogs.addActionListener(new java.awt.event.ActionListener() {
@@ -283,6 +285,23 @@ public class ItemLogsUI extends javax.swing.JFrame implements ManageTable {
             }
         } else {
             System.out.println("No se encontraron estados para agregar al selector.");
+        }
+    }
+
+    private void setEmployeeSelector() {
+        QueryManagment queryManagment = new QueryManagment();
+
+        // Obtiene los datos de los empleados desde la base de datos
+        List<String[]> employees = queryManagment.getEmployesIDs();
+
+        if (employees != null && !employees.isEmpty()) {
+            for (String[] employee : employees) {
+                // Construye una representación legible del empleado para el JComboBox
+                String employeeDisplay = String.format("%s - %s %s", employee[0], employee[1].toUpperCase(), employee[2].toUpperCase());
+                itemCheckoutBySelector.addItem(employeeDisplay);
+            }
+        } else {
+            System.out.println("No se encontraron empleados para agregar al selector.");
         }
     }
 

@@ -159,20 +159,19 @@ public class Rates implements abstractModel.ManageRates {
 
     @Override
     public String[] searchRate(String elementName) {
+
         // Busca el índice del nombre del elemento
-        int elementIndex = newRateName.indexOf(elementName);
-
-        // Si el elemento no se encuentra, retorna un array vacío
-        if (elementIndex == -1) {
-            return new String[0];
+        if (newRateName.contains(elementName)) {
+            int elementIndex = newRateName.indexOf(elementName);
+            
+            // Si el elemento se encuentra, construye el array con la información
+            return new String[]{
+                String.valueOf(elementIndex), // Código de la tarifa
+                newRateName.get(elementIndex), // Nombre de la tarifa
+                String.valueOf(rate.get(elementIndex)) // Valor de la tarifa
+            };
         }
-
-        // Si el elemento se encuentra, construye el array con la información
-        return new String[]{
-            String.valueOf(elementIndex), // Código de la tarifa
-            newRateName.get(elementIndex), // Nombre de la tarifa
-            String.valueOf(rate.get(elementIndex)) // Valor de la tarifa
-        };
+        return null;
     }
 
     @Override

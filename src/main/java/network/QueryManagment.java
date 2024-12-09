@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import generalUtility.TimeMethods;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -211,6 +212,66 @@ public class QueryManagment {
         return false;  // Retornar false si ocurrió algún error
     }
 
+    public String[][] getCheckoutData(String dateToSearch) {
+        // Validar el formato de la fecha
+        if (dateToSearch == null || dateToSearch.trim().isEmpty()) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Invalid dateToSearch parameter");
+            return null;
+        }
+
+        // Definir la consulta SQL para obtener los datos de checkout
+        String innerJoinQuery = """
+    INNER JOIN type t1 ON i1.item_type = t1.id
+    INNER JOIN my_user mu ON i1.checkout_by = mu.id
+    INNER JOIN income inc1 ON i1.id = inc1.item_id AND i1.business_id = inc1.business_id
+    """;
+
+        String whereQuery = " WHERE i1.checkout_hour BETWEEN ? AND ?";
+        String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.rate_amount "
+                + "FROM item i1 " + innerJoinQuery + whereQuery;
+
+        String[][] checkoutData = null;
+
+        // Manejo de la conexión y ejecución de la consulta
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement checkoutCountPS = link.prepareStatement(checkoutCountQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
+
+            // Configurar los parámetros de la consulta
+            String startDateTime = dateToSearch + " 00:00:00";
+            String endDateTime = dateToSearch + " 23:59:59";
+
+            checkoutCountPS.setString(1, startDateTime);
+            checkoutCountPS.setString(2, endDateTime);
+
+            try (ResultSet checkoutCountRS = checkoutCountPS.executeQuery()) {
+                // Mover al final para obtener el total de filas
+                if (checkoutCountRS.last()) {
+                    int totalRows = checkoutCountRS.getRow();
+                    if (totalRows > 0) {
+                        checkoutData = new String[totalRows][5];
+                        checkoutCountRS.beforeFirst(); // Volver al inicio para leer los resultados
+
+                        // Iterar sobre el ResultSet y almacenar los resultados
+                        int index = 0;
+                        while (checkoutCountRS.next()) {
+                            checkoutData[index][0] = checkoutCountRS.getString("id");
+                            checkoutData[index][1] = checkoutCountRS.getString("type_name");
+                            checkoutData[index][2] = checkoutCountRS.getString("rate_amount");
+                            checkoutData[index][3] = checkoutCountRS.getString("name");
+                            checkoutData[index][4] = checkoutCountRS.getString("last_name");
+                            index++;
+                        }
+                    }
+                }
+            }
+
+        } catch (SQLException ex) {
+            // Registrar el error en el log con detalle de la excepción
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error fetching checkout data for date: " + dateToSearch, ex);
+        }
+
+        return checkoutData; // Retornar los datos obtenidos
+    }
+
     public String[][] queryLogs(Boolean[] searchFilters, String[] fields) {
         // Base de la consulta SQL
         String baseQuery = """
@@ -236,7 +297,7 @@ public class QueryManagment {
             whereClause = new StringBuilder(" WHERE i1.id = ? ");
         } else {
             if (searchFilters[0]) {
-                whereClause.append(" AND i1.item_identifiquer = ? ");
+                whereClause.append(" AND i1.item_type = ? ");
             }
             if (searchFilters[1]) {
                 whereClause.append(" AND i1.checkin_state = ? ");
@@ -286,14 +347,14 @@ public class QueryManagment {
                     int rowIndex = 0;
                     while (rs.next()) {
                         logsData[rowIndex][0] = rs.getString("id");
-                        logsData[rowIndex][1] = rs.getString("type_name");
-                        logsData[rowIndex][2] = rs.getString("color_name");
-                        logsData[rowIndex][3] = rs.getString("checkin_state_name");
-                        logsData[rowIndex][4] = rs.getString("checkout_state_name");
-                        logsData[rowIndex][5] = rs.getString("checkin_by_user_name");
-                        logsData[rowIndex][6] = rs.getString("checkout_by_user_name");
+                        logsData[rowIndex][1] = rs.getString("type_name").toUpperCase();
+                        logsData[rowIndex][2] = rs.getString("color_name").toUpperCase();
+                        logsData[rowIndex][3] = rs.getString("checkin_state_name").toUpperCase();
+                        logsData[rowIndex][4] = rs.getString("checkout_state_name").toUpperCase();
+                        logsData[rowIndex][5] = rs.getString("checkin_by_user_name").toUpperCase();
+                        logsData[rowIndex][6] = rs.getString("checkout_by_user_name").toUpperCase();
                         logsData[rowIndex][7] = rs.getString("client");
-                        logsData[rowIndex][8] = rs.getString("item_identifiquer");
+                        logsData[rowIndex][8] = rs.getString("item_identifiquer").toUpperCase();
                         logsData[rowIndex][9] = rs.getString("checkin_hour");
                         logsData[rowIndex][10] = rs.getString("checkout_hour");
                         logsData[rowIndex][11] = rs.getString("rate_amount");
@@ -369,66 +430,6 @@ public class QueryManagment {
         }
 
         return totalItemsCount; // Retornar el array con los conteos por tipo
-    }
-
-    public String[][] getCheckoutData(String dateToSearch) {
-        // Validar el formato de la fecha
-        if (dateToSearch == null || dateToSearch.trim().isEmpty()) {
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Invalid dateToSearch parameter");
-            return null;
-        }
-
-        // Definir la consulta SQL para obtener los datos de checkout
-        String innerJoinQuery = """
-    INNER JOIN type t1 ON i1.item_type = t1.id
-    INNER JOIN my_user mu ON i1.checkout_by = mu.id
-    INNER JOIN income inc1 ON i1.id = inc1.item_id AND i1.business_id = inc1.business_id
-    """;
-
-        String whereQuery = " WHERE i1.checkout_hour BETWEEN ? AND ?";
-        String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.rate_amount "
-                + "FROM item i1 " + innerJoinQuery + whereQuery;
-
-        String[][] checkoutData = null;
-
-        // Manejo de la conexión y ejecución de la consulta
-        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement checkoutCountPS = link.prepareStatement(checkoutCountQuery, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)) {
-
-            // Configurar los parámetros de la consulta
-            String startDateTime = dateToSearch + " 00:00:00";
-            String endDateTime = dateToSearch + " 23:59:59";
-
-            checkoutCountPS.setString(1, startDateTime);
-            checkoutCountPS.setString(2, endDateTime);
-
-            try (ResultSet checkoutCountRS = checkoutCountPS.executeQuery()) {
-                // Mover al final para obtener el total de filas
-                if (checkoutCountRS.last()) {
-                    int totalRows = checkoutCountRS.getRow();
-                    if (totalRows > 0) {
-                        checkoutData = new String[totalRows][5];
-                        checkoutCountRS.beforeFirst(); // Volver al inicio para leer los resultados
-
-                        // Iterar sobre el ResultSet y almacenar los resultados
-                        int index = 0;
-                        while (checkoutCountRS.next()) {
-                            checkoutData[index][0] = checkoutCountRS.getString("id");
-                            checkoutData[index][1] = checkoutCountRS.getString("type_name");
-                            checkoutData[index][2] = checkoutCountRS.getString("rate_amount");
-                            checkoutData[index][3] = checkoutCountRS.getString("name");
-                            checkoutData[index][4] = checkoutCountRS.getString("last_name");
-                            index++;
-                        }
-                    }
-                }
-            }
-
-        } catch (SQLException ex) {
-            // Registrar el error en el log con detalle de la excepción
-            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error fetching checkout data for date: " + dateToSearch, ex);
-        }
-
-        return checkoutData; // Retornar los datos obtenidos
     }
 
     public ArrayList<Object> getColorsName() {
@@ -513,5 +514,33 @@ public class QueryManagment {
 
         return stateData;
     }
+    
+    public List<String[]> getEmployesIDs() {
+    List<String[]> employees = new ArrayList<>();
+    String query = "SELECT id, name, last_name FROM my_user WHERE business_id = ?";
+    
+    try (Connection link = Connect.getInstance().getConnection();
+         PreparedStatement preparedStatement = link.prepareStatement(query)) {
+        
+        // Obtiene el ID del negocio
+        int businessId = Integer.parseInt(User.getBusiness_id());
+        preparedStatement.setInt(1, businessId);
+        
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                String[] employeeData = new String[3];
+                employeeData[0] = resultSet.getString("id");
+                employeeData[1] = resultSet.getString("name");
+                employeeData[2] = resultSet.getString("last_name");
+                employees.add(employeeData);
+            }
+        }
+    } catch (Exception e) {
+        System.err.println("Error al obtener los empleados: " + e.getMessage());
+        e.printStackTrace();
+    }
+    
+    return employees;
+}
 
 }
