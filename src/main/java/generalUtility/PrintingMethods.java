@@ -5,23 +5,18 @@
 package generalUtility;
 
 import corePackage.ReportsManagement;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import net.sf.jasperreports.engine.*;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.sf.jasperreports.engine.JasperPrint;
 import network.Connect;
 
-/**
- *
- * @author Felipe
- */
 public class PrintingMethods {
 
     private static String[] businessData = new String[14];
-    
+
     public void getBusinessData() {
         Connection link = Connect.getInstance().getConnection(); 
 
@@ -56,9 +51,10 @@ public class PrintingMethods {
     }
 
     public void print(String[] vehicleData) {
-        // Ruta al archivo JRXML y ruta de salida para el archivo compilado
-        String jrxmlFile = this.businessData[12];
-        String compiledReportFile = this.businessData[13];
+        // Rutas predefinidas
+        String jrxmlFile = "src/main/resources/InvoiceModel.jrxml";
+        String compiledReportFile = "src/main/resources/InvoiceModel.jasper";
+        String companyLogo = "src/main/resources/icon.jpg";
 
         // Datos para llenar el reporte
         String type = vehicleData[9].toUpperCase();
@@ -69,9 +65,8 @@ public class PrintingMethods {
         String checkoutBy = vehicleData[5].toUpperCase();
         String ownerId = vehicleData[8];
         String plate = vehicleData[7].toUpperCase();
-        String companyName = this.businessData[2];                     //NOMBRE EMPRESA CLIENTE
-        String companyLogo = this.businessData[11];   //LOGO DE COMPAÑIA A DEFINIR
-        String companyAddress = this.businessData[6];                  //DIRECCION DE PARQUEADERO CLIENTE
+        String companyName = this.businessData[2];                     // NOMBRE EMPRESA CLIENTE
+        String companyAddress = this.businessData[6];                  // DIRECCION DE PARQUEADERO CLIENTE
 
         // Crear una objeto de ReportsManagement
         ReportsManagement reportsManagement = new ReportsManagement(type, color, state, checkoutState,
