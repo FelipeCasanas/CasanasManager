@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2024 at 05:41 PM
+-- Generation Time: Dec 11, 2024 at 03:52 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,8 +65,8 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `business_type`) VALUES
 (1, 'parqueadero'),
-(2, 'tienda'),
-(3, 'supermercado');
+(2, 'comercial'),
+(3, 'comidas');
 
 -- --------------------------------------------------------
 
@@ -94,6 +94,29 @@ INSERT INTO `color` (`id`, `color_name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `devices`
+--
+
+CREATE TABLE `devices` (
+  `id` int(11) NOT NULL,
+  `disk_serial_number` varchar(255) NOT NULL,
+  `bios_uuid` varchar(255) NOT NULL,
+  `os_info` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `devices`
+--
+
+INSERT INTO `devices` (`id`, `disk_serial_number`, `bios_uuid`, `os_info`, `created_at`, `updated_at`, `active`) VALUES
+(1, 'WD-WCC6Y1TN6L61', '958D5380-B05D-11E5-8F1B-107B44146C29', 'Windows 10 10.0 amd64', '2024-12-11 02:32:07', '2024-12-11 02:51:13', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `income`
 --
 
@@ -109,12 +132,15 @@ CREATE TABLE `income` (
 --
 
 INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
-(1, 1, 1, 2400),
-(2, 1, 7, 3500),
-(3, 1, 6, 2700),
-(4, 1, 5, 2200),
-(5, 1, 8, 4500),
-(6, 1, 9, 4000);
+(1, 1, 1, 1900),
+(2, 1, 4, 2100),
+(3, 1, 5, 5900),
+(4, 1, 7, 2200),
+(5, 1, 8, 2000),
+(6, 1, 9, 1700),
+(7, 1, 10, 0),
+(8, 1, 11, 3000),
+(9, 1, 6, 7000);
 
 -- --------------------------------------------------------
 
@@ -163,15 +189,17 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `color`, `client`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
-(1, 'ttr456', 2, 1, 1, '1111232435', 1, 1, '2024-09-06 14:22:05', '2024-09-06 14:26:55', 1, 1),
-(2, 'dde45h', 1, 1, 3, '1111354654', 2, 0, '2024-09-06 14:33:14', NULL, 1, 0),
-(3, 'pty56c', 1, 1, 4, '1110345342', 4, 0, '2024-09-06 14:54:23', NULL, 1, 0),
-(4, 'ftr435', 2, 1, 1, '1111323222', 1, 0, '2024-09-07 16:41:12', NULL, 1, 0),
-(5, 'ygr476', 2, 1, 1, '1111386722', 1, 1, '2024-09-07 16:41:31', '2024-09-07 16:47:12', 1, 1),
-(6, 'jhu54c', 1, 1, 1, '1111857633', 1, 1, '2024-09-07 16:41:56', '2024-09-07 16:46:54', 1, 1),
-(7, 'yfu34c', 1, 1, 1, '1111800657', 1, 1, '2024-09-07 16:42:14', '2024-09-07 16:46:38', 1, 1),
-(8, 'wjk99e', 1, 1, 4, '2233444545', 2, 1, '2024-09-07 18:14:53', '2024-09-07 18:17:23', 1, 1),
-(9, 'ggy567', 1, 1, 5, '1110435465', 1, 1, '2024-09-07 22:54:18', '2024-09-07 22:55:10', 1, 1);
+(1, 'hhh10g', 1, 1, 1, '1111435456', 1, 1, '2024-11-25 18:42:25', '2024-12-07 20:21:21', 1, 1),
+(2, 'hhh56f', 1, 1, 5, '2222222222', 1, 0, '2024-12-06 20:50:56', NULL, 1, 0),
+(3, 'frt123', 2, 1, 3, '1111122222', 2, 0, '2024-12-07 20:05:44', NULL, 1, 0),
+(4, 'yyy123', 1, 1, 1, '2222211111', 1, 1, '2024-12-07 20:29:22', '2024-12-07 20:42:09', 1, 1),
+(5, 'rrr123', 2, 1, 4, '1111133333', 1, 1, '2024-12-07 22:35:00', '2024-12-07 22:35:52', 1, 1),
+(6, 'rrr123', 2, 1, 4, '1111122222', 1, 1, '2024-12-07 22:36:30', '2024-12-08 17:16:25', 1, 1),
+(7, 'wjk95c', 1, 1, 5, '1112388256', 1, 2, '2024-12-07 22:58:52', '2024-12-07 22:59:41', 1, 1),
+(8, 'wer34d', 1, 1, 1, '1234567890', 1, 1, '2024-12-08 00:21:02', '2024-12-08 00:21:32', 1, 1),
+(9, 'ttt234', 1, 1, 2, '1234567890', 1, 1, '2024-12-08 00:36:52', '2024-12-08 00:37:41', 1, 1),
+(10, 'qqq123', 2, 1, 5, '1234554321', 2, 1, '2024-12-08 03:24:00', '2024-12-08 03:24:42', 1, 1),
+(11, 'fff10f', 1, 1, 1, '1234554321', 1, 1, '2024-12-08 03:26:43', '2024-12-08 03:27:16', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -218,9 +246,9 @@ CREATE TABLE `price` (
 --
 
 INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
-(1, 'carro', 1, 2200),
-(2, 'moto', 1, 1500),
-(3, 'bicicleta', 1, 700);
+(1, 'carro', 1, 3300),
+(2, 'moto', 1, 2500),
+(3, 'bicicleta', 1, 500);
 
 -- --------------------------------------------------------
 
@@ -230,22 +258,23 @@ INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
 
 CREATE TABLE `state` (
   `id` int(11) NOT NULL,
-  `state_name` varchar(16) NOT NULL
+  `state_name` varchar(16) NOT NULL,
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `state`
 --
 
-INSERT INTO `state` (`id`, `state_name`) VALUES
-(0, 'indefinido'),
-(1, 'ok'),
-(2, 'rayon(es)'),
-(3, 'golpe(s)'),
-(4, 'desconocido'),
-(5, 'nuevo'),
-(6, 'usado'),
-(7, 'reacondicionado');
+INSERT INTO `state` (`id`, `state_name`, `category_id`) VALUES
+(0, 'indefinido', 0),
+(1, 'buen estado', 1),
+(2, 'rayon(es)', 1),
+(3, 'golpe(s)', 1),
+(4, 'desconocido', 1),
+(5, 'nuevo', 2),
+(6, 'usado', 2),
+(7, 'reacondicionado', 2);
 
 -- --------------------------------------------------------
 
@@ -255,17 +284,18 @@ INSERT INTO `state` (`id`, `state_name`) VALUES
 
 CREATE TABLE `type` (
   `id` int(11) NOT NULL,
-  `type_name` varchar(12) NOT NULL
+  `type_name` varchar(12) NOT NULL,
+  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `type`
 --
 
-INSERT INTO `type` (`id`, `type_name`) VALUES
-(1, 'moto'),
-(2, 'carro'),
-(3, 'bicicleta');
+INSERT INTO `type` (`id`, `type_name`, `category_id`) VALUES
+(1, 'moto', 1),
+(2, 'carro', 1),
+(3, 'bicicleta', 1);
 
 -- --------------------------------------------------------
 
@@ -277,6 +307,21 @@ CREATE TABLE `user_preference` (
   `id` int(11) NOT NULL,
   `dark_mode` int(11) NOT NULL,
   `recomendations` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `workers`
+--
+
+CREATE TABLE `workers` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `role` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -300,6 +345,13 @@ ALTER TABLE `category`
 --
 ALTER TABLE `color`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `devices`
+--
+ALTER TABLE `devices`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `disk_serial_number` (`disk_serial_number`,`bios_uuid`,`os_info`);
 
 --
 -- Indexes for table `income`
@@ -360,6 +412,14 @@ ALTER TABLE `user_preference`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `workers`
+--
+ALTER TABLE `workers`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`business_id`),
+  ADD KEY `business_id` (`business_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -382,10 +442,16 @@ ALTER TABLE `color`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT for table `devices`
+--
+ALTER TABLE `devices`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `invoice_model`
@@ -397,7 +463,7 @@ ALTER TABLE `invoice_model`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `my_user`
@@ -428,6 +494,23 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user_preference`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `workers`
+--
+ALTER TABLE `workers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `workers`
+--
+ALTER TABLE `workers`
+  ADD CONSTRAINT `workers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `my_user` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `workers_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

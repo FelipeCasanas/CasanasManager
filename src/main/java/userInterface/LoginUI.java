@@ -6,6 +6,7 @@ package userInterface;
 
 import javax.swing.JOptionPane;
 import corePackage.User;
+import generalUtility.SystemAuth;
 
 /**
  *
@@ -16,6 +17,11 @@ public class LoginUI extends javax.swing.JFrame {
     public LoginUI() {
 
         initComponents();
+        SystemAuth systemAuth = new SystemAuth();
+                
+        if(systemAuth.validateSystemData()) {
+            
+        }
     }
 
     /**

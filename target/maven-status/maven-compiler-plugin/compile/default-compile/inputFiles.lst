@@ -11,12 +11,14 @@ C:\Users\Felipe\Desktop\CasanasManager\src\main\java\corePackage\User.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\generalUtility\IOOperations.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\generalUtility\PrintingMethods.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\generalUtility\SearchDiscriminant.java
+C:\Users\Felipe\Desktop\CasanasManager\src\main\java\generalUtility\SystemAuth.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\generalUtility\TimeMethods.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Connect.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\QueryManagment.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\CalculatorUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\CashCheckoutUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\DashboardUI.java
+C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\ErrorUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\GenerateInvoiceUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\ItemCheckInUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\userInterface\ItemCheckOutUI.java

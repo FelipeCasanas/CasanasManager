@@ -33,8 +33,10 @@ userInterface\CashCheckoutUI.class
 abstractModel\ManageRates.class
 userInterface\CalculatorUI.class
 userInterface\ItemCheckInUI$3.class
+generalUtility\SystemAuth.class
 userInterface\CalculatorUI$14.class
 userInterface\CashCheckoutUI$2.class
+userInterface\ErrorUI$3.class
 userInterface\DashboardUI$6.class
 userInterface\SearchItemUI$3.class
 userInterface\DashboardUI$9.class
@@ -42,12 +44,14 @@ userInterface\ItemLogsUI.class
 userInterface\CalculatorUI$4.class
 network\QueryManagment.class
 userInterface\LoginUI$2.class
+userInterface\ErrorUI.class
 userInterface\RatesUI$2.class
 userInterface\CashCheckoutUI$5.class
 corePackage\Rates.class
 userInterface\CalculatorUI$11.class
 userInterface\CalculatorUI$7.class
 generalUtility\SearchDiscriminant.class
+userInterface\ErrorUI$2.class
 userInterface\CalculatorUI$10.class
 userInterface\DashboardUI$5.class
 corePackage\Parking.class
@@ -66,6 +70,7 @@ userInterface\LoginUI$3.class
 userInterface\SearchItemUI.class
 userInterface\GenerateInvoiceUI$1.class
 userInterface\GenerateInvoiceUI.class
+userInterface\ErrorUI$1.class
 userInterface\ItemCheckInUI$1.class
 userInterface\CalculatorUI$8.class
 userInterface\DashboardUI.class
