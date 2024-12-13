@@ -18,8 +18,15 @@ import network.QueryManagment;
  */
 public class IOOperations {
 
-    public static String replaceDateSlash(String dateToSearch) {
-        return dateToSearch.replace("/", "-");
+    public static String replaceSlash(String elementToSearch) {
+        return elementToSearch.replace("/", "-");
+    }
+
+    public static String sanitizeInput(String elementToSearch) {
+        if (elementToSearch == null) {
+            return ""; // Manejar posibles valores nulos
+        }
+        return elementToSearch.replaceAll("[.,;:$]", "").toLowerCase().trim();
     }
 
     public static boolean compare(String[] textInput, int operationToDo) {

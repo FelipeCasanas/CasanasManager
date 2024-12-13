@@ -13,10 +13,6 @@ import java.util.ArrayList;
  */
 public interface ManageRates {
 
-    void addRate(Component view, int[] searchDiscriminant);
-    
-    void addLocalRate(ArrayList<String> ratesName, ArrayList<Double> rates);
-
     boolean uploadRateToDB(ArrayList<String> newRateIdentifiquer, ArrayList<Double> newRate);
 
     ArrayList<Object> getRates(int businessType);
@@ -24,7 +20,5 @@ public interface ManageRates {
     String[] searchRate(String elementName);
 
     boolean updateRate(Component view, int businessId, String elementName, double newRate);
-
-    boolean deleteRate(Component view, String elementName);
 
 }

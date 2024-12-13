@@ -144,8 +144,8 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
         // Obtener y procesar los datos de entrada
         itemInputData[0] = IOOperations.parseVehicleStateToCode(itemDepartureState.getSelectedItem().toString().toLowerCase());
-        itemInputData[1] = itemDepartureOwnerID.getText().toString().toLowerCase().trim();
-        itemInputData[2] = itemDepartureIdentifiquer.getText().toString().toLowerCase().trim();
+        itemInputData[1] = IOOperations.sanitizeInput(itemDepartureOwnerID.getText().toString());
+        itemInputData[2] = IOOperations.sanitizeInput(itemDepartureIdentifiquer.getText().toString());
 
         // Validar si los campos están completos
         if (IOOperations.validateNonEmptyFields(this, itemInputData, fields)) {

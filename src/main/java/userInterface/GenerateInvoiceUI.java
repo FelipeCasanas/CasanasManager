@@ -4,6 +4,7 @@
  */
 package userInterface;
 
+import generalUtility.IOOperations;
 import network.QueryManagment;
 import javax.swing.JOptionPane;
 import generalUtility.PrintingMethods;
@@ -186,7 +187,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
 
         //Guarda los datos
         fields[0] = searchMethodSelector.getSelectedItem().toString();
-        fields[1] = searchMethodField.getText().toString();
+        fields[1] = IOOperations.sanitizeInput(searchMethodField.getText().toString());
 
         //Busca el vehiculo en la DB
         QueryManagment queryManagment = new QueryManagment();
@@ -217,7 +218,6 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
-
         PrintingMethods printingMethods = new PrintingMethods();
         printingMethods.getBusinessData();
 

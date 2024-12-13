@@ -317,7 +317,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
 
     private void otherDaySearchReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDaySearchReportActionPerformed
         // Obtiene la fecha ingresada y la formatea
-        String dateToSearch = IOOperations.replaceDateSlash(otherDayReportField.getText());
+        String dateToSearch = IOOperations.replaceSlash(otherDayReportField.getText());
 
         // Obtiene el conteo y los totales desde la base de datos
         QueryManagment queryCheckoutData = new QueryManagment();

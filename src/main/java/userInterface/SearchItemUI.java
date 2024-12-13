@@ -4,6 +4,7 @@
  */
 package userInterface;
 
+import generalUtility.IOOperations;
 import network.QueryManagment;
 
 /**
@@ -271,7 +272,7 @@ public class SearchItemUI extends javax.swing.JFrame {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         //Obtiene el metodo de busqueda y el criterio
         String searchBy = searchDiscriminant.getSelectedItem().toString();
-        String search = searchParam.getText().toLowerCase().trim();
+        String search = IOOperations.sanitizeInput(searchParam.getText().toString());
 
         //Busca la informacion del vehiculo en la base de datos
         QueryManagment queryManagment = new QueryManagment();

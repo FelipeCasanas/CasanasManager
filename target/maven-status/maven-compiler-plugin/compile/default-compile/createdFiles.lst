@@ -76,6 +76,7 @@ userInterface\CalculatorUI$8.class
 userInterface\DashboardUI.class
 userInterface\DashboardUI$1.class
 network\Connect.class
+userInterface\RatesUI$4.class
 generalUtility\TimeMethods.class
 userInterface\CalculatorUI$19.class
 userInterface\LoginUI$4.class

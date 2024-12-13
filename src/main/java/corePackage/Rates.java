@@ -27,48 +27,6 @@ public class Rates implements abstractModel.ManageRates {
     private static ArrayList<Double> rate = new ArrayList<>();
 
     @Override
-    public void addRate(Component view, int[] searchDiscriminant) {
-        // Listas para almacenar temporalmente los valores
-        ArrayList<String> newRateName = new ArrayList<>();
-        ArrayList<Double> newRate = new ArrayList<>();
-
-        while (true) {
-            // Solicita el nombre y valor de la nueva tarifa
-            String newElementName = JOptionPane.showInputDialog(view, "Como se llamara el nuevo elemento?");
-            String newElementValue = JOptionPane.showInputDialog(view, "Que valor tendra el nuevo elemento?");
-
-            // Valida la entrada
-            if (newElementName.isEmpty() || newElementValue.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Alguno de los campos esta vacio");
-                continue;
-            }
-
-            // Verifica si la tarifa ya existe
-            if (newRateName.contains(newElementName)) {
-                JOptionPane.showMessageDialog(view, "Ya existe un elemento con ese nombre");
-            } else {
-                // Añade la tarifa si no existe
-                newRateName.add(newElementName);
-                newRate.add(Double.parseDouble(newElementValue));
-            }
-
-            // Pregunta si continuar añadiendo tarifas
-            if (JOptionPane.showConfirmDialog(view, "Quiere continuar añadiendo elementos") != JOptionPane.YES_OPTION) {
-                break;
-            }
-        }
-
-        // Sube las tarifas a la base de datos
-        uploadRateToDB(newRateName, newRate);
-    }
-
-    @Override
-    public void addLocalRate(ArrayList<String> ratesName, ArrayList<Double> rates) {
-        this.newRateName = ratesName;
-        this.rate = rates;
-    }
-
-    @Override
     public boolean uploadRateToDB(ArrayList<String> newRateName, ArrayList<Double> newRate) {
         // Obtiene la instancia de la conexión usando el patrón Singleton
         Connection link = Connect.getInstance().getConnection();
@@ -158,20 +116,34 @@ public class Rates implements abstractModel.ManageRates {
     }
 
     @Override
-    public String[] searchRate(String elementName) {
+    public String[] searchRate(String elementID) {
+        String[] rate = new String[1];
 
-        // Busca el índice del nombre del elemento
-        if (newRateName.contains(elementName)) {
-            int elementIndex = newRateName.indexOf(elementName);
-            
-            // Si el elemento se encuentra, construye el array con la información
-            return new String[]{
-                String.valueOf(elementIndex), // Código de la tarifa
-                newRateName.get(elementIndex), // Nombre de la tarifa
-                String.valueOf(rate.get(elementIndex)) // Valor de la tarifa
-            };
+        // Consulta SQL para obtener tarifas
+        String queryRates = "SELECT rate_amount FROM price WHERE id = ? LIMIT 1";
+
+        // Manejo automático de la conexión y recursos con try-with-resources
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement ratesPS = link.prepareStatement(queryRates)) {
+
+            // Configura el parámetro de la consulta
+            ratesPS.setInt(1, Integer.parseInt(elementID));
+
+            // Ejecuta la consulta y obtiene los resultados
+            try (ResultSet ratesRS = ratesPS.executeQuery()) {
+
+                // Recorre el ResultSet y agrega los datos a las listas
+                while (ratesRS.next()) {
+                    rate[0] = ratesRS.getString("rate_amount");
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManagment.class.getName()).log(Level.SEVERE, "Error al obtener tarifas", ex);
         }
-        return null;
+
+        // Retorna las tarifas obtenidas o null si hubo un error
+        return rate;
     }
 
     @Override
@@ -206,10 +178,4 @@ public class Rates implements abstractModel.ManageRates {
 
         return rateUpdated;
     }
-
-    @Override
-    public boolean deleteRate(Component view, String elementName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

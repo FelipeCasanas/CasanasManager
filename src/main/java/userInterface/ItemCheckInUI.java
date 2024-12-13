@@ -179,8 +179,8 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         itemInputData[0] = parseAndConvert(itemTypeSelector, IOOperations::parseVehicleTypeToCode);
         itemInputData[1] = parseAndConvert(itemColorSelector, IOOperations::parseVehicleColorToCode);
         itemInputData[2] = parseAndConvert(itemStateSelector, IOOperations::parseVehicleStateToCode);
-        itemInputData[3] = itemOwnerID.getText().toLowerCase().trim();
-        itemInputData[4] = itemIdentifiquer.getText().toLowerCase().trim();
+        itemInputData[3] = IOOperations.sanitizeInput(itemOwnerID.getText().toString());
+        itemInputData[4] = IOOperations.sanitizeInput(itemIdentifiquer.getText().toString());
 
         return itemInputData;
     }

@@ -117,12 +117,12 @@ public class Parking extends ManageBussiness {
             Rates rate = new Rates();
             String[] rateData = rate.searchRate(vehicleType);
             if (rateData.length > 0) {
-                return Double.parseDouble(rateData[2]); // Tarifa automática
+                return Double.parseDouble(rateData[0]); // Tarifa automática
             }
             JOptionPane.showMessageDialog(view, "Tarifa no encontrada.");
         } else if (option == 1) { // Manual
             try {
-                return Double.parseDouble(JOptionPane.showInputDialog(view, "Ingrese valor manual:"));
+                return Double.parseDouble(JOptionPane.showInputDialog(view, "Ingrese valor a cobrar:"));
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(view, "Valor no válido.");
             }
