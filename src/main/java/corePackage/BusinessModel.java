@@ -9,7 +9,6 @@ import network.QueryManagment;
 import java.awt.Component;
 import javax.swing.JOptionPane;
 import generalUtility.TimeMethods;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,31 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Felipe
  */
-public class Parking extends ManageBussiness {
-
-    public ArrayList<Double> getRates() {
-        ArrayList<Double> returnedRates = new ArrayList<>();
-
-        Rates rates = new Rates();
-        ArrayList<Object> ratesData = rates.getRates(1);
-        ArrayList<String> rateNames = (ArrayList<String>) ratesData.get(1);
-        ArrayList<Double> rateValues = (ArrayList<Double>) ratesData.get(2);
-
-        // Mapeo de los nombres de las tarifas a los tipos de vehículo
-        String[] vehicleTypes = {"carro", "moto", "bicicleta"};
-
-        // Iterar sobre cada tipo de vehículo para verificar si existe la tarifa correspondiente
-        for (String vehicle : vehicleTypes) {
-            int index = rateNames.indexOf(vehicle);
-            if (index >= 0) {
-                returnedRates.add(rateValues.get(index));  // Agregar tarifa si se encuentra
-            } else {
-                returnedRates.add(0.0);  // Agregar 0.0 si no se encuentra
-            }
-        }
-
-        return returnedRates;
-    }
+public class BusinessModel extends ManageBussiness {
 
     @Override
     public void checkIn(Component view, String[] elementArguments, String[] auxuliarData) {
@@ -79,7 +54,7 @@ public class Parking extends ManageBussiness {
 
             // Obtiene la información del vehículo y la tarifa
             String[] vehicleData = queryManagment.searchItem(elementArguments[2]);
-            double parkingPrice = setCheckoutRate(view, elementArguments[0]);
+            double parkingPrice = setCheckoutRate(view, vehicleData[9]);
 
             // Realiza el checkout
             String userId = String.valueOf(new User().getId());
@@ -115,6 +90,7 @@ public class Parking extends ManageBussiness {
 
         if (option == 0) { // Automática
             Rates rate = new Rates();
+
             String[] rateData = rate.searchRate(vehicleType);
             if (rateData.length > 0) {
                 return Double.parseDouble(rateData[0]); // Tarifa automática
@@ -129,25 +105,4 @@ public class Parking extends ManageBussiness {
         }
         return 0.0; // Retorna 0 en caso de error o cancelación
     }
-
-    @Override
-    public String[] search(String[] searchArguments) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public int[] countLogs(String[] countElements) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public boolean setIncome(Double income, String elementPosition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public double[] getIncome(String searchParam) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
 }

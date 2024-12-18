@@ -8,17 +8,21 @@ import generalUtility.IOOperations;
 import network.QueryManagment;
 import javax.swing.JOptionPane;
 import generalUtility.PrintingMethods;
+import java.awt.Color;
 
 /**
  *
  * @author Felipe
  */
 public class GenerateInvoiceUI extends javax.swing.JFrame {
-
+    
     private String[] vehicleData;
-
+    
     public GenerateInvoiceUI() {
         initComponents();
+        
+        searchMethodField.setText("Ingrese el dato de busqueda");
+        searchMethodField.setForeground(Color.GRAY);
     }
 
     /**
@@ -50,10 +54,17 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("GENERADOR FACTURAS");
 
-        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto", "Cedula responsable" }));
-        searchMethodSelector.setEnabled(false);
+        searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto" }));
 
         searchMethodField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchMethodField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchMethodFieldFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchMethodFieldFocusLost(evt);
+            }
+        });
 
         searchButton.setText("BUSCAR");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +212,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         if (vehicleData[0] != null) {
             setVehicleData(vehicleData);
             printInvoice.setEnabled(true);
-
+            
             if (vehicleData[5].equals("0")) {
                 foundLabel.setText("AUN EN PARQUEADERO");
                 foundLabelStillHere.setText("FALTARAN DATOS SI IMPRIME");
@@ -220,15 +231,35 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     private void printInvoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_printInvoiceActionPerformed
         PrintingMethods printingMethods = new PrintingMethods();
         printingMethods.getBusinessData();
-
+        
         PrintingMethods printInvoice = new PrintingMethods();
         printInvoice.print(vehicleData);
     }//GEN-LAST:event_printInvoiceActionPerformed
 
+    private void searchMethodFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchMethodFieldFocusGained
+        String placeholder = "Ingrese el dato de busqueda";
+
+        // Eliminar el placeholder al ganar foco
+        if (searchMethodField.getText().equals(placeholder)) {
+            searchMethodField.setText("");
+            searchMethodField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_searchMethodFieldFocusGained
+
+    private void searchMethodFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchMethodFieldFocusLost
+        String placeholder = "Ingrese el dato de busqueda";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (searchMethodField.getText().isEmpty()) {
+            searchMethodField.setText(placeholder);
+            searchMethodField.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_searchMethodFieldFocusLost
+    
     public String[] getVehicleData() {
         return vehicleData;
     }
-
+    
     private void setVehicleData(String[] vehicleData) {
         this.vehicleData = vehicleData;
     }

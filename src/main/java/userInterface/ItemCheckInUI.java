@@ -5,9 +5,10 @@
 package userInterface;
 
 import javax.swing.JOptionPane;
-import corePackage.Parking;
+import corePackage.BusinessModel;
 import corePackage.User;
 import generalUtility.IOOperations;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.function.Function;
 import javax.swing.JComboBox;
@@ -25,6 +26,12 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         setRateTypeSelector();
         setColorSelector();
         setStateSelector();
+
+        itemOwnerID.setText("Documento del cliente");
+        itemOwnerID.setForeground(Color.GRAY);
+
+        itemIdentifiquer.setText("Identificador del producto");
+        itemIdentifiquer.setForeground(Color.GRAY);
     }
 
     /**
@@ -64,8 +71,24 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         itemOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemOwnerID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                itemOwnerIDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemOwnerIDFocusLost(evt);
+            }
+        });
 
         itemIdentifiquer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemIdentifiquer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                itemIdentifiquerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemIdentifiquerFocusLost(evt);
+            }
+        });
 
         itemEntryButton.setText("INGRESAR");
         itemEntryButton.addActionListener(new java.awt.event.ActionListener() {
@@ -198,9 +221,49 @@ public class ItemCheckInUI extends javax.swing.JFrame {
 
         // Validar que no haya campos vacíos
         if (IOOperations.validateNonEmptyFields(this, itemInputData, fields)) {
-            new Parking().checkIn(this, itemInputData, fields);
+            new BusinessModel().checkIn(this, itemInputData, fields);
         }
     }//GEN-LAST:event_itemEntryButtonActionPerformed
+
+    private void itemOwnerIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemOwnerIDFocusGained
+        String placeholder = "Documento del cliente";
+
+        // Eliminar el placeholder al ganar foco
+        if (itemOwnerID.getText().equals(placeholder)) {
+            itemOwnerID.setText("");
+            itemOwnerID.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemOwnerIDFocusGained
+
+    private void itemOwnerIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemOwnerIDFocusLost
+        String placeholder = "Documento del cliente";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (itemOwnerID.getText().isEmpty()) {
+            itemOwnerID.setText(placeholder);
+            itemOwnerID.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemOwnerIDFocusLost
+
+    private void itemIdentifiquerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemIdentifiquerFocusGained
+        String placeholder = "Identificador del producto";
+
+        // Eliminar el placeholder al ganar foco
+        if (itemIdentifiquer.getText().equals(placeholder)) {
+            itemIdentifiquer.setText("");
+            itemIdentifiquer.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemIdentifiquerFocusGained
+
+    private void itemIdentifiquerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemIdentifiquerFocusLost
+        String placeholder = "Identificador del producto";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (itemIdentifiquer.getText().isEmpty()) {
+            itemIdentifiquer.setText(placeholder);
+            itemIdentifiquer.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemIdentifiquerFocusLost
 
     /**
      * @param args the command line arguments

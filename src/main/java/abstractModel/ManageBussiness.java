@@ -22,12 +22,4 @@ public abstract class ManageBussiness {
     //leaveAwayElementArguments = vehicleId, checkoutState, parkingPrice
     //auxiliarData = checkoutBy, checkoutHour
     public abstract boolean checkOut(Component view, String[] elementArguments, String[] auxuliarData);
-
-    public abstract String[] search(String[] searchArguments);
-
-    public abstract int[] countLogs(String[] countElements);
-
-    public abstract boolean setIncome(Double income, String elementPosition);
-
-    public abstract double[] getIncome(String searchParam);
 }

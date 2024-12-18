@@ -514,33 +514,32 @@ public class QueryManagment {
 
         return stateData;
     }
-    
+
     public List<String[]> getEmployesIDs() {
-    List<String[]> employees = new ArrayList<>();
-    String query = "SELECT id, name, last_name FROM my_user WHERE business_id = ?";
-    
-    try (Connection link = Connect.getInstance().getConnection();
-         PreparedStatement preparedStatement = link.prepareStatement(query)) {
-        
-        // Obtiene el ID del negocio
-        int businessId = Integer.parseInt(User.getBusiness_id());
-        preparedStatement.setInt(1, businessId);
-        
-        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-            while (resultSet.next()) {
-                String[] employeeData = new String[3];
-                employeeData[0] = resultSet.getString("id");
-                employeeData[1] = resultSet.getString("name");
-                employeeData[2] = resultSet.getString("last_name");
-                employees.add(employeeData);
+        List<String[]> employees = new ArrayList<>();
+        String query = "SELECT id, name, last_name FROM my_user WHERE business_id = ?";
+
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement preparedStatement = link.prepareStatement(query)) {
+
+            // Obtiene el ID del negocio
+            int businessId = Integer.parseInt(User.getBusiness_id());
+            preparedStatement.setInt(1, businessId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String[] employeeData = new String[3];
+                    employeeData[0] = resultSet.getString("id");
+                    employeeData[1] = resultSet.getString("name");
+                    employeeData[2] = resultSet.getString("last_name");
+                    employees.add(employeeData);
+                }
             }
+        } catch (Exception e) {
+            System.err.println("Error al obtener los empleados: " + e.getMessage());
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.err.println("Error al obtener los empleados: " + e.getMessage());
-        e.printStackTrace();
+
+        return employees;
     }
-    
-    return employees;
-}
 
 }

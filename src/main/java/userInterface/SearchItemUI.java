@@ -5,6 +5,7 @@
 package userInterface;
 
 import generalUtility.IOOperations;
+import java.awt.Color;
 import network.QueryManagment;
 
 /**
@@ -15,6 +16,9 @@ public class SearchItemUI extends javax.swing.JFrame {
 
     public SearchItemUI() {
         initComponents();
+        
+        searchParam.setText("Ingrese el dato de busqueda");
+        searchParam.setForeground(Color.GRAY);
     }
 
     /**
@@ -57,10 +61,17 @@ public class SearchItemUI extends javax.swing.JFrame {
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR ARTICULO");
 
-        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto", "Cedula responsable" }));
-        searchDiscriminant.setEnabled(false);
+        searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto"}));
 
         searchParam.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchParam.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                searchParamFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                searchParamFocusLost(evt);
+            }
+        });
 
         searchButton.setText("BUSCAR");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
@@ -306,6 +317,26 @@ public class SearchItemUI extends javax.swing.JFrame {
             itsNotLabel.setText("NO SE ENCONTRO COINCIDENCIA");
         }
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void searchParamFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchParamFocusGained
+        String placeholder = "Ingrese el dato de busqueda";
+
+        // Eliminar el placeholder al ganar foco
+        if (searchParam.getText().equals(placeholder)) {
+            searchParam.setText("");
+            searchParam.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_searchParamFocusGained
+
+    private void searchParamFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchParamFocusLost
+        String placeholder = "Ingrese el dato de busqueda";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (searchParam.getText().isEmpty()) {
+            searchParam.setText(placeholder);
+            searchParam.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_searchParamFocusLost
 
     /**
      * @param args the command line arguments

@@ -5,8 +5,10 @@
 package userInterface;
 
 import javax.swing.JOptionPane;
-import corePackage.Parking;
+import corePackage.BusinessModel;
 import generalUtility.IOOperations;
+import generalUtility.PrintingMethods;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 import network.QueryManagment;
@@ -21,6 +23,12 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         initComponents();
 
         setStateSelector();
+
+        itemDepartureOwnerID.setText("Documento del cliente");
+        itemDepartureOwnerID.setForeground(Color.GRAY);
+
+        itemDepartureIdentifiquer.setText("Identificador del producto");
+        itemDepartureIdentifiquer.setForeground(Color.GRAY);
     }
 
     /**
@@ -54,8 +62,24 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         itemDepartureState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
 
         itemDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemDepartureOwnerID.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                itemDepartureOwnerIDFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemDepartureOwnerIDFocusLost(evt);
+            }
+        });
 
         itemDepartureIdentifiquer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        itemDepartureIdentifiquer.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                itemDepartureIdentifiquerFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                itemDepartureIdentifiquerFocusLost(evt);
+            }
+        });
 
         itemDepartureButton.setText("DAR SALIDA");
         itemDepartureButton.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +173,46 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
         // Validar si los campos están completos
         if (IOOperations.validateNonEmptyFields(this, itemInputData, fields)) {
-            new Parking().checkOut(this, itemInputData, fields);
+            // Procesar el check-out del vehículo
+            if (new BusinessModel().checkOut(this, itemInputData, fields)) {
+                // Confirmar si se desea generar factura
+                String[] options = {"Sí", "No"};
+                int action = JOptionPane.showOptionDialog(
+                        this,
+                        "¿Desea generar factura?",
+                        "Confirmar",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        options,
+                        options[0]
+                );
+
+                if (action == JOptionPane.YES_OPTION) {
+                    try {
+                        // Buscar los datos del vehículo en la base de datos
+                        QueryManagment queryManagment = new QueryManagment();
+                        String[] vehicleData = queryManagment.searchItem(itemInputData[2]);
+
+                        // Verificar si se encontraron los datos del vehículo
+                        if (vehicleData == null || vehicleData.length == 0) {
+                            JOptionPane.showMessageDialog(this, "No se encontraron datos del vehículo.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+
+                        // Obtener datos del negocio
+                        PrintingMethods printingMethods = new PrintingMethods();
+                        printingMethods.getBusinessData();
+
+                        // Generar e imprimir la factura
+                        printingMethods.print(vehicleData);
+                    } catch (Exception e) {
+                        // Manejo de excepciones para evitar caídas inesperadas
+                        JOptionPane.showMessageDialog(this, "Ocurrió un error al generar la factura: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
 
     }//GEN-LAST:event_itemDepartureButtonActionPerformed
@@ -160,6 +223,46 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
+
+    private void itemDepartureOwnerIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemDepartureOwnerIDFocusGained
+        String placeholder = "Documento del cliente";
+
+        // Eliminar el placeholder al ganar foco
+        if (itemDepartureOwnerID.getText().equals(placeholder)) {
+            itemDepartureOwnerID.setText("");
+            itemDepartureOwnerID.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemDepartureOwnerIDFocusGained
+
+    private void itemDepartureOwnerIDFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemDepartureOwnerIDFocusLost
+        String placeholder = "Documento del cliente";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (itemDepartureOwnerID.getText().isEmpty()) {
+            itemDepartureOwnerID.setText(placeholder);
+            itemDepartureOwnerID.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemDepartureOwnerIDFocusLost
+
+    private void itemDepartureIdentifiquerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemDepartureIdentifiquerFocusGained
+        String placeholder = "Identificador del producto";
+
+        // Eliminar el placeholder al ganar foco
+        if (itemDepartureIdentifiquer.getText().equals(placeholder)) {
+            itemDepartureIdentifiquer.setText("");
+            itemDepartureIdentifiquer.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemDepartureIdentifiquerFocusGained
+
+    private void itemDepartureIdentifiquerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemDepartureIdentifiquerFocusLost
+        String placeholder = "Identificador del producto";
+
+        // Restaurar el placeholder si el campo está vacío
+        if (itemDepartureIdentifiquer.getText().isEmpty()) {
+            itemDepartureIdentifiquer.setText(placeholder);
+            itemDepartureIdentifiquer.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_itemDepartureIdentifiquerFocusLost
 
     /**
      * @param args the command line arguments

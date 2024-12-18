@@ -32,8 +32,8 @@ public class Rates implements abstractModel.ManageRates {
         Connection link = Connect.getInstance().getConnection();
 
         try {
-            // Variable temporal que indica el id del negocio que está funcionando en este momento
-            int businessID = 1;
+            // Indica el id del negocio que está funcionando en este momento
+            int businessID = Integer.parseInt(User.getBusiness_id());
 
             // Inicia la transacción
             link.setAutoCommit(false);
@@ -116,17 +116,17 @@ public class Rates implements abstractModel.ManageRates {
     }
 
     @Override
-    public String[] searchRate(String elementID) {
+    public String[] searchRate(String elementName) {
         String[] rate = new String[1];
 
         // Consulta SQL para obtener tarifas
-        String queryRates = "SELECT rate_amount FROM price WHERE id = ? LIMIT 1";
+        String queryRates = "SELECT rate_amount FROM price WHERE rate_name = ? LIMIT 1";
 
         // Manejo automático de la conexión y recursos con try-with-resources
         try (Connection link = Connect.getInstance().getConnection(); PreparedStatement ratesPS = link.prepareStatement(queryRates)) {
 
             // Configura el parámetro de la consulta
-            ratesPS.setInt(1, Integer.parseInt(elementID));
+            ratesPS.setString(1, elementName);
 
             // Ejecuta la consulta y obtiene los resultados
             try (ResultSet ratesRS = ratesPS.executeQuery()) {

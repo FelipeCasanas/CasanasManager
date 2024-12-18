@@ -4,7 +4,7 @@
  */
 package userInterface;
 
-import corePackage.Parking;
+import corePackage.BusinessModel;
 import javax.swing.JOptionPane;
 import corePackage.Rates;
 import corePackage.User;
@@ -18,7 +18,7 @@ import network.QueryManagment;
  */
 public class RatesUI extends javax.swing.JFrame {
 
-    Parking parking = new Parking();
+    BusinessModel parking = new BusinessModel();
 
     public RatesUI() {
         initComponents();

@@ -7,21 +7,19 @@ package generalUtility;
 import corePackage.ReportsManagement;
 import net.sf.jasperreports.engine.*;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import network.Connect;
 
 public class PrintingMethods {
 
-    private static String[] businessData = new String[14];
+    private static String[] businessData = new String[11];
 
     public void getBusinessData() {
         Connection link = Connect.getInstance().getConnection(); 
 
         try {
-            String queryBusinnessData = "SELECT b1.*, im1.icon, im1.jrxml_file, im1.jasper_model "
+            String queryBusinnessData = "SELECT b1.* "
                     + "FROM business b1 "
                     + "INNER JOIN invoice_model im1 "
                     + "ON b1.id = im1.business_id";
@@ -40,9 +38,6 @@ public class PrintingMethods {
                 this.businessData[8] = businessRS.getString("state");
                 this.businessData[9] = businessRS.getString("country");
                 this.businessData[10] = businessRS.getString("created_at");
-                this.businessData[11] = businessRS.getString("im1.icon");
-                this.businessData[12] = businessRS.getString("im1.jrxml_file");
-                this.businessData[13] = businessRS.getString("im1.jasper_model");
             }
 
         } catch (SQLException ex) {
