@@ -8,21 +8,21 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 /**
  *
  * @author Felipe
  */
 public class Connect {
+
     private static Connect instance;
     private Connection link;
-    
+
     // Constructor privado para evitar instanciación externa
     private Connect() {
         link = null;
         connect();
     }
-    
+
     // Método estático para obtener la instancia única
     public static Connect getInstance() {
         if (instance == null) {
@@ -30,17 +30,17 @@ public class Connect {
         }
         return instance;
     }
-    
+
     // Método para realizar la conexión
     private void connect() {
         String dbUrl = "jdbc:mysql://localhost:3306/parking_managment";
         String dbUser = "root";
         String dbPassword = "";
-        
+
         try {
             link = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
             link.setAutoCommit(false);  // Deshabilitar autocommit si usas transacciones
-            
+
             if (link != null) {
                 System.out.println("Connection successful");
             }
@@ -48,7 +48,7 @@ public class Connect {
             System.out.println("Error while connecting: " + ex);
         }
     }
-    
+
     // Método para obtener la conexión
     public Connection getConnection() {
         try {
@@ -60,7 +60,7 @@ public class Connect {
         }
         return link;
     }
-    
+
     // Método para cerrar la conexión
     public void closeConnection() throws SQLException {
         if (link != null && !link.isClosed()) {
@@ -71,5 +71,3 @@ public class Connect {
         }
     }
 }
-
-
