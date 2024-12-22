@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 11, 2024 at 03:52 AM
+-- Generation Time: Dec 22, 2024 at 04:00 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -140,28 +140,14 @@ INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
 (6, 1, 9, 1700),
 (7, 1, 10, 0),
 (8, 1, 11, 3000),
-(9, 1, 6, 7000);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `invoice_model`
---
-
-CREATE TABLE `invoice_model` (
-  `id` int(11) NOT NULL,
-  `business_id` int(11) NOT NULL,
-  `icon` varchar(256) NOT NULL,
-  `jrxml_file` varchar(256) NOT NULL,
-  `jasper_model` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `invoice_model`
---
-
-INSERT INTO `invoice_model` (`id`, `business_id`, `icon`, `jrxml_file`, `jasper_model`) VALUES
-(1, 1, 'C:/Users/Felipe/Desktop/icono.jpg', 'C:/Users/Felipe/Desktop/InvoiceModel.jrxml', 'C:/Users/Felipe/Desktop/InvoiceModel.jasper');
+(9, 1, 6, 7000),
+(10, 1, 3, 3300),
+(11, 1, 2, 3300),
+(12, 1, 12, 3300),
+(13, 1, 13, 3300),
+(14, 1, 14, 3300),
+(15, 1, 15, 3300),
+(16, 1, 16, 2500);
 
 -- --------------------------------------------------------
 
@@ -189,9 +175,9 @@ CREATE TABLE `item` (
 --
 
 INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `color`, `client`, `checkin_state`, `checkout_state`, `checkin_hour`, `checkout_hour`, `checkin_by`, `checkout_by`) VALUES
-(1, 'hhh10g', 1, 1, 1, '1111435456', 1, 1, '2024-11-25 18:42:25', '2024-12-07 20:21:21', 1, 1),
-(2, 'hhh56f', 1, 1, 5, '2222222222', 1, 0, '2024-12-06 20:50:56', NULL, 1, 0),
-(3, 'frt123', 2, 1, 3, '1111122222', 2, 0, '2024-12-07 20:05:44', NULL, 1, 0),
+(1, 'hhh10g', 1, 1, 1, '1111435456', 1, 0, '2024-11-25 18:42:25', '0000-00-00 00:00:00', 1, 0),
+(2, 'hhh56f', 1, 1, 5, '2222222222', 1, 1, '2024-12-06 20:50:56', '2024-12-13 03:28:37', 1, 1),
+(3, 'frt123', 2, 1, 3, '1111122222', 2, 1, '2024-12-07 20:05:44', '2024-12-13 01:54:50', 1, 1),
 (4, 'yyy123', 1, 1, 1, '2222211111', 1, 1, '2024-12-07 20:29:22', '2024-12-07 20:42:09', 1, 1),
 (5, 'rrr123', 2, 1, 4, '1111133333', 1, 1, '2024-12-07 22:35:00', '2024-12-07 22:35:52', 1, 1),
 (6, 'rrr123', 2, 1, 4, '1111122222', 1, 1, '2024-12-07 22:36:30', '2024-12-08 17:16:25', 1, 1),
@@ -199,7 +185,12 @@ INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `colo
 (8, 'wer34d', 1, 1, 1, '1234567890', 1, 1, '2024-12-08 00:21:02', '2024-12-08 00:21:32', 1, 1),
 (9, 'ttt234', 1, 1, 2, '1234567890', 1, 1, '2024-12-08 00:36:52', '2024-12-08 00:37:41', 1, 1),
 (10, 'qqq123', 2, 1, 5, '1234554321', 2, 1, '2024-12-08 03:24:00', '2024-12-08 03:24:42', 1, 1),
-(11, 'fff10f', 1, 1, 1, '1234554321', 1, 1, '2024-12-08 03:26:43', '2024-12-08 03:27:16', 1, 1);
+(11, 'fff10f', 1, 1, 1, '1234554321', 1, 1, '2024-12-08 03:26:43', '2024-12-08 03:27:16', 1, 1),
+(12, 'aaa123', 1, 1, 1, '1111133333', 1, 1, '2024-12-14 03:28:11', '2024-12-14 03:28:35', 1, 1),
+(13, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:00:26', '2024-12-15 00:03:03', 1, 1),
+(14, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:11:15', '2024-12-15 00:13:22', 1, 1),
+(15, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:16:15', '2024-12-15 00:16:26', 1, 1),
+(16, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 01:04:19', '2024-12-15 01:22:28', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -247,7 +238,7 @@ CREATE TABLE `price` (
 
 INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
 (1, 'carro', 1, 3300),
-(2, 'moto', 1, 2500),
+(2, 'moto', 1, 2200),
 (3, 'bicicleta', 1, 500);
 
 -- --------------------------------------------------------
@@ -309,21 +300,6 @@ CREATE TABLE `user_preference` (
   `recomendations` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
---
--- Table structure for table `workers`
---
-
-CREATE TABLE `workers` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `business_id` int(11) NOT NULL,
-  `role` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Indexes for dumped tables
 --
@@ -359,12 +335,6 @@ ALTER TABLE `devices`
 ALTER TABLE `income`
   ADD PRIMARY KEY (`id`),
   ADD KEY `business_id` (`business_id`);
-
---
--- Indexes for table `invoice_model`
---
-ALTER TABLE `invoice_model`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `item`
@@ -412,14 +382,6 @@ ALTER TABLE `user_preference`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `workers`
---
-ALTER TABLE `workers`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `user_id` (`user_id`,`business_id`),
-  ADD KEY `business_id` (`business_id`);
-
---
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -451,19 +413,13 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `invoice_model`
---
-ALTER TABLE `invoice_model`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `my_user`
@@ -494,23 +450,6 @@ ALTER TABLE `type`
 --
 ALTER TABLE `user_preference`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `workers`
---
-ALTER TABLE `workers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `workers`
---
-ALTER TABLE `workers`
-  ADD CONSTRAINT `workers_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `my_user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `workers_ibfk_2` FOREIGN KEY (`business_id`) REFERENCES `business` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
