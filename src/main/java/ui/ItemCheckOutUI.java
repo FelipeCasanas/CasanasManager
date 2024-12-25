@@ -27,10 +27,7 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         setStateSelector();
 
         itemDepartureOwnerID.setText("Documento del cliente");
-        itemDepartureOwnerID.setForeground(Color.GRAY);
-
         itemDepartureIdentifiquer.setText("Identificador del producto");
-        itemDepartureIdentifiquer.setForeground(Color.GRAY);
     }
 
     /**
@@ -57,12 +54,16 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("SALIDA ARTICULO");
 
+        itemDepartureState.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemDepartureState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        itemDepartureState.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        itemDepartureOwnerID.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        itemDepartureOwnerID.setForeground(new java.awt.Color(0, 102, 153));
         itemDepartureOwnerID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         itemDepartureOwnerID.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -73,6 +74,8 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
             }
         });
 
+        itemDepartureIdentifiquer.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        itemDepartureIdentifiquer.setForeground(new java.awt.Color(0, 102, 153));
         itemDepartureIdentifiquer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         itemDepartureIdentifiquer.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -83,20 +86,28 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
             }
         });
 
+        itemDepartureButton.setBackground(new java.awt.Color(0, 153, 51));
+        itemDepartureButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        itemDepartureButton.setForeground(new java.awt.Color(255, 255, 255));
         itemDepartureButton.setText("DAR SALIDA");
+        itemDepartureButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         itemDepartureButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemDepartureButtonActionPerformed(evt);
             }
         });
 
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 

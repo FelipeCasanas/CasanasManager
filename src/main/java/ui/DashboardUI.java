@@ -26,88 +26,125 @@ public class DashboardUI extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
+        dashboardEntryVehicleButton = new javax.swing.JButton();
         dashboardSearchVehicleButton = new javax.swing.JButton();
-        dashboardDepartureVehicleButton = new javax.swing.JButton();
-        dashboardTodayRecordsButton = new javax.swing.JButton();
-        dashboardGenerateInvoiceButton = new javax.swing.JButton();
         dashboardShowLogsButton = new javax.swing.JButton();
+        dashboardDepartureVehicleButton = new javax.swing.JButton();
+        dashboardGenerateInvoiceButton = new javax.swing.JButton();
+        dashboardTodayRecordsButton = new javax.swing.JButton();
+        dashboardCalculatorButton = new javax.swing.JButton();
         dashboardRatesButton = new javax.swing.JButton();
         dashboardCloseSessionButton = new javax.swing.JButton();
-        dashboardEntryVehicleButton = new javax.swing.JButton();
-        dashboardCalculatorButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
 
-        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("MENU PRINCIPAL");
 
-        dashboardSearchVehicleButton.setText("BUSCAR ARTICULO");
-        dashboardSearchVehicleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardSearchVehicleButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardDepartureVehicleButton.setText("REGISTRAR SALIDA");
-        dashboardDepartureVehicleButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardDepartureVehicleButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardTodayRecordsButton.setText("CUADRE CAJA");
-        dashboardTodayRecordsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardTodayRecordsButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardGenerateInvoiceButton.setText("GENERAR FACTURA");
-        dashboardGenerateInvoiceButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardGenerateInvoiceButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardShowLogsButton.setText("MOSTRAR REGISTROS");
-        dashboardShowLogsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardShowLogsButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardRatesButton.setText("PRECIOS");
-        dashboardRatesButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardRatesButtonActionPerformed(evt);
-            }
-        });
-
-        dashboardCloseSessionButton.setText("CERRAR SESION");
-        dashboardCloseSessionButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                dashboardCloseSessionButtonActionPerformed(evt);
-            }
-        });
-
+        dashboardEntryVehicleButton.setBackground(new java.awt.Color(0, 153, 51));
+        dashboardEntryVehicleButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardEntryVehicleButton.setForeground(new java.awt.Color(255, 255, 255));
         dashboardEntryVehicleButton.setText("REGISTRAR ENTRADA");
+        dashboardEntryVehicleButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dashboardEntryVehicleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardEntryVehicleButtonActionPerformed(evt);
             }
         });
 
+        dashboardSearchVehicleButton.setBackground(new java.awt.Color(0, 102, 153));
+        dashboardSearchVehicleButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardSearchVehicleButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardSearchVehicleButton.setText("BUSCAR ARTICULO");
+        dashboardSearchVehicleButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardSearchVehicleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardSearchVehicleButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardShowLogsButton.setBackground(new java.awt.Color(0, 102, 153));
+        dashboardShowLogsButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardShowLogsButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardShowLogsButton.setText("MOSTRAR REGISTROS");
+        dashboardShowLogsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardShowLogsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardShowLogsButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardDepartureVehicleButton.setBackground(new java.awt.Color(204, 0, 0));
+        dashboardDepartureVehicleButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardDepartureVehicleButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardDepartureVehicleButton.setText("REGISTRAR SALIDA");
+        dashboardDepartureVehicleButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardDepartureVehicleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardDepartureVehicleButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardGenerateInvoiceButton.setBackground(new java.awt.Color(0, 102, 153));
+        dashboardGenerateInvoiceButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardGenerateInvoiceButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardGenerateInvoiceButton.setText("GENERAR FACTURA");
+        dashboardGenerateInvoiceButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardGenerateInvoiceButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardGenerateInvoiceButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardTodayRecordsButton.setBackground(new java.awt.Color(0, 102, 153));
+        dashboardTodayRecordsButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardTodayRecordsButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardTodayRecordsButton.setText("CUADRE CAJA");
+        dashboardTodayRecordsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardTodayRecordsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardTodayRecordsButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardCalculatorButton.setBackground(new java.awt.Color(255, 255, 255));
+        dashboardCalculatorButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardCalculatorButton.setForeground(new java.awt.Color(0, 102, 153));
         dashboardCalculatorButton.setText("CALCULADORA");
+        dashboardCalculatorButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         dashboardCalculatorButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dashboardCalculatorButtonActionPerformed(evt);
             }
         });
 
+        dashboardRatesButton.setBackground(new java.awt.Color(0, 102, 153));
+        dashboardRatesButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardRatesButton.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardRatesButton.setText("PRECIOS");
+        dashboardRatesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardRatesButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardRatesButtonActionPerformed(evt);
+            }
+        });
+
+        dashboardCloseSessionButton.setBackground(new java.awt.Color(255, 255, 255));
+        dashboardCloseSessionButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        dashboardCloseSessionButton.setForeground(new java.awt.Color(0, 102, 153));
+        dashboardCloseSessionButton.setText("CERRAR SESION");
+        dashboardCloseSessionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        dashboardCloseSessionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dashboardCloseSessionButtonActionPerformed(evt);
+            }
+        });
+
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -115,50 +152,52 @@ public class DashboardUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(40, Short.MAX_VALUE)
+                .addContainerGap(15, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dashboardEntryVehicleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardCalculatorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardDepartureVehicleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dashboardSearchVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardGenerateInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardRatesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(dashboardTodayRecordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardShowLogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(dashboardCloseSessionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(15, 15, 15))
+            .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addComponent(ratesTitleLabel)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dashboardEntryVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dashboardSearchVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dashboardShowLogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dashboardGenerateInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(dashboardDepartureVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dashboardTodayRecordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(dashboardRatesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dashboardEntryVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dashboardDepartureVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dashboardCalculatorButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(dashboardCloseSessionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dashboardSearchVehicleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dashboardGenerateInvoiceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dashboardRatesButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(dashboardShowLogsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dashboardTodayRecordsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dashboardCloseSessionButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(developerLabel)
                 .addContainerGap())
         );

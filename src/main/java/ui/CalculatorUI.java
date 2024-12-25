@@ -58,103 +58,159 @@ public class CalculatorUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        calculatorTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        calculatorTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         calculatorTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         calculatorTitleLabel.setText("CALCULADORA");
 
+        resultTextField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        resultTextField.setForeground(new java.awt.Color(255, 255, 255));
         resultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         resultTextField.setText("-");
         resultTextField.setEnabled(false);
 
+        preResultTextField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        preResultTextField.setForeground(new java.awt.Color(255, 255, 255));
         preResultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         preResultTextField.setText("-");
         preResultTextField.setEnabled(false);
 
+        numberOneButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberOneButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberOneButton.setForeground(new java.awt.Color(0, 0, 0));
         numberOneButton.setText("1");
+        numberOneButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberOneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberOneButtonActionPerformed(evt);
             }
         });
 
+        numberTwoButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberTwoButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberTwoButton.setForeground(new java.awt.Color(0, 0, 0));
         numberTwoButton.setText("2");
+        numberTwoButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberTwoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberTwoButtonActionPerformed(evt);
             }
         });
 
+        numberThreeButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberThreeButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberThreeButton.setForeground(new java.awt.Color(0, 0, 0));
         numberThreeButton.setText("3");
+        numberThreeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberThreeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberThreeButtonActionPerformed(evt);
             }
         });
 
+        numberFourButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberFourButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberFourButton.setForeground(new java.awt.Color(0, 0, 0));
         numberFourButton.setText("4");
+        numberFourButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberFourButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberFourButtonActionPerformed(evt);
             }
         });
 
+        numberFiveButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberFiveButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberFiveButton.setForeground(new java.awt.Color(0, 0, 0));
         numberFiveButton.setText("5");
+        numberFiveButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberFiveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberFiveButtonActionPerformed(evt);
             }
         });
 
+        numberSixButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberSixButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberSixButton.setForeground(new java.awt.Color(0, 0, 0));
         numberSixButton.setText("6");
+        numberSixButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberSixButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberSixButtonActionPerformed(evt);
             }
         });
 
+        numberSevenButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberSevenButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberSevenButton.setForeground(new java.awt.Color(0, 0, 0));
         numberSevenButton.setText("7");
+        numberSevenButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberSevenButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberSevenButtonActionPerformed(evt);
             }
         });
 
+        numberEightButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberEightButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberEightButton.setForeground(new java.awt.Color(0, 0, 0));
         numberEightButton.setText("8");
+        numberEightButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberEightButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberEightButtonActionPerformed(evt);
             }
         });
 
+        numberNineButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberNineButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberNineButton.setForeground(new java.awt.Color(0, 0, 0));
         numberNineButton.setText("9");
+        numberNineButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberNineButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberNineButtonActionPerformed(evt);
             }
         });
 
+        numberZeroButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberZeroButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        numberZeroButton.setForeground(new java.awt.Color(0, 0, 0));
         numberZeroButton.setText("0");
+        numberZeroButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         numberZeroButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 numberZeroButtonActionPerformed(evt);
             }
         });
 
+        clearFieldsButton.setBackground(new java.awt.Color(0, 102, 153));
+        clearFieldsButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        clearFieldsButton.setForeground(new java.awt.Color(255, 255, 255));
         clearFieldsButton.setText("-");
+        clearFieldsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         clearFieldsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearFieldsButtonActionPerformed(evt);
             }
         });
 
+        clearAllButton.setBackground(new java.awt.Color(204, 0, 0));
+        clearAllButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        clearAllButton.setForeground(new java.awt.Color(255, 255, 255));
         clearAllButton.setText("---");
+        clearAllButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         clearAllButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearAllButtonActionPerformed(evt);
             }
         });
 
+        equalsButton.setBackground(new java.awt.Color(0, 153, 51));
+        equalsButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        equalsButton.setForeground(new java.awt.Color(255, 255, 255));
         equalsButton.setText("=");
+        equalsButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         equalsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 equalsButtonActionPerformed(evt);
@@ -207,11 +263,11 @@ public class CalculatorUI extends javax.swing.JFrame {
         numberPadContainerLayout.setVerticalGroup(
             numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, numberPadContainerLayout.createSequentialGroup()
-                .addContainerGap(240, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(clearFieldsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clearAllButton)
-                .addGap(23, 23, 23))
+                .addContainerGap())
             .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(numberPadContainerLayout.createSequentialGroup()
                     .addContainerGap()
@@ -232,32 +288,48 @@ public class CalculatorUI extends javax.swing.JFrame {
                     .addGap(18, 18, 18)
                     .addGroup(numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(numberZeroButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(equalsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(14, Short.MAX_VALUE)))
+                        .addComponent(equalsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
+        plusButton.setBackground(new java.awt.Color(0, 153, 51));
+        plusButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        plusButton.setForeground(new java.awt.Color(255, 255, 255));
         plusButton.setText("+");
+        plusButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         plusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 plusButtonActionPerformed(evt);
             }
         });
 
+        minusButton.setBackground(new java.awt.Color(204, 0, 0));
+        minusButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        minusButton.setForeground(new java.awt.Color(255, 255, 255));
         minusButton.setText("-");
+        minusButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         minusButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 minusButtonActionPerformed(evt);
             }
         });
 
+        multiplyButton.setBackground(new java.awt.Color(0, 102, 153));
+        multiplyButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        multiplyButton.setForeground(new java.awt.Color(255, 255, 255));
         multiplyButton.setText("*");
+        multiplyButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         multiplyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 multiplyButtonActionPerformed(evt);
             }
         });
 
+        divisionButton.setBackground(new java.awt.Color(255, 153, 0));
+        divisionButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        divisionButton.setForeground(new java.awt.Color(255, 255, 255));
         divisionButton.setText("/");
+        divisionButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         divisionButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 divisionButtonActionPerformed(evt);
@@ -291,13 +363,18 @@ public class CalculatorUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        goBack.setBackground(new java.awt.Color(204, 0, 0));
+        goBack.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        goBack.setForeground(new java.awt.Color(255, 255, 255));
         goBack.setText("<-");
+        goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -309,17 +386,21 @@ public class CalculatorUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(calculatorTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(preResultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(numberPadContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(resultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                            .addComponent(goBack, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(preResultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(goBack)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(numberPadContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -332,13 +413,13 @@ public class CalculatorUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(preResultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numberPadContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(operationsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(numberPadContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(developerLabel)
+                    .addComponent(goBack))
                 .addContainerGap())
         );
 

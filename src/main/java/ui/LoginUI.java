@@ -47,10 +47,13 @@ public class LoginUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        loginLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        loginLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 24)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginLabel.setText("INICIO DE SESION");
 
+        loginEmailField.setBackground(new java.awt.Color(255, 255, 255));
+        loginEmailField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        loginEmailField.setForeground(new java.awt.Color(0, 102, 153));
         loginEmailField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         loginEmailField.setText("casanascastrofelipe@gmail.com");
         loginEmailField.setToolTipText("");
@@ -60,23 +63,35 @@ public class LoginUI extends javax.swing.JFrame {
             }
         });
 
+        loginPasswordField.setBackground(new java.awt.Color(255, 255, 255));
+        loginPasswordField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        loginPasswordField.setForeground(new java.awt.Color(0, 102, 153));
         loginPasswordField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         loginPasswordField.setText("1234");
 
+        loginButton.setBackground(new java.awt.Color(0, 153, 51));
+        loginButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        loginButton.setForeground(new java.awt.Color(255, 255, 255));
         loginButton.setText("INICIAR SESION");
+        loginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginButtonActionPerformed(evt);
             }
         });
 
+        loginExitButtom.setBackground(new java.awt.Color(204, 0, 0));
+        loginExitButtom.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        loginExitButtom.setForeground(new java.awt.Color(255, 255, 255));
         loginExitButtom.setText("SALIR");
+        loginExitButtom.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         loginExitButtom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginExitButtomActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -84,39 +99,34 @@ public class LoginUI extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(loginLabel)
-                                .addGap(0, 115, Short.MAX_VALUE))
-                            .addComponent(loginPasswordField)
-                            .addComponent(loginEmailField))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loginExitButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loginButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(loginPasswordField)
+                    .addComponent(loginEmailField)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(loginExitButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(loginLabel)
                 .addGap(18, 18, 18)
+                .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loginEmailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(loginExitButtom))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(loginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(loginExitButtom)
                     .addComponent(loginButton))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(developerLabel)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(developerLabel))
         );
 
         pack();

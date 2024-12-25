@@ -1,5 +1,6 @@
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\controller\BusinessModel.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\controller\Reports.java
+C:\Users\Felipe\Desktop\CasanasManager\src\main\java\controller\User.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Authentication.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Business.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\BusinessItems.java
@@ -9,7 +10,6 @@ C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\IOItem.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Item.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Logs.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\Rates.java
-C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\User.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\network\UserData.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\ui\CalculatorUI.java
 C:\Users\Felipe\Desktop\CasanasManager\src\main\java\ui\CashCheckoutUI.java

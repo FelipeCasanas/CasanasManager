@@ -18,7 +18,6 @@ public class SearchItemUI extends javax.swing.JFrame {
         initComponents();
         
         searchParam.setText("Ingrese el dato de busqueda");
-        searchParam.setForeground(Color.GRAY);
     }
 
     /**
@@ -57,12 +56,16 @@ public class SearchItemUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR ARTICULO");
 
+        searchDiscriminant.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto"}));
+        searchDiscriminant.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        searchParam.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        searchParam.setForeground(new java.awt.Color(0, 102, 153));
         searchParam.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchParam.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -73,14 +76,22 @@ public class SearchItemUI extends javax.swing.JFrame {
             }
         });
 
+        searchButton.setBackground(new java.awt.Color(0, 153, 51));
+        searchButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("BUSCAR");
+        searchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
             }
         });
 
+        goBack.setBackground(new java.awt.Color(204, 0, 0));
+        goBack.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        goBack.setForeground(new java.awt.Color(255, 255, 255));
         goBack.setText("VOLVER");
+        goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackActionPerformed(evt);
@@ -115,14 +126,19 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        vehicleTypeLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleTypeLabel.setText("TIPO:");
 
+        vehiclePlateLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehiclePlateLabel.setText("IDENTIFICADOR:");
 
+        vehicleOwnerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleOwnerLabel.setText("PROPIETARIO:");
 
+        vehicleStateLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleStateLabel.setText("ESTADO:");
 
+        inParkingLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         inParkingLabel.setText("EN LUGAR:");
 
         javax.swing.GroupLayout resultCategoryContainerLayout = new javax.swing.GroupLayout(resultCategoryContainer);
@@ -151,14 +167,19 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        vehicleType.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleType.setText("------------");
 
+        vehiclePlate.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehiclePlate.setText("------------");
 
+        vehicleOwner.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleOwner.setText("------------");
 
+        vehicleState.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         vehicleState.setText("------------");
 
+        inParking.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         inParking.setText("------------");
 
         javax.swing.GroupLayout resultPlaceContainerLayout = new javax.swing.GroupLayout(resultPlaceContainer);
@@ -168,7 +189,7 @@ public class SearchItemUI extends javax.swing.JFrame {
             .addGroup(resultPlaceContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                     .addComponent(vehiclePlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleOwner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(vehicleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,7 +232,7 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        itsNotLabel.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
+        itsNotLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itsNotLabel.setForeground(new java.awt.Color(255, 0, 0));
         itsNotLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         itsNotLabel.setText("-");
@@ -230,6 +251,7 @@ public class SearchItemUI extends javax.swing.JFrame {
             .addComponent(itsNotLabel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -267,7 +289,7 @@ public class SearchItemUI extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(ratesTitleLabel)
-                    .addContainerGap(218, Short.MAX_VALUE)))
+                    .addContainerGap(257, Short.MAX_VALUE)))
         );
 
         pack();

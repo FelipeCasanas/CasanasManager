@@ -74,34 +74,50 @@ public class RatesUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT", 2, 24)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("ADMINISTRADOR PRECIOS");
 
+        ratesGoBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        ratesGoBackButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        ratesGoBackButton.setForeground(new java.awt.Color(255, 255, 255));
         ratesGoBackButton.setText("VOLVER");
+        ratesGoBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ratesGoBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ratesGoBackButtonActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
+        updateRate.setBackground(new java.awt.Color(0, 153, 51));
+        updateRate.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        updateRate.setForeground(new java.awt.Color(255, 255, 255));
         updateRate.setText("CAMBIAR PRECIO");
+        updateRate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         updateRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateRateActionPerformed(evt);
             }
         });
 
+        rateSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         rateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        rateSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        rateChangeStatus.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         rateChangeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rateChangeStatus.setText("-");
         rateChangeStatus.setToolTipText("");
 
-        queryRatesButton.setText("CONSULTAR TARIFAS");
+        queryRatesButton.setBackground(new java.awt.Color(0, 102, 153));
+        queryRatesButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        queryRatesButton.setForeground(new java.awt.Color(255, 255, 255));
+        queryRatesButton.setText("CONSULTAR");
+        queryRatesButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         queryRatesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 queryRatesButtonActionPerformed(evt);
@@ -113,12 +129,12 @@ public class RatesUI extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
+                .addContainerGap(53, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                    .addComponent(rateChangeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rateChangeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(updateRate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ratesGoBackButton, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                    .addComponent(ratesGoBackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(queryRatesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -137,7 +153,7 @@ public class RatesUI extends javax.swing.JFrame {
                 .addComponent(queryRatesButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rateChangeStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(ratesGoBackButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(developerLabel)

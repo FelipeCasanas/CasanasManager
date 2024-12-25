@@ -46,28 +46,42 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("CUADRE DE CAJA");
 
+        todayReport.setBackground(new java.awt.Color(0, 153, 51));
+        todayReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        todayReport.setForeground(new java.awt.Color(255, 255, 255));
         todayReport.setText("HOY");
+        todayReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         todayReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 todayReportActionPerformed(evt);
             }
         });
 
+        otherDayReport.setBackground(new java.awt.Color(0, 102, 153));
+        otherDayReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        otherDayReport.setForeground(new java.awt.Color(255, 255, 255));
         otherDayReport.setText("OTRO");
+        otherDayReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         otherDayReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 otherDayReportActionPerformed(evt);
             }
         });
 
+        otherDayReportField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        otherDayReportField.setForeground(new java.awt.Color(0, 102, 153));
         otherDayReportField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         otherDayReportField.setEnabled(false);
 
+        otherDaySearchReport.setBackground(new java.awt.Color(0, 153, 51));
+        otherDaySearchReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        otherDaySearchReport.setForeground(new java.awt.Color(255, 255, 255));
         otherDaySearchReport.setText("BUSCAR");
+        otherDaySearchReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         otherDaySearchReport.setEnabled(false);
         otherDaySearchReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +90,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         });
 
         logsViewTable.setAutoCreateRowSorter(true);
+        logsViewTable.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         logsViewTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -104,13 +119,17 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         logsViewTable.getTableHeader().setReorderingAllowed(false);
         logsView.setViewportView(logsViewTable);
 
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -157,7 +176,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                         .addComponent(otherDayReportField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(otherDaySearchReport)
-                        .addGap(0, 166, Short.MAX_VALUE))
+                        .addGap(0, 143, Short.MAX_VALUE))
                     .addComponent(logsView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

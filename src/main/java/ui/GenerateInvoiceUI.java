@@ -22,7 +22,6 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         initComponents();
         
         searchMethodField.setText("Ingrese el dato de busqueda");
-        searchMethodField.setForeground(Color.GRAY);
     }
 
     /**
@@ -50,12 +49,16 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("GENERADOR FACTURAS");
 
+        searchMethodSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto" }));
+        searchMethodSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        searchMethodField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        searchMethodField.setForeground(new java.awt.Color(0, 102, 153));
         searchMethodField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchMethodField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -66,14 +69,22 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
             }
         });
 
+        searchButton.setBackground(new java.awt.Color(0, 153, 51));
+        searchButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        searchButton.setForeground(new java.awt.Color(255, 255, 255));
         searchButton.setText("BUSCAR");
+        searchButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchButtonActionPerformed(evt);
             }
         });
 
+        printInvoice.setBackground(new java.awt.Color(0, 102, 153));
+        printInvoice.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        printInvoice.setForeground(new java.awt.Color(255, 255, 255));
         printInvoice.setText("CREAR FACTURA");
+        printInvoice.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         printInvoice.setEnabled(false);
         printInvoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,11 +119,13 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        foundLabel.setForeground(new java.awt.Color(0, 255, 0));
+        foundLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        foundLabel.setForeground(new java.awt.Color(0, 153, 51));
         foundLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         foundLabel.setText("-");
 
-        foundLabelStillHere.setForeground(new java.awt.Color(0, 255, 0));
+        foundLabelStillHere.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        foundLabelStillHere.setForeground(new java.awt.Color(0, 153, 51));
         foundLabelStillHere.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         foundLabelStillHere.setText("-");
 
@@ -136,13 +149,17 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -173,7 +190,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(leftContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(goBackButton)
                     .addComponent(developerLabel))

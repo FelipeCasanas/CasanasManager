@@ -44,19 +44,23 @@ public class ErrorUI extends javax.swing.JFrame {
             }
         });
 
-        brandingLabel.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        brandingLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         brandingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         brandingLabel.setText("CASANAS SOFTWARE");
 
-        OwnerLabel.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 2, 18)); // NOI18N
+        OwnerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         OwnerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        OwnerLabel.setText("By Felipe Casañas");
+        OwnerLabel.setText("By FELIPE CASAÑAS");
 
-        OwnerCellphoneNumberLabel.setFont(new java.awt.Font("Tw Cen MT Condensed Extra Bold", 2, 18)); // NOI18N
+        OwnerCellphoneNumberLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         OwnerCellphoneNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        OwnerCellphoneNumberLabel.setText("3026029365");
+        OwnerCellphoneNumberLabel.setText("CONTACTO: 3026029365");
 
+        exitButton.setBackground(new java.awt.Color(204, 0, 0));
+        exitButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        exitButton.setForeground(new java.awt.Color(255, 255, 255));
         exitButton.setText("CERRAR PROGRAMA");
+        exitButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 exitButtonActionPerformed(evt);
@@ -77,7 +81,7 @@ public class ErrorUI extends javax.swing.JFrame {
             .addGroup(buttonContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(exitButton)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,7 +96,7 @@ public class ErrorUI extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
+                .addContainerGap(93, Short.MAX_VALUE)
                 .addComponent(brandingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(OwnerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -67,20 +67,31 @@ public class ItemLogsUI extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        vehicleLogsTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 1, 20)); // NOI18N
+        vehicleLogsTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
         vehicleLogsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleLogsTitleLabel.setText("REGISTROS");
 
+        filtersHeader.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         filtersHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         filtersHeader.setText("FILTROS Y ORDENAMIENTO");
 
+        itemTypeSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        itemTypeSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        itemStateSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
+        itemStateSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        itemCheckoutBySelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
+        itemCheckoutBySelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        searchLogs.setBackground(new java.awt.Color(0, 153, 51));
+        searchLogs.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        searchLogs.setForeground(new java.awt.Color(255, 255, 255));
         searchLogs.setText("BUSCAR");
+        searchLogs.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         searchLogs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchLogsActionPerformed(evt);
@@ -119,6 +130,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
         logsContainer.setBackground(new java.awt.Color(0, 153, 255));
 
         logsViewTable.setAutoCreateRowSorter(true);
+        logsViewTable.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         logsViewTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -196,13 +208,17 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
         logsContainer.addTab("AGREGAR REGISTRO", addLogsPane);
 
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 goBackButtonActionPerformed(evt);
             }
         });
 
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
 
@@ -259,7 +275,6 @@ public class ItemLogsUI extends javax.swing.JFrame {
     }//GEN-LAST:event_searchLogsActionPerformed
 
     private void setRateTypeSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> ratesData = BusinessItems.getRatesName(User.getBusiness_id());
         ArrayList<String> ratesName = (ArrayList<String>) ratesData.get(1);
 
@@ -273,7 +288,6 @@ public class ItemLogsUI extends javax.swing.JFrame {
     }
 
     private void setStateSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> states = BusinessItems.getStatesName();
         ArrayList<String> stateName = (ArrayList<String>) states.get(1);
 
@@ -287,8 +301,6 @@ public class ItemLogsUI extends javax.swing.JFrame {
     }
 
     private void setEmployeeSelector() {
-        Checkout queryManagment = new Checkout();
-
         // Obtiene los datos de los empleados desde la base de datos
         List<String[]> employees = BusinessItems.getEmployesIDs();
 

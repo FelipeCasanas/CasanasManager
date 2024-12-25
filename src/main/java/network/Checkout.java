@@ -60,10 +60,10 @@ public class Checkout {
                         int index = 0;
                         while (checkoutCountRS.next()) {
                             checkoutData[index][0] = checkoutCountRS.getString("id");
-                            checkoutData[index][1] = checkoutCountRS.getString("type_name");
+                            checkoutData[index][1] = checkoutCountRS.getString("type_name").toUpperCase();
                             checkoutData[index][2] = checkoutCountRS.getString("rate_amount");
-                            checkoutData[index][3] = checkoutCountRS.getString("name");
-                            checkoutData[index][4] = checkoutCountRS.getString("last_name");
+                            checkoutData[index][3] = checkoutCountRS.getString("name").toUpperCase();
+                            checkoutData[index][4] = checkoutCountRS.getString("last_name").toUpperCase();
                             index++;
                         }
                     }
