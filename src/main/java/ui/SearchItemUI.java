@@ -30,39 +30,41 @@ public class SearchItemUI extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
-        inputsContainer = new javax.swing.JPanel();
         searchDiscriminant = new javax.swing.JComboBox<>();
         searchParam = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        goBack = new javax.swing.JButton();
-        resultContainer = new javax.swing.JPanel();
-        resultCategoryContainer = new javax.swing.JPanel();
         vehicleTypeLabel = new javax.swing.JLabel();
         vehiclePlateLabel = new javax.swing.JLabel();
         vehicleOwnerLabel = new javax.swing.JLabel();
         vehicleStateLabel = new javax.swing.JLabel();
         inParkingLabel = new javax.swing.JLabel();
-        resultPlaceContainer = new javax.swing.JPanel();
         vehicleType = new javax.swing.JLabel();
         vehiclePlate = new javax.swing.JLabel();
         vehicleOwner = new javax.swing.JLabel();
         vehicleState = new javax.swing.JLabel();
         inParking = new javax.swing.JLabel();
-        itsNotContainer = new javax.swing.JPanel();
         itsNotLabel = new javax.swing.JLabel();
+        branding = new javax.swing.JPanel();
+        goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("searchItem"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        ratesTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("BUSCAR ARTICULO");
+        getContentPane().add(ratesTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 70));
 
         searchDiscriminant.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchDiscriminant.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto"}));
         searchDiscriminant.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(searchDiscriminant, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 200, -1));
 
         searchParam.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchParam.setForeground(new java.awt.Color(0, 102, 153));
@@ -75,6 +77,7 @@ public class SearchItemUI extends javax.swing.JFrame {
                 searchParamFocusLost(evt);
             }
         });
+        getContentPane().add(searchParam, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 200, -1));
 
         searchButton.setBackground(new java.awt.Color(0, 153, 51));
         searchButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -86,221 +89,91 @@ public class SearchItemUI extends javax.swing.JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
-
-        goBack.setBackground(new java.awt.Color(204, 0, 0));
-        goBack.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        goBack.setForeground(new java.awt.Color(255, 255, 255));
-        goBack.setText("VOLVER");
-        goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        goBack.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goBackActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout inputsContainerLayout = new javax.swing.GroupLayout(inputsContainer);
-        inputsContainer.setLayout(inputsContainerLayout);
-        inputsContainerLayout.setHorizontalGroup(
-            inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputsContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(searchParam)
-                        .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(searchButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(goBack, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        inputsContainerLayout.setVerticalGroup(
-            inputsContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(inputsContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(searchDiscriminant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchParam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(searchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(goBack)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        getContentPane().add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 200, -1));
 
         vehicleTypeLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleTypeLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleTypeLabel.setText("TIPO:");
+        getContentPane().add(vehicleTypeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 90, -1));
 
         vehiclePlateLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehiclePlateLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehiclePlateLabel.setText("IDENTIFICADOR:");
+        getContentPane().add(vehiclePlateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 90, -1));
 
         vehicleOwnerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleOwnerLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleOwnerLabel.setText("PROPIETARIO:");
+        getContentPane().add(vehicleOwnerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 140, 90, -1));
 
         vehicleStateLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleStateLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleStateLabel.setText("ESTADO:");
+        getContentPane().add(vehicleStateLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 90, -1));
 
         inParkingLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        inParkingLabel.setForeground(new java.awt.Color(255, 255, 255));
         inParkingLabel.setText("EN LUGAR:");
-
-        javax.swing.GroupLayout resultCategoryContainerLayout = new javax.swing.GroupLayout(resultCategoryContainer);
-        resultCategoryContainer.setLayout(resultCategoryContainerLayout);
-        resultCategoryContainerLayout.setHorizontalGroup(
-            resultCategoryContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vehiclePlateLabel)
-            .addComponent(vehicleTypeLabel)
-            .addComponent(vehicleStateLabel)
-            .addComponent(inParkingLabel)
-            .addComponent(vehicleOwnerLabel)
-        );
-        resultCategoryContainerLayout.setVerticalGroup(
-            resultCategoryContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultCategoryContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vehicleTypeLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehiclePlateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehicleOwnerLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehicleStateLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inParkingLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(inParkingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 90, -1));
 
         vehicleType.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleType.setForeground(new java.awt.Color(255, 255, 255));
         vehicleType.setText("------------");
+        getContentPane().add(vehicleType, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 120, -1));
 
         vehiclePlate.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehiclePlate.setForeground(new java.awt.Color(255, 255, 255));
         vehiclePlate.setText("------------");
+        getContentPane().add(vehiclePlate, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 120, -1));
 
         vehicleOwner.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleOwner.setForeground(new java.awt.Color(255, 255, 255));
         vehicleOwner.setText("------------");
+        getContentPane().add(vehicleOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 120, -1));
 
         vehicleState.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        vehicleState.setForeground(new java.awt.Color(255, 255, 255));
         vehicleState.setText("------------");
+        getContentPane().add(vehicleState, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 120, -1));
 
         inParking.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        inParking.setForeground(new java.awt.Color(255, 255, 255));
         inParking.setText("------------");
-
-        javax.swing.GroupLayout resultPlaceContainerLayout = new javax.swing.GroupLayout(resultPlaceContainer);
-        resultPlaceContainer.setLayout(resultPlaceContainerLayout);
-        resultPlaceContainerLayout.setHorizontalGroup(
-            resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultPlaceContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(vehicleType, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
-                    .addComponent(vehiclePlate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vehicleOwner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vehicleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(inParking, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        resultPlaceContainerLayout.setVerticalGroup(
-            resultPlaceContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultPlaceContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vehicleType)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehiclePlate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehicleOwner)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(vehicleState)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inParking)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout resultContainerLayout = new javax.swing.GroupLayout(resultContainer);
-        resultContainer.setLayout(resultContainerLayout);
-        resultContainerLayout.setHorizontalGroup(
-            resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(resultCategoryContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultPlaceContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        resultContainerLayout.setVerticalGroup(
-            resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(resultContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(resultContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(resultPlaceContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(resultCategoryContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
+        getContentPane().add(inParking, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 120, -1));
 
         itsNotLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itsNotLabel.setForeground(new java.awt.Color(255, 0, 0));
         itsNotLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         itsNotLabel.setText("-");
+        getContentPane().add(itsNotLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 520, 40));
 
-        javax.swing.GroupLayout itsNotContainerLayout = new javax.swing.GroupLayout(itsNotContainer);
-        itsNotContainer.setLayout(itsNotContainerLayout);
-        itsNotContainerLayout.setHorizontalGroup(
-            itsNotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(itsNotContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(itsNotLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        itsNotContainerLayout.setVerticalGroup(
-            itsNotContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(itsNotLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
+        goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(inputsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(resultContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(itsNotContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(inputsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(resultContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(itsNotContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(developerLabel)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(ratesTitleLabel)
-                    .addContainerGap(257, Short.MAX_VALUE)))
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 520, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 310));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_goBackActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         //Obtiene el metodo de busqueda y el criterio
@@ -360,6 +233,13 @@ public class SearchItemUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_searchParamFocusLost
 
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -399,17 +279,14 @@ public class SearchItemUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
-    private javax.swing.JButton goBack;
+    private javax.swing.JButton goBackButton;
     private javax.swing.JLabel inParking;
     private javax.swing.JLabel inParkingLabel;
-    private javax.swing.JPanel inputsContainer;
-    private javax.swing.JPanel itsNotContainer;
     private javax.swing.JLabel itsNotLabel;
     private javax.swing.JLabel ratesTitleLabel;
-    private javax.swing.JPanel resultCategoryContainer;
-    private javax.swing.JPanel resultContainer;
-    private javax.swing.JPanel resultPlaceContainer;
     private javax.swing.JButton searchButton;
     private javax.swing.JComboBox<String> searchDiscriminant;
     private javax.swing.JTextField searchParam;

@@ -34,8 +34,10 @@ public class ErrorUI extends javax.swing.JFrame {
         OwnerCellphoneNumberLabel = new javax.swing.JLabel();
         buttonContainer = new javax.swing.JPanel();
         exitButton = new javax.swing.JButton();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("error"); // NOI18N
         setUndecorated(true);
         setResizable(false);
         addMouseWheelListener(new java.awt.event.MouseWheelListener() {
@@ -43,18 +45,27 @@ public class ErrorUI extends javax.swing.JFrame {
                 formMouseWheelMoved(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         brandingLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        brandingLabel.setForeground(new java.awt.Color(255, 255, 255));
         brandingLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         brandingLabel.setText("CASANAS SOFTWARE");
+        getContentPane().add(brandingLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 93, 302, -1));
 
         OwnerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        OwnerLabel.setForeground(new java.awt.Color(255, 255, 255));
         OwnerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         OwnerLabel.setText("By FELIPE CASAÑAS");
+        getContentPane().add(OwnerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 129, 302, 16));
 
         OwnerCellphoneNumberLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        OwnerCellphoneNumberLabel.setForeground(new java.awt.Color(255, 255, 255));
         OwnerCellphoneNumberLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         OwnerCellphoneNumberLabel.setText("CONTACTO: 3026029365");
+        getContentPane().add(OwnerCellphoneNumberLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 222, 302, 16));
+
+        buttonContainer.setBackground(new java.awt.Color(255, 255, 255));
 
         exitButton.setBackground(new java.awt.Color(204, 0, 0));
         exitButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -84,27 +95,10 @@ public class ErrorUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(brandingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(OwnerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(buttonContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(OwnerCellphoneNumberLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(93, Short.MAX_VALUE)
-                .addComponent(brandingLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(OwnerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77)
-                .addComponent(OwnerCellphoneNumberLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(buttonContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, -1, -1));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -166,6 +160,7 @@ public class ErrorUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel OwnerCellphoneNumberLabel;
     private javax.swing.JLabel OwnerLabel;
+    private javax.swing.JLabel background;
     private javax.swing.JLabel brandingLabel;
     private javax.swing.JPanel buttonContainer;
     private javax.swing.JButton exitButton;

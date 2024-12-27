@@ -51,30 +51,41 @@ public class CalculatorUI extends javax.swing.JFrame {
         minusButton = new javax.swing.JButton();
         multiplyButton = new javax.swing.JButton();
         divisionButton = new javax.swing.JButton();
-        goBack = new javax.swing.JButton();
+        branding = new javax.swing.JPanel();
+        goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         calculatorTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        calculatorTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         calculatorTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         calculatorTitleLabel.setText("CALCULADORA");
+        getContentPane().add(calculatorTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 305, -1));
 
+        resultTextField.setBackground(new java.awt.Color(255, 255, 255));
         resultTextField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        resultTextField.setForeground(new java.awt.Color(255, 255, 255));
+        resultTextField.setForeground(new java.awt.Color(0, 153, 51));
         resultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         resultTextField.setText("-");
         resultTextField.setEnabled(false);
+        getContentPane().add(resultTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 42, 305, -1));
 
+        preResultTextField.setBackground(new java.awt.Color(255, 255, 255));
         preResultTextField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        preResultTextField.setForeground(new java.awt.Color(255, 255, 255));
+        preResultTextField.setForeground(new java.awt.Color(0, 0, 0));
         preResultTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         preResultTextField.setText("-");
         preResultTextField.setEnabled(false);
+        getContentPane().add(preResultTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 76, 305, 40));
 
-        numberOneButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberPadContainer.setBackground(new java.awt.Color(0, 0, 0));
+
+        numberOneButton.setBackground(new java.awt.Color(255, 255, 255));
         numberOneButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberOneButton.setForeground(new java.awt.Color(0, 0, 0));
         numberOneButton.setText("1");
@@ -85,7 +96,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberTwoButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberTwoButton.setBackground(new java.awt.Color(255, 255, 255));
         numberTwoButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberTwoButton.setForeground(new java.awt.Color(0, 0, 0));
         numberTwoButton.setText("2");
@@ -96,7 +107,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberThreeButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberThreeButton.setBackground(new java.awt.Color(255, 255, 255));
         numberThreeButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberThreeButton.setForeground(new java.awt.Color(0, 0, 0));
         numberThreeButton.setText("3");
@@ -107,7 +118,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberFourButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberFourButton.setBackground(new java.awt.Color(255, 255, 255));
         numberFourButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberFourButton.setForeground(new java.awt.Color(0, 0, 0));
         numberFourButton.setText("4");
@@ -118,7 +129,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberFiveButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberFiveButton.setBackground(new java.awt.Color(255, 255, 255));
         numberFiveButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberFiveButton.setForeground(new java.awt.Color(0, 0, 0));
         numberFiveButton.setText("5");
@@ -129,7 +140,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberSixButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberSixButton.setBackground(new java.awt.Color(255, 255, 255));
         numberSixButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberSixButton.setForeground(new java.awt.Color(0, 0, 0));
         numberSixButton.setText("6");
@@ -140,7 +151,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberSevenButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberSevenButton.setBackground(new java.awt.Color(255, 255, 255));
         numberSevenButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberSevenButton.setForeground(new java.awt.Color(0, 0, 0));
         numberSevenButton.setText("7");
@@ -151,7 +162,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberEightButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberEightButton.setBackground(new java.awt.Color(255, 255, 255));
         numberEightButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberEightButton.setForeground(new java.awt.Color(0, 0, 0));
         numberEightButton.setText("8");
@@ -162,7 +173,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberNineButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberNineButton.setBackground(new java.awt.Color(255, 255, 255));
         numberNineButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberNineButton.setForeground(new java.awt.Color(0, 0, 0));
         numberNineButton.setText("9");
@@ -173,7 +184,7 @@ public class CalculatorUI extends javax.swing.JFrame {
             }
         });
 
-        numberZeroButton.setBackground(new java.awt.Color(204, 204, 204));
+        numberZeroButton.setBackground(new java.awt.Color(255, 255, 255));
         numberZeroButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         numberZeroButton.setForeground(new java.awt.Color(0, 0, 0));
         numberZeroButton.setText("0");
@@ -263,7 +274,7 @@ public class CalculatorUI extends javax.swing.JFrame {
         numberPadContainerLayout.setVerticalGroup(
             numberPadContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, numberPadContainerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(236, Short.MAX_VALUE)
                 .addComponent(clearFieldsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(clearAllButton)
@@ -291,6 +302,10 @@ public class CalculatorUI extends javax.swing.JFrame {
                         .addComponent(equalsButton, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        getContentPane().add(numberPadContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 122, -1, -1));
+
+        operationsContainer.setBackground(new java.awt.Color(0, 0, 0));
 
         plusButton.setBackground(new java.awt.Color(0, 153, 51));
         plusButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -363,65 +378,44 @@ public class CalculatorUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        goBack.setBackground(new java.awt.Color(204, 0, 0));
-        goBack.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        goBack.setForeground(new java.awt.Color(255, 255, 255));
-        goBack.setText("<-");
-        goBack.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        goBack.addActionListener(new java.awt.event.ActionListener() {
+        getContentPane().add(operationsContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(238, 122, 73, -1));
+
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
+        goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                goBackActionPerformed(evt);
+                goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 320, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(calculatorTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(preResultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(resultTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(goBack)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(numberPadContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(operationsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 320, 40));
+
+        background.setBackground(new java.awt.Color(0, 0, 0));
+
+        javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
+        background.setLayout(backgroundLayout);
+        backgroundLayout.setHorizontalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 320, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(calculatorTitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(preResultTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(operationsContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(numberPadContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(developerLabel)
-                    .addComponent(goBack))
-                .addContainerGap())
+        backgroundLayout.setVerticalGroup(
+            backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
+
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 320, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -439,13 +433,6 @@ public class CalculatorUI extends javax.swing.JFrame {
     private void equalsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsButtonActionPerformed
         Enter();
     }//GEN-LAST:event_equalsButtonActionPerformed
-
-    private void goBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackActionPerformed
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_goBackActionPerformed
 
     private void numberOneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numberOneButtonActionPerformed
         numberString += "1";
@@ -511,6 +498,13 @@ public class CalculatorUI extends javax.swing.JFrame {
     private void clearAllButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearAllButtonActionPerformed
         clearAll();
     }//GEN-LAST:event_clearAllButtonActionPerformed
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
 
     public void setResult(String result) {
         resultTextField.setText(result);
@@ -754,13 +748,15 @@ public class CalculatorUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel calculatorTitleLabel;
     private javax.swing.JButton clearAllButton;
     private javax.swing.JButton clearFieldsButton;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton divisionButton;
     private javax.swing.JButton equalsButton;
-    private javax.swing.JButton goBack;
+    private javax.swing.JButton goBackButton;
     private javax.swing.JButton minusButton;
     private javax.swing.JButton multiplyButton;
     private javax.swing.JButton numberEightButton;

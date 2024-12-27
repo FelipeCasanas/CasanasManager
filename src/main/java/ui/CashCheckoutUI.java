@@ -39,16 +39,22 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         otherDaySearchReport = new javax.swing.JButton();
         logsView = new javax.swing.JScrollPane();
         logsViewTable = new javax.swing.JTable();
+        branding = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("cashCheckout"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        ratesTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("CUADRE DE CAJA");
+        getContentPane().add(ratesTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 50));
 
         todayReport.setBackground(new java.awt.Color(0, 153, 51));
         todayReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -60,6 +66,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 todayReportActionPerformed(evt);
             }
         });
+        getContentPane().add(todayReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(23, 54, 80, -1));
 
         otherDayReport.setBackground(new java.awt.Color(0, 102, 153));
         otherDayReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -71,11 +78,13 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 otherDayReportActionPerformed(evt);
             }
         });
+        getContentPane().add(otherDayReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(115, 54, 80, -1));
 
         otherDayReportField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         otherDayReportField.setForeground(new java.awt.Color(0, 102, 153));
         otherDayReportField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         otherDayReportField.setEnabled(false);
+        getContentPane().add(otherDayReportField, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 95, 169, -1));
 
         otherDaySearchReport.setBackground(new java.awt.Color(0, 153, 51));
         otherDaySearchReport.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -88,6 +97,7 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 otherDaySearchReportActionPerformed(evt);
             }
         });
+        getContentPane().add(otherDaySearchReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 135, 169, -1));
 
         logsViewTable.setAutoCreateRowSorter(true);
         logsViewTable.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -119,6 +129,11 @@ public class CashCheckoutUI extends javax.swing.JFrame {
         logsViewTable.getTableHeader().setReorderingAllowed(false);
         logsView.setViewportView(logsViewTable);
 
+        getContentPane().add(logsView, new org.netbeans.lib.awtextra.AbsoluteConstraints(213, 54, 359, 253));
+
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         goBackButton.setBackground(new java.awt.Color(204, 0, 0));
         goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
@@ -128,73 +143,21 @@ public class CashCheckoutUI extends javax.swing.JFrame {
                 goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 474, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(otherDayReportField)
-                                    .addComponent(otherDaySearchReport, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addComponent(todayReport, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(otherDayReport, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addComponent(logsView, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ratesTitleLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(todayReport)
-                            .addComponent(otherDayReport))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(otherDayReportField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(otherDaySearchReport)
-                        .addGap(0, 143, Short.MAX_VALUE))
-                    .addComponent(logsView, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(developerLabel, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBackButton, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 590, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
-        //Regresa a la pagina principal
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_goBackButtonActionPerformed
 
     private void otherDayReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_otherDayReportActionPerformed
         //Activa el campo para ingresar la fecha
@@ -226,6 +189,13 @@ public class CashCheckoutUI extends javax.swing.JFrame {
 
         fillTable(checkoutData);
     }//GEN-LAST:event_otherDaySearchReportActionPerformed
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
 
     private void fillTable(String[][] logsData) {
         if (logsData == null || logsData.length == 0) {
@@ -288,6 +258,8 @@ public class CashCheckoutUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
     private javax.swing.JScrollPane logsView;

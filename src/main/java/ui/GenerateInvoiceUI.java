@@ -34,28 +34,33 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
-        leftContainer = new javax.swing.JPanel();
         searchMethodSelector = new javax.swing.JComboBox<>();
         searchMethodField = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
         printInvoice = new javax.swing.JButton();
-        rightContainer = new javax.swing.JPanel();
         foundLabel = new javax.swing.JLabel();
         foundLabelStillHere = new javax.swing.JLabel();
+        branding = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("generateInvoice"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        ratesTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("GENERADOR FACTURAS");
+        getContentPane().add(ratesTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 60));
 
         searchMethodSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchMethodSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Identificador producto" }));
         searchMethodSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(searchMethodSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 180, -1));
 
         searchMethodField.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         searchMethodField.setForeground(new java.awt.Color(0, 102, 153));
@@ -68,6 +73,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 searchMethodFieldFocusLost(evt);
             }
         });
+        getContentPane().add(searchMethodField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 180, -1));
 
         searchButton.setBackground(new java.awt.Color(0, 153, 51));
         searchButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -79,6 +85,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 searchButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(searchButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 180, -1));
 
         printInvoice.setBackground(new java.awt.Color(0, 102, 153));
         printInvoice.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -91,63 +98,22 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 printInvoiceActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout leftContainerLayout = new javax.swing.GroupLayout(leftContainer);
-        leftContainer.setLayout(leftContainerLayout);
-        leftContainerLayout.setHorizontalGroup(
-            leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(searchMethodField, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(searchMethodSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(printInvoice, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        leftContainerLayout.setVerticalGroup(
-            leftContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(leftContainerLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(searchMethodSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchMethodField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(searchButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(printInvoice)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(printInvoice, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 180, -1));
 
         foundLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        foundLabel.setForeground(new java.awt.Color(0, 153, 51));
+        foundLabel.setForeground(new java.awt.Color(255, 255, 255));
         foundLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         foundLabel.setText("-");
+        getContentPane().add(foundLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 180, -1));
 
         foundLabelStillHere.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        foundLabelStillHere.setForeground(new java.awt.Color(0, 153, 51));
+        foundLabelStillHere.setForeground(new java.awt.Color(255, 255, 255));
         foundLabelStillHere.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         foundLabelStillHere.setText("-");
+        getContentPane().add(foundLabelStillHere, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 180, -1));
 
-        javax.swing.GroupLayout rightContainerLayout = new javax.swing.GroupLayout(rightContainer);
-        rightContainer.setLayout(rightContainerLayout);
-        rightContainerLayout.setHorizontalGroup(
-            rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightContainerLayout.createSequentialGroup()
-                .addGroup(rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(foundLabelStillHere, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
-                    .addComponent(foundLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        rightContainerLayout.setVerticalGroup(
-            rightContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rightContainerLayout.createSequentialGroup()
-                .addGap(68, 68, 68)
-                .addComponent(foundLabel)
-                .addGap(18, 18, 18)
-                .addComponent(foundLabelStillHere)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         goBackButton.setBackground(new java.awt.Color(204, 0, 0));
         goBackButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -158,55 +124,21 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
                 goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(leftContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rightContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ratesTitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(leftContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rightContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBackButton)
-                    .addComponent(developerLabel))
-                .addContainerGap())
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 420, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
-        //Regresa a la principal
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_goBackButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
 
@@ -272,6 +204,13 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
             searchMethodField.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_searchMethodFieldFocusLost
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
     
     public String[] getVehicleData() {
         return vehicleData;
@@ -324,14 +263,14 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JLabel foundLabel;
     private javax.swing.JLabel foundLabelStillHere;
     private javax.swing.JButton goBackButton;
-    private javax.swing.JPanel leftContainer;
     private javax.swing.JButton printInvoice;
     private javax.swing.JLabel ratesTitleLabel;
-    private javax.swing.JPanel rightContainer;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField searchMethodField;
     private javax.swing.JComboBox<String> searchMethodSelector;

@@ -48,30 +48,39 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         itemOwnerID = new javax.swing.JTextField();
         itemIdentifiquer = new javax.swing.JTextField();
         itemEntryButton = new javax.swing.JButton();
+        branding = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("itemCheckin"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        vehicleCheckInTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("ENTRADA ARTICULO");
+        getContentPane().add(vehicleCheckInTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 50));
 
         itemTypeSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemTypeSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemTypeSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 175, -1));
 
         itemColorSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemColorSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemColorSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemColorSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 175, -1));
 
         itemStateSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemStateSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemStateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 175, -1));
 
         itemOwnerID.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemOwnerID.setForeground(new java.awt.Color(0, 102, 153));
@@ -84,6 +93,7 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 itemOwnerIDFocusLost(evt);
             }
         });
+        getContentPane().add(itemOwnerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 175, -1));
 
         itemIdentifiquer.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemIdentifiquer.setForeground(new java.awt.Color(0, 102, 153));
@@ -96,6 +106,7 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 itemIdentifiquerFocusLost(evt);
             }
         });
+        getContentPane().add(itemIdentifiquer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 175, -1));
 
         itemEntryButton.setBackground(new java.awt.Color(0, 153, 51));
         itemEntryButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -107,6 +118,10 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 itemEntryButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(itemEntryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 175, -1));
+
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         goBackButton.setBackground(new java.awt.Color(204, 0, 0));
         goBackButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -117,60 +132,18 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 440, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vehicleCheckInTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(itemColorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(itemEntryButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(itemIdentifiquer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(itemOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vehicleCheckInTitleLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(itemOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(itemIdentifiquer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(itemColorSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(itemEntryButton))
-                    .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBackButton)
-                    .addComponent(developerLabel))
-                .addContainerGap())
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 440, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 250));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -319,6 +292,8 @@ public class ItemCheckInUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
     private javax.swing.JComboBox<String> itemColorSelector;

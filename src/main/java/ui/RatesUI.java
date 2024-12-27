@@ -63,35 +63,26 @@ public class RatesUI extends javax.swing.JFrame {
     private void initComponents() {
 
         ratesTitleLabel = new javax.swing.JLabel();
-        ratesGoBackButton = new javax.swing.JButton();
-        developerLabel = new javax.swing.JLabel();
         updateRate = new javax.swing.JButton();
         rateSelector = new javax.swing.JComboBox<>();
         rateChangeStatus = new javax.swing.JLabel();
         queryRatesButton = new javax.swing.JButton();
+        branding = new javax.swing.JPanel();
+        goBackButton = new javax.swing.JButton();
+        developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("rates"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ratesTitleLabel.setFont(new java.awt.Font("Gill Sans MT", 2, 24)); // NOI18N
+        ratesTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         ratesTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ratesTitleLabel.setText("ADMINISTRADOR PRECIOS");
-
-        ratesGoBackButton.setBackground(new java.awt.Color(204, 0, 0));
-        ratesGoBackButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        ratesGoBackButton.setForeground(new java.awt.Color(255, 255, 255));
-        ratesGoBackButton.setText("VOLVER");
-        ratesGoBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        ratesGoBackButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ratesGoBackButtonActionPerformed(evt);
-            }
-        });
-
-        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
-        developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        developerLabel.setText("CASANAS SOFTWARE");
+        getContentPane().add(ratesTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, -1, -1, 70));
 
         updateRate.setBackground(new java.awt.Color(0, 153, 51));
         updateRate.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -103,15 +94,19 @@ public class RatesUI extends javax.swing.JFrame {
                 updateRateActionPerformed(evt);
             }
         });
+        getContentPane().add(updateRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 261, -1));
 
         rateSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         rateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         rateSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(rateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 261, -1));
 
-        rateChangeStatus.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        rateChangeStatus.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        rateChangeStatus.setForeground(new java.awt.Color(255, 255, 255));
         rateChangeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rateChangeStatus.setText("-");
         rateChangeStatus.setToolTipText("");
+        getContentPane().add(rateChangeStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 190, 420, 40));
 
         queryRatesButton.setBackground(new java.awt.Color(0, 102, 153));
         queryRatesButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -123,42 +118,32 @@ public class RatesUI extends javax.swing.JFrame {
                 queryRatesButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(queryRatesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 261, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(53, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rateChangeStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(updateRate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ratesGoBackButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(rateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ratesTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(queryRatesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(60, 60, 60))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ratesTitleLabel)
-                .addGap(22, 22, 22)
-                .addComponent(rateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(updateRate)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(queryRatesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rateChangeStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(ratesGoBackButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(developerLabel)
-                .addContainerGap())
-        );
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        goBackButton.setBackground(new java.awt.Color(204, 0, 0));
+        goBackButton.setForeground(new java.awt.Color(255, 255, 255));
+        goBackButton.setText("<-");
+        goBackButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        goBackButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                goBackButtonActionPerformed(evt);
+            }
+        });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
+
+        developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
+        developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 40));
+
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 420, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 280));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,13 +172,6 @@ public class RatesUI extends javax.swing.JFrame {
         printRates(rates.updateRate(this, Integer.parseInt(user.getBusiness_id()), rateToUpdate, newRate));
     }//GEN-LAST:event_updateRateActionPerformed
 
-    private void ratesGoBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ratesGoBackButtonActionPerformed
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_ratesGoBackButtonActionPerformed
-
     private void queryRatesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_queryRatesButtonActionPerformed
         // Obtener los datos de las tarifas
         ArrayList<Object> ratesList = new Rates().getRates(Integer.parseInt(new User().getBusiness_id()));
@@ -216,6 +194,13 @@ public class RatesUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, message.toString(), "Tarifas", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_queryRatesButtonActionPerformed
 
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
+
     //Obtiene las tarifas desde ratesManagment y asigna esos valores a los JLabel de tarifas
     private void printRates(boolean updated) {
         if (updated) {
@@ -226,11 +211,13 @@ public class RatesUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
+    private javax.swing.JButton goBackButton;
     private javax.swing.JButton queryRatesButton;
     private javax.swing.JLabel rateChangeStatus;
     private javax.swing.JComboBox<String> rateSelector;
-    private javax.swing.JButton ratesGoBackButton;
     private javax.swing.JLabel ratesTitleLabel;
     private javax.swing.JButton updateRate;
     // End of variables declaration//GEN-END:variables

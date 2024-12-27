@@ -45,22 +45,30 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
         itemDepartureOwnerID = new javax.swing.JTextField();
         itemDepartureIdentifiquer = new javax.swing.JTextField();
         itemDepartureButton = new javax.swing.JButton();
+        branding = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        background = new javax.swing.JLabel();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(440, 250));
+        setName("itemCheckout"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         vehicleCheckInTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        vehicleCheckInTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleCheckInTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleCheckInTitleLabel.setText("SALIDA ARTICULO");
+        getContentPane().add(vehicleCheckInTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 50));
 
         itemDepartureState.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemDepartureState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemDepartureState.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemDepartureState, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 175, -1));
 
         itemDepartureOwnerID.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemDepartureOwnerID.setForeground(new java.awt.Color(0, 102, 153));
@@ -73,6 +81,7 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                 itemDepartureOwnerIDFocusLost(evt);
             }
         });
+        getContentPane().add(itemDepartureOwnerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 175, -1));
 
         itemDepartureIdentifiquer.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemDepartureIdentifiquer.setForeground(new java.awt.Color(0, 102, 153));
@@ -85,6 +94,7 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                 itemDepartureIdentifiquerFocusLost(evt);
             }
         });
+        getContentPane().add(itemDepartureIdentifiquer, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 175, -1));
 
         itemDepartureButton.setBackground(new java.awt.Color(0, 153, 51));
         itemDepartureButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -96,6 +106,10 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                 itemDepartureButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(itemDepartureButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 175, -1));
+
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         goBackButton.setBackground(new java.awt.Color(204, 0, 0));
         goBackButton.setForeground(new java.awt.Color(255, 255, 255));
@@ -106,53 +120,18 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
                 goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 2, 440, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vehicleCheckInTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(itemDepartureState, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(itemDepartureButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(itemDepartureIdentifiquer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(itemDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vehicleCheckInTitleLabel)
-                .addGap(18, 18, 18)
-                .addComponent(itemDepartureOwnerID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(itemDepartureIdentifiquer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(itemDepartureState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(itemDepartureButton)
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBackButton)
-                    .addComponent(developerLabel))
-                .addContainerGap())
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 440, 40));
+
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/background.jpeg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 250));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -230,13 +209,6 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_itemDepartureButtonActionPerformed
 
-    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
-        DashboardUI dashboard = new DashboardUI();
-        dashboard.setVisible(true);
-        dashboard.setLocationRelativeTo(null);
-        this.setVisible(false);
-    }//GEN-LAST:event_goBackButtonActionPerformed
-
     private void itemDepartureOwnerIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_itemDepartureOwnerIDFocusGained
         String placeholder = "Documento del cliente";
 
@@ -276,6 +248,13 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
             itemDepartureIdentifiquer.setForeground(Color.GRAY);
         }
     }//GEN-LAST:event_itemDepartureIdentifiquerFocusLost
+
+    private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
+        DashboardUI dashboard = new DashboardUI();
+        dashboard.setVisible(true);
+        dashboard.setLocationRelativeTo(null);
+        this.setVisible(false);
+    }//GEN-LAST:event_goBackButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,6 +299,8 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel background;
+    private javax.swing.JPanel branding;
     private javax.swing.JLabel developerLabel;
     private javax.swing.JButton goBackButton;
     private javax.swing.JButton itemDepartureButton;

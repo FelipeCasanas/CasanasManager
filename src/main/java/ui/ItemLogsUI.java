@@ -45,7 +45,6 @@ public class ItemLogsUI extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         buttonGroup1 = new javax.swing.ButtonGroup();
         vehicleLogsTitleLabel = new javax.swing.JLabel();
-        filtersAndSortContainer = new javax.swing.JPanel();
         filtersHeader = new javax.swing.JLabel();
         itemTypeSelector = new javax.swing.JComboBox<>();
         itemStateSelector = new javax.swing.JComboBox<>();
@@ -56,36 +55,47 @@ public class ItemLogsUI extends javax.swing.JFrame {
         logsView = new javax.swing.JScrollPane();
         logsViewTable = new javax.swing.JTable();
         addLogsPane = new javax.swing.JPanel();
+        branding = new javax.swing.JPanel();
         goBackButton = new javax.swing.JButton();
         developerLabel = new javax.swing.JLabel();
+        extendedBackground = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setName("itemLogs"); // NOI18N
         setUndecorated(true);
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         vehicleLogsTitleLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 24)); // NOI18N
+        vehicleLogsTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleLogsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleLogsTitleLabel.setText("REGISTROS");
+        getContentPane().add(vehicleLogsTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1312, 40));
 
         filtersHeader.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        filtersHeader.setForeground(new java.awt.Color(255, 255, 255));
         filtersHeader.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         filtersHeader.setText("FILTROS Y ORDENAMIENTO");
+        getContentPane().add(filtersHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 170, -1));
 
         itemTypeSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
         itemTypeSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemTypeSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 170, -1));
 
         itemStateSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemStateSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {""}));
         itemStateSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemStateSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 170, -1));
 
         itemCheckoutBySelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemCheckoutBySelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemCheckoutBySelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        getContentPane().add(itemCheckoutBySelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 170, -1));
 
         searchLogs.setBackground(new java.awt.Color(0, 153, 51));
         searchLogs.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
@@ -97,35 +107,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
                 searchLogsActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout filtersAndSortContainerLayout = new javax.swing.GroupLayout(filtersAndSortContainer);
-        filtersAndSortContainer.setLayout(filtersAndSortContainerLayout);
-        filtersAndSortContainerLayout.setHorizontalGroup(
-            filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, filtersAndSortContainerLayout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addGroup(filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(itemCheckoutBySelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(itemStateSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(itemTypeSelector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(searchLogs, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                    .addComponent(filtersHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        filtersAndSortContainerLayout.setVerticalGroup(
-            filtersAndSortContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(filtersAndSortContainerLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(filtersHeader)
-                .addGap(33, 33, 33)
-                .addComponent(itemTypeSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(itemStateSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(itemCheckoutBySelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(searchLogs)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(searchLogs, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 170, -1));
 
         logsContainer.setBackground(new java.awt.Color(0, 153, 255));
 
@@ -208,6 +190,11 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
         logsContainer.addTab("AGREGAR REGISTRO", addLogsPane);
 
+        getContentPane().add(logsContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 48, -1, -1));
+
+        branding.setBackground(new java.awt.Color(255, 255, 255));
+        branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         goBackButton.setBackground(new java.awt.Color(204, 0, 0));
         goBackButton.setForeground(new java.awt.Color(255, 255, 255));
         goBackButton.setText("<-");
@@ -217,50 +204,26 @@ public class ItemLogsUI extends javax.swing.JFrame {
                 goBackButtonActionPerformed(evt);
             }
         });
+        branding.add(goBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 70, 30));
 
         developerLabel.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
+        developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 40));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(vehicleLogsTitleLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(filtersAndSortContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(logsContainer)
-                        .addContainerGap(14, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(goBackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(developerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(vehicleLogsTitleLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(filtersAndSortContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(logsContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(goBackButton)
-                    .addComponent(developerLabel))
-                .addContainerGap())
-        );
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1320, 40));
+
+        extendedBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundExtended.jpeg"))); // NOI18N
+        getContentPane().add(extendedBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void searchLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLogsActionPerformed
+        String[][] logsData = requestLogsData();
+        fillTable(logsData);
+    }//GEN-LAST:event_searchLogsActionPerformed
 
     private void goBackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtonActionPerformed
         DashboardUI dashboard = new DashboardUI();
@@ -268,11 +231,6 @@ public class ItemLogsUI extends javax.swing.JFrame {
         dashboard.setLocationRelativeTo(null);
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
-
-    private void searchLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchLogsActionPerformed
-        String[][] logsData = requestLogsData();
-        fillTable(logsData);
-    }//GEN-LAST:event_searchLogsActionPerformed
 
     private void setRateTypeSelector() {
         ArrayList<Object> ratesData = BusinessItems.getRatesName(User.getBusiness_id());
@@ -414,9 +372,10 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addLogsPane;
+    private javax.swing.JPanel branding;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel developerLabel;
-    private javax.swing.JPanel filtersAndSortContainer;
+    private javax.swing.JLabel extendedBackground;
     private javax.swing.JLabel filtersHeader;
     private javax.swing.JButton goBackButton;
     private javax.swing.JComboBox<String> itemCheckoutBySelector;
