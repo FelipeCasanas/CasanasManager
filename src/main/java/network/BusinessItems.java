@@ -55,9 +55,9 @@ public class BusinessItems {
         ArrayList<String> rate = new ArrayList<>();
 
         try {
-            String rateQuery = "SELECT id, type_name FROM type WHERE category_id = ?";
+            String rateQuery = "SELECT id, type_name FROM type WHERE business_id = ?";
             PreparedStatement colorPS = link.prepareStatement(rateQuery);
-            colorPS.setString(1, User.getBusinessCategory());
+            colorPS.setString(1, User.getBusiness_id());
             ResultSet colorRS = colorPS.executeQuery();
 
             while (colorRS.next()) {

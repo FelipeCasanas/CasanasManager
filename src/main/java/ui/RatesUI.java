@@ -106,7 +106,7 @@ public class RatesUI extends javax.swing.JFrame {
         rateChangeStatus.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         rateChangeStatus.setText("-");
         rateChangeStatus.setToolTipText("");
-        getContentPane().add(rateChangeStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 190, 420, 40));
+        getContentPane().add(rateChangeStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 400, 40));
 
         queryRatesButton.setBackground(new java.awt.Color(0, 102, 153));
         queryRatesButton.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N

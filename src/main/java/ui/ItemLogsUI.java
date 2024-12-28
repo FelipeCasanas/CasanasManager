@@ -74,7 +74,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
         vehicleLogsTitleLabel.setForeground(new java.awt.Color(255, 255, 255));
         vehicleLogsTitleLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         vehicleLogsTitleLabel.setText("REGISTROS");
-        getContentPane().add(vehicleLogsTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1312, 40));
+        getContentPane().add(vehicleLogsTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 6, 1600, 40));
 
         filtersHeader.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         filtersHeader.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,7 +118,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "PLACA", "HORA ENTRADA", "HORA SALIDA", "COBRO"
+                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "IDENTIFICADOR", "HORA ENTRADA", "HORA SALIDA", "COBRO"
             }
         ) {
             Class[] types = new Class [] {
@@ -141,34 +141,35 @@ public class ItemLogsUI extends javax.swing.JFrame {
         logsViewTable.getTableHeader().setReorderingAllowed(false);
         logsView.setViewportView(logsViewTable);
         if (logsViewTable.getColumnModel().getColumnCount() > 0) {
-            logsViewTable.getColumnModel().getColumn(0).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+            logsViewTable.getColumnModel().getColumn(0).setMinWidth(50);
+            logsViewTable.getColumnModel().getColumn(0).setMaxWidth(50);
             logsViewTable.getColumnModel().getColumn(1).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(1).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(1).setPreferredWidth(50);
             logsViewTable.getColumnModel().getColumn(2).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(2).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(2).setPreferredWidth(10);
             logsViewTable.getColumnModel().getColumn(3).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(3).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(3).setPreferredWidth(20);
             logsViewTable.getColumnModel().getColumn(4).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(4).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(4).setPreferredWidth(40);
             logsViewTable.getColumnModel().getColumn(5).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(5).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(5).setPreferredWidth(30);
             logsViewTable.getColumnModel().getColumn(6).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(6).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(6).setPreferredWidth(40);
             logsViewTable.getColumnModel().getColumn(7).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(7).setPreferredWidth(50);
+            logsViewTable.getColumnModel().getColumn(7).setPreferredWidth(40);
             logsViewTable.getColumnModel().getColumn(8).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(8).setPreferredWidth(30);
+            logsViewTable.getColumnModel().getColumn(8).setPreferredWidth(35);
             logsViewTable.getColumnModel().getColumn(9).setResizable(false);
             logsViewTable.getColumnModel().getColumn(10).setResizable(false);
             logsViewTable.getColumnModel().getColumn(11).setResizable(false);
+            logsViewTable.getColumnModel().getColumn(11).setPreferredWidth(15);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(logsView, javax.swing.GroupLayout.DEFAULT_SIZE, 1092, Short.MAX_VALUE)
+            .addComponent(logsView, javax.swing.GroupLayout.DEFAULT_SIZE, 1360, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +182,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
         addLogsPane.setLayout(addLogsPaneLayout);
         addLogsPaneLayout.setHorizontalGroup(
             addLogsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1092, Short.MAX_VALUE)
+            .addGap(0, 1360, Short.MAX_VALUE)
         );
         addLogsPaneLayout.setVerticalGroup(
             addLogsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -190,7 +191,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
         logsContainer.addTab("AGREGAR REGISTRO", addLogsPane);
 
-        getContentPane().add(logsContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 48, -1, -1));
+        getContentPane().add(logsContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 48, 1360, -1));
 
         branding.setBackground(new java.awt.Color(255, 255, 255));
         branding.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -210,12 +211,12 @@ public class ItemLogsUI extends javax.swing.JFrame {
         developerLabel.setForeground(new java.awt.Color(0, 0, 0));
         developerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         developerLabel.setText("CASANAS SOFTWARE");
-        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 40));
+        branding.add(developerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 40));
 
-        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1320, 40));
+        getContentPane().add(branding, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 470, 1600, 40));
 
         extendedBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/backgroundExtended.jpeg"))); // NOI18N
-        getContentPane().add(extendedBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1320, 500));
+        getContentPane().add(extendedBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1600, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
