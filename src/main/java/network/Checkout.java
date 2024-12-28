@@ -33,7 +33,7 @@ public class Checkout {
 
         String whereQuery = " WHERE i1.checkout_hour BETWEEN ? AND ?";
         String orderByClause = " ORDER BY i1.id ASC";
-        String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.rate_amount "
+        String checkoutCountQuery = "SELECT i1.id, t1.type_name AS type_name, mu.name, mu.last_name, inc1.sell_price "
                 + "FROM item i1 " + innerJoinQuery + whereQuery + orderByClause;
 
         String[][] checkoutData = null;
@@ -61,7 +61,7 @@ public class Checkout {
                         while (checkoutCountRS.next()) {
                             checkoutData[index][0] = checkoutCountRS.getString("id");
                             checkoutData[index][1] = checkoutCountRS.getString("type_name").toUpperCase();
-                            checkoutData[index][2] = checkoutCountRS.getString("rate_amount");
+                            checkoutData[index][2] = checkoutCountRS.getString("sell_price");
                             checkoutData[index][3] = checkoutCountRS.getString("name").toUpperCase();
                             checkoutData[index][4] = checkoutCountRS.getString("last_name").toUpperCase();
                             index++;

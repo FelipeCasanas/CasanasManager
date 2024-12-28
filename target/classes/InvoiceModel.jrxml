@@ -42,6 +42,7 @@
 	<parameter name="companyAddress" class="java.lang.String"/>
 	<parameter name="printDate" class="java.util.Date"/>
 	<parameter name="printHour" class="java.util.Date"/>
+	<parameter name="checkoutMessage" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
@@ -201,13 +202,13 @@
 				</reportElement>
 				<textFieldExpression><![CDATA[$P{plate}]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="390" y="30" width="140" height="15" uuid="c2640f1f-e19d-4133-b081-c21d774647ee"/>
-				<textElement textAlignment="Center">
-					<font isBold="true" isItalic="true" isUnderline="true"/>
-				</textElement>
-				<text><![CDATA[¡QUE TENGA BUEN VIAJE!]]></text>
-			</staticText>
+			<textField>
+				<reportElement style="Table_TH" x="390" y="15" width="134" height="50" uuid="547d5a24-5aa0-4d19-867f-1ae61824b319">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$P{checkoutMessage}]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 	<summary>

@@ -17,7 +17,7 @@ public class Printing {
     private static String[] businessData = new String[11];
 
     public void getBusinessData() {
-        Connection link = Connect.getInstance().getConnection(); 
+        Connection link = Connect.getInstance().getConnection();
 
         try {
             String queryBusinessData = "SELECT * "
@@ -45,41 +45,50 @@ public class Printing {
         }
     }
 
-    public void print(String[] vehicleData) {
+    public void print(String[] itemData) {
         // Rutas predefinidas
         String jrxmlFile = "src/main/resources/InvoiceModel.jrxml";
         String compiledReportFile = "src/main/resources/InvoiceModel.jasper";
         String companyLogo = "src/main/resources/icon.jpg";
 
+        String checkoutMessage;
+        if (User.getBusinessCategory().equals("1")) {
+            checkoutMessage = "¡Que tenga buen viaje!";
+        } else {
+            checkoutMessage = "¡Gracias por su compra!";
+        }
+
         // Datos para llenar el reporte
-        String type = vehicleData[9].toUpperCase();
-        String color = vehicleData[1].toUpperCase();
-        String state = vehicleData[2].toUpperCase();
-        String checkoutState = vehicleData[3].toUpperCase();
-        String checkinBy = vehicleData[4].toUpperCase();
-        String checkoutBy = vehicleData[5].toUpperCase();
-        String ownerId = vehicleData[8];
-        String plate = vehicleData[7].toUpperCase();
-        String companyName = this.businessData[2];                     // NOMBRE EMPRESA CLIENTE
-        String companyAddress = this.businessData[6];                  // DIRECCION DE PARQUEADERO CLIENTE
+        String type = itemData[9].toUpperCase();
+        String color = itemData[1].toUpperCase();
+        String state = itemData[2].toUpperCase();
+        String checkoutState = itemData[3].toUpperCase();
+        String checkinBy = itemData[4].toUpperCase();
+        String checkoutBy = itemData[5].toUpperCase();
+        String ownerId = itemData[8];
+        String identifiquer = itemData[7].toUpperCase();
+        String companyName = this.businessData[2]; // Nombre de la empresa
+        String companyAddress = this.businessData[6]; // Dirección de la empresa
 
-        // Crear una objeto de ReportsManagement
+        // Crear un objeto de Reports
         Reports reportsManagement = new Reports(type, color, state, checkoutState,
-                checkinBy, checkoutBy, ownerId, plate, companyName, companyLogo, companyAddress);
+                checkinBy, checkoutBy, ownerId, identifiquer, companyName, companyLogo, companyAddress, checkoutMessage);
 
-        // Compilar el reporte
+        // Compilar el reporte (si aún no está compilado)
         reportsManagement.compileReport(jrxmlFile, compiledReportFile);
 
         // Llenar el reporte
-        JasperPrint jasperPrint = reportsManagement.fillReport(compiledReportFile);
+        JasperPrint filledReport = reportsManagement.fillReport(compiledReportFile);
+        if (filledReport != null) {
+            // Exportar a PDF
+            String outputPdfFile = "src/main/invoices/Invoice_" + identifiquer.toLowerCase() + ".pdf";
+            reportsManagement.exportReportToPdf(filledReport, outputPdfFile);
 
-        // Exportar el reporte a PDF y mostrarlo
-        if (jasperPrint != null) {
-            String pdfOutputFile = "C:/Users/Felipe/Desktop/Invoice.pdf";
-            reportsManagement.exportReportToPdf(jasperPrint, pdfOutputFile);
-            reportsManagement.displayReport(jasperPrint);
+            // Mostrar el reporte
+            reportsManagement.displayReport(filledReport);
         } else {
-            System.out.println("Error: No se pudo generar el reporte.");
+            System.err.println("No se pudo llenar el reporte.");
         }
     }
+
 }

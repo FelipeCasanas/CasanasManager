@@ -25,10 +25,11 @@ public class Reports {
     private final String companyName;
     private final String companyLogo;
     private final String companyAddress;
+    private final String checkoutMessage;
 
     public Reports(String type, String color, String state, String checkoutState,
             String checkinBy, String checkoutBy, String ownerId, String plate,
-            String companyName, String companyLogo, String companyAddress) {
+            String companyName, String companyLogo, String companyAddress, String checkoutMessage) {
         this.type = type;
         this.color = color;
         this.state = state;
@@ -40,6 +41,7 @@ public class Reports {
         this.companyName = companyName;
         this.companyLogo = companyLogo;
         this.companyAddress = companyAddress;
+        this.checkoutMessage = checkoutMessage;
     }
 
     /**
@@ -129,6 +131,7 @@ public class Reports {
         parameters.put("companyAddress", companyAddress);
         parameters.put("printDate", new Date());
         parameters.put("printHour", new Date());
+        parameters.put("checkoutMessage", checkoutMessage);
         return parameters;
     }
 }
