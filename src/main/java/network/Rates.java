@@ -22,7 +22,7 @@ import network.Checkout;
  */
 public class Rates {
 
-    public boolean createRate(ArrayList<String> newRateName, ArrayList<Double> newRate) {
+    public static boolean createRate(ArrayList<String> newRateName, ArrayList<Double> newRate) {
         // Obtiene la instancia de la conexión usando el patrón Singleton
         Connection link = Connect.getInstance().getConnection();
 
@@ -109,8 +109,8 @@ public class Rates {
         return ratesData.isEmpty() ? null : ratesData;
     }
 
-    public String[] getRate(String elementName) {
-        String[] rate = new String[1];
+    public double getRate(String elementName) {
+        double rate = 0;
 
         // Consulta SQL para obtener tarifas
         String queryRates = "SELECT rate_amount FROM price WHERE rate_name = ? LIMIT 1";
@@ -123,12 +123,14 @@ public class Rates {
 
             // Ejecuta la consulta y obtiene los resultados
             try (ResultSet ratesRS = ratesPS.executeQuery()) {
-
                 // Recorre el ResultSet y agrega los datos a las listas
-                while (ratesRS.next()) {
-                    rate[0] = ratesRS.getString("rate_amount");
+                if (!ratesRS.next()) {
+                    rate = -1;
+                } else {
+                    while (ratesRS.next()) {
+                        rate = ratesRS.getDouble("rate_amount");
+                    }
                 }
-
             }
 
         } catch (SQLException ex) {

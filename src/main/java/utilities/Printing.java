@@ -5,6 +5,7 @@
 package utilities;
 
 import controller.Reports;
+import controller.User;
 import net.sf.jasperreports.engine.*;
 import java.sql.*;
 import java.util.logging.Level;
@@ -19,11 +20,10 @@ public class Printing {
         Connection link = Connect.getInstance().getConnection(); 
 
         try {
-            String queryBusinnessData = "SELECT b1.* "
-                    + "FROM business b1 "
-                    + "INNER JOIN invoice_model im1 "
-                    + "ON b1.id = im1.business_id";
-            PreparedStatement businessPS = link.prepareStatement(queryBusinnessData);
+            String queryBusinessData = "SELECT * "
+                    + "FROM business WHERE id = ?";
+            PreparedStatement businessPS = link.prepareStatement(queryBusinessData);
+            businessPS.setString(1, User.getBusiness_id());
             ResultSet businessRS = businessPS.executeQuery();
 
             while (businessRS.next()) {

@@ -70,7 +70,7 @@ public class ItemCheckInUI extends javax.swing.JFrame {
         itemTypeSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemTypeSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
         itemTypeSelector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        getContentPane().add(itemTypeSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 175, -1));
+        getContentPane().add(itemTypeSelector, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 175, -1));
 
         itemColorSelector.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemColorSelector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {}));
@@ -93,7 +93,7 @@ public class ItemCheckInUI extends javax.swing.JFrame {
                 itemOwnerIDFocusLost(evt);
             }
         });
-        getContentPane().add(itemOwnerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 175, -1));
+        getContentPane().add(itemOwnerID, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 175, -1));
 
         itemIdentifiquer.setFont(new java.awt.Font("Gill Sans MT Condensed", 2, 18)); // NOI18N
         itemIdentifiquer.setForeground(new java.awt.Color(0, 102, 153));

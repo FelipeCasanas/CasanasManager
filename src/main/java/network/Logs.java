@@ -23,7 +23,7 @@ public class Logs {
         String baseQuery = """
     SELECT i1.*, c1.color_name, s1.state_name AS checkin_state_name, 
     s2.state_name AS checkout_state_name, u1.name AS checkin_by_user_name, 
-    u2.name AS checkout_by_user_name, i1.business_id, inc1.rate_amount, it.type_name 
+    u2.name AS checkout_by_user_name, i1.business_id, inc1.sell_price, it.type_name 
     FROM item i1 
     LEFT JOIN color c1 ON i1.color = c1.id 
     LEFT JOIN state s1 ON i1.checkin_state = s1.id 
@@ -103,7 +103,7 @@ public class Logs {
                         logsData[rowIndex][8] = rs.getString("item_identifiquer").toUpperCase();
                         logsData[rowIndex][9] = rs.getString("checkin_hour");
                         logsData[rowIndex][10] = rs.getString("checkout_hour");
-                        logsData[rowIndex][11] = rs.getString("rate_amount");
+                        logsData[rowIndex][11] = rs.getString("sell_price");
                         rowIndex++;
                     }
                     return logsData;

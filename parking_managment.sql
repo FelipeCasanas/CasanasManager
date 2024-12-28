@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2024 at 04:00 AM
+-- Generation Time: Dec 28, 2024 at 04:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,7 @@ CREATE TABLE `business` (
 --
 
 INSERT INTO `business` (`id`, `category`, `name`, `owner_name`, `phone_number`, `email`, `address`, `city`, `state`, `country`, `created_at`) VALUES
-(1, 1, 'parking1', 'carlos', '3016124366', 'parking1@gmail.com', 'cl 11 #8-22', 'buga', 'valle', 'co', '2024-09-03 02:13:56');
+(1, 2, 'parking1', 'carlos', '3016124366', 'parking1@gmail.com', 'cl 11 #8-22', 'buga', 'valle', 'co', '2024-09-03 02:13:56');
 
 -- --------------------------------------------------------
 
@@ -124,30 +124,34 @@ CREATE TABLE `income` (
   `id` int(11) NOT NULL,
   `business_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
-  `rate_amount` double NOT NULL
+  `buy_price` double NOT NULL,
+  `sell_price` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `income`
 --
 
-INSERT INTO `income` (`id`, `business_id`, `item_id`, `rate_amount`) VALUES
-(1, 1, 1, 1900),
-(2, 1, 4, 2100),
-(3, 1, 5, 5900),
-(4, 1, 7, 2200),
-(5, 1, 8, 2000),
-(6, 1, 9, 1700),
-(7, 1, 10, 0),
-(8, 1, 11, 3000),
-(9, 1, 6, 7000),
-(10, 1, 3, 3300),
-(11, 1, 2, 3300),
-(12, 1, 12, 3300),
-(13, 1, 13, 3300),
-(14, 1, 14, 3300),
-(15, 1, 15, 3300),
-(16, 1, 16, 2500);
+INSERT INTO `income` (`id`, `business_id`, `item_id`, `buy_price`, `sell_price`) VALUES
+(1, 1, 1, 0, 1900),
+(2, 1, 4, 0, 2100),
+(3, 1, 5, 0, 5900),
+(4, 1, 7, 0, 2200),
+(5, 1, 8, 0, 2000),
+(6, 1, 9, 0, 1700),
+(7, 1, 10, 0, 0),
+(8, 1, 11, 0, 3000),
+(9, 1, 6, 0, 7000),
+(10, 1, 3, 0, 3300),
+(11, 1, 2, 0, 3300),
+(12, 1, 12, 0, 3300),
+(13, 1, 13, 0, 3300),
+(14, 1, 14, 0, 3300),
+(15, 1, 15, 0, 3300),
+(16, 1, 16, 0, 2500),
+(19, 1, 17, 8700, 0),
+(20, 1, 18, 9500, 19000),
+(21, 1, 19, 3500, 10500);
 
 -- --------------------------------------------------------
 
@@ -190,7 +194,23 @@ INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `colo
 (13, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:00:26', '2024-12-15 00:03:03', 1, 1),
 (14, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:11:15', '2024-12-15 00:13:22', 1, 1),
 (15, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 00:16:15', '2024-12-15 00:16:26', 1, 1),
-(16, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 01:04:19', '2024-12-15 01:22:28', 1, 1);
+(16, 'hhh10g', 1, 1, 1, '123456789', 1, 1, '2024-12-15 01:04:19', '2024-12-15 01:22:28', 1, 1),
+(17, 'rsb001', 4, 1, 1, '2222222222', 5, 5, '2024-12-27 23:43:47', '2024-12-28 02:20:34', 1, 1),
+(18, 'rd001', 5, 1, 3, '2222222222', 5, 5, '2024-12-28 02:27:08', '2024-12-28 02:30:24', 1, 1),
+(19, 'ac001', 6, 1, 2, '1111122222', 5, 5, '2024-12-28 03:15:29', '2024-12-28 03:19:45', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `item_update`
+--
+
+CREATE TABLE `item_update` (
+  `id` int(11) NOT NULL,
+  `business_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `update_note` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -238,8 +258,11 @@ CREATE TABLE `price` (
 
 INSERT INTO `price` (`id`, `rate_name`, `business_id`, `rate_amount`) VALUES
 (1, 'carro', 1, 3300),
-(2, 'moto', 1, 2200),
-(3, 'bicicleta', 1, 500);
+(2, 'moto', 1, 1800),
+(3, 'bicicleta', 1, 500),
+(4, 'reloj silicona', 1, 12000),
+(5, 'reloj deportivo', 1, 19000),
+(6, 'audifonos cable', 1, 10500);
 
 -- --------------------------------------------------------
 
@@ -275,7 +298,7 @@ INSERT INTO `state` (`id`, `state_name`, `category_id`) VALUES
 
 CREATE TABLE `type` (
   `id` int(11) NOT NULL,
-  `type_name` varchar(12) NOT NULL,
+  `type_name` varchar(64) NOT NULL,
   `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -286,7 +309,11 @@ CREATE TABLE `type` (
 INSERT INTO `type` (`id`, `type_name`, `category_id`) VALUES
 (1, 'moto', 1),
 (2, 'carro', 1),
-(3, 'bicicleta', 1);
+(3, 'bicicleta', 1),
+(4, 'reloj silicona', 2),
+(5, 'reloj deportivo', 2),
+(6, 'audifonos cable', 2),
+(7, 'audifonos inalambricos', 2);
 
 -- --------------------------------------------------------
 
@@ -348,6 +375,12 @@ ALTER TABLE `item`
   ADD KEY `fk_item_checkout_state` (`checkout_state`),
   ADD KEY `fk_item_checkin_by` (`checkin_by`),
   ADD KEY `fk_item_checkout_by` (`checkout_by`);
+
+--
+-- Indexes for table `item_update`
+--
+ALTER TABLE `item_update`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `my_user`
@@ -413,13 +446,19 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+
+--
+-- AUTO_INCREMENT for table `item_update`
+--
+ALTER TABLE `item_update`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `my_user`
@@ -431,7 +470,7 @@ ALTER TABLE `my_user`
 -- AUTO_INCREMENT for table `price`
 --
 ALTER TABLE `price`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `state`
@@ -443,7 +482,7 @@ ALTER TABLE `state`
 -- AUTO_INCREMENT for table `type`
 --
 ALTER TABLE `type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user_preference`
