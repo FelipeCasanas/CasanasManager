@@ -10,6 +10,7 @@ import net.sf.jasperreports.engine.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import network.Business;
 import network.Connect;
 
 public class Printing {
@@ -52,10 +53,10 @@ public class Printing {
         String companyLogo = "src/main/resources/icon.jpg";
 
         String checkoutMessage;
-        if (User.getBusinessCategory().equals("1")) {
-            checkoutMessage = "¡Que tenga buen viaje!";
+        if (Business.isRetail()) {
+            checkoutMessage = "¡Deseamos que disfrute su compra!";
         } else {
-            checkoutMessage = "¡Gracias por su compra!";
+            checkoutMessage = "¡Gracias por confiar en nuestros servicios!";
         }
 
         // Datos para llenar el reporte
@@ -67,8 +68,8 @@ public class Printing {
         String checkoutBy = itemData[5].toUpperCase();
         String ownerId = itemData[8];
         String identifiquer = itemData[7].toUpperCase();
-        String companyName = this.businessData[2]; // Nombre de la empresa
-        String companyAddress = this.businessData[6]; // Dirección de la empresa
+        String companyName = this.businessData[2].toUpperCase(); // Nombre de la empresa
+        String companyAddress = this.businessData[6].toUpperCase(); // Dirección de la empresa
 
         // Crear un objeto de Reports
         Reports reportsManagement = new Reports(type, color, state, checkoutState,

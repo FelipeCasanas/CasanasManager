@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import utilities.TimeMethods;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import network.Business;
 import network.IOItem;
 import network.Item;
 
@@ -30,7 +31,7 @@ public class BusinessModel {
             boolean vehicleExists = item.itemStillHere(elementArguments[4]);
 
             //Si tipo de negocio diferente a parqueadero pide que ingrese lo que costo comprar el producto
-            if (!User.getBusinessCategory().equals("1")) {
+            if (Business.isRetail()) {
                 buyPrice = Double.parseDouble(JOptionPane.showInputDialog("Ingrese el costo del producto: "));
             }
 

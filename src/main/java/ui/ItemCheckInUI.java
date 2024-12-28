@@ -166,19 +166,16 @@ public class ItemCheckInUI extends javax.swing.JFrame {
     }
 
     private void setRateTypeSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> ratesData = BusinessItems.getRatesName(User.getBusiness_id());
         setSelector(itemTypeSelector, ratesData, 1);
     }
 
     private void setColorSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> colors = BusinessItems.getColorsName();
         setSelector(itemColorSelector, colors, 1);
     }
 
     private void setStateSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> states = BusinessItems.getStatesName();
         setSelector(itemStateSelector, states, 1);
     }

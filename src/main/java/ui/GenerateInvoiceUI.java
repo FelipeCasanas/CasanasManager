@@ -16,7 +16,7 @@ import network.Item;
  */
 public class GenerateInvoiceUI extends javax.swing.JFrame {
     
-    private String[] vehicleData;
+    private String[] itemData;
     
     public GenerateInvoiceUI() {
         initComponents();
@@ -151,20 +151,20 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
 
         //Busca el vehiculo en la DB
         Item item = new Item();
-        String[] vehicleData = item.searchItem(fields[1]);
+        String[] itemData = item.searchItem(fields[1]);
 
         /*
-        Valida que el array tenga informacion. Si la tiene guarda la informacion obtenida por medio del metodo setVehicleData
+        Valida que el array tenga informacion. Si la tiene guarda la informacion obtenida por medio del metodo setItemData
         y activa el boton de imprimir factura; Si no, 
         la tiene imprime mensaje indicando que no se entrontro coincidencia
          */
-        if (vehicleData[0] != null) {
-            setVehicleData(vehicleData);
+        if (itemData[0] != null) {
+            setItemData(itemData);
             printInvoice.setEnabled(true);
             
-            if (vehicleData[5].equals("0")) {
-                foundLabel.setText("AUN EN PARQUEADERO");
-                foundLabelStillHere.setText("FALTARAN DATOS SI IMPRIME");
+            if (itemData[5].equals("indefinido")) {
+                foundLabel.setText("Aun en establecimiento");
+                foundLabelStillHere.setText("Faltarán datos si se imprime");
             } else {
                 foundLabel.setText("ENCONTRADO");
                 foundLabelStillHere.setText("");
@@ -173,7 +173,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
             printInvoice.setEnabled(false);
             foundLabel.setText("-");
             foundLabelStillHere.setText("-");
-            JOptionPane.showMessageDialog(this, "No se encontro el vehiculo");
+            JOptionPane.showMessageDialog(this, "No se encontro coincidencia");
         }
     }//GEN-LAST:event_searchButtonActionPerformed
 
@@ -182,7 +182,7 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         printingMethods.getBusinessData();
         
         Printing printInvoice = new Printing();
-        printInvoice.print(vehicleData);
+        printInvoice.print(itemData);
     }//GEN-LAST:event_printInvoiceActionPerformed
 
     private void searchMethodFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_searchMethodFieldFocusGained
@@ -212,12 +212,12 @@ public class GenerateInvoiceUI extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_goBackButtonActionPerformed
     
-    public String[] getVehicleData() {
-        return vehicleData;
+    public String[] getItemData() {
+        return itemData;
     }
     
-    private void setVehicleData(String[] vehicleData) {
-        this.vehicleData = vehicleData;
+    private void setItemData(String[] itemData) {
+        this.itemData = itemData;
     }
 
     /**

@@ -42,4 +42,25 @@ public class Business {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);  // Manejo de errores
         }
     }
+
+    public static boolean isRetail() {
+        String businessIDQuery = "SELECT retail FROM category WHERE id = ?";
+
+        try (Connection link = Connect.getInstance().getConnection(); PreparedStatement ps = link.prepareStatement(businessIDQuery)) {
+
+            ps.setString(1, User.getBusinessCategory()); // Establecer el ID del negocio
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getBoolean("retail"); // Devuelve el valor del campo "retail"
+                }
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, "Error querying retail status", ex);
+        }
+
+        return false; // Retorna false si no hay resultados o ocurre un error
+    }
+
 }

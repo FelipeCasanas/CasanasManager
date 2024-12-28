@@ -147,7 +147,6 @@ public class ItemCheckOutUI extends javax.swing.JFrame {
     }
 
     private void setStateSelector() {
-        Checkout queryManagment = new Checkout();
         ArrayList<Object> states = BusinessItems.getStatesName();
         setSelector(itemDepartureState, states, 1);
     }
