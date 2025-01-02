@@ -227,7 +227,7 @@
                         <Column editable="false" title="ESTADO SALIDA" type="java.lang.String"/>
                         <Column editable="false" title="ENTRADA POR" type="java.lang.String"/>
                         <Column editable="false" title="SALIDA POR" type="java.lang.String"/>
-                        <Column editable="false" title="DUE&#xd1;O" type="java.lang.String"/>
+                        <Column editable="false" title="DUE&#xd1;O/PROVEEDOR" type="java.lang.String"/>
                         <Column editable="false" title="IDENTIFICADOR" type="java.lang.String"/>
                         <Column editable="false" title="HORA ENTRADA" type="java.lang.String"/>
                         <Column editable="false" title="HORA SALIDA" type="java.lang.String"/>
@@ -271,7 +271,7 @@
                           <Editor/>
                           <Renderer/>
                         </Column>
-                        <Column maxWidth="-1" minWidth="-1" prefWidth="40" resizable="false">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="55" resizable="false">
                           <Title/>
                           <Editor/>
                           <Renderer/>

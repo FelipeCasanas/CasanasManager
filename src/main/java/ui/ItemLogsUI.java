@@ -118,7 +118,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO", "IDENTIFICADOR", "HORA ENTRADA", "HORA SALIDA", "COBRO"
+                "ID", "TIPO", "COLOR", "ESTADO", "ESTADO SALIDA", "ENTRADA POR", "SALIDA POR", "DUEÑO/PROVEEDOR", "IDENTIFICADOR", "HORA ENTRADA", "HORA SALIDA", "COBRO"
             }
         ) {
             Class[] types = new Class [] {
@@ -156,7 +156,7 @@ public class ItemLogsUI extends javax.swing.JFrame {
             logsViewTable.getColumnModel().getColumn(6).setResizable(false);
             logsViewTable.getColumnModel().getColumn(6).setPreferredWidth(40);
             logsViewTable.getColumnModel().getColumn(7).setResizable(false);
-            logsViewTable.getColumnModel().getColumn(7).setPreferredWidth(40);
+            logsViewTable.getColumnModel().getColumn(7).setPreferredWidth(55);
             logsViewTable.getColumnModel().getColumn(8).setResizable(false);
             logsViewTable.getColumnModel().getColumn(8).setPreferredWidth(35);
             logsViewTable.getColumnModel().getColumn(9).setResizable(false);

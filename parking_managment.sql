@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2024 at 10:42 PM
+-- Generation Time: Jan 02, 2025 at 08:14 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -90,7 +90,11 @@ INSERT INTO `color` (`id`, `color_name`) VALUES
 (3, 'negro'),
 (4, 'rojo'),
 (5, 'azul'),
-(6, 'otro');
+(6, 'verde'),
+(7, 'rosado'),
+(8, 'morado'),
+(9, 'amarillo'),
+(10, 'otro');
 
 -- --------------------------------------------------------
 
@@ -145,7 +149,15 @@ INSERT INTO `income` (`id`, `business_id`, `item_id`, `buy_price`, `sell_price`)
 (9, 1, 9, 8515, 0),
 (10, 1, 10, 8515, 0),
 (11, 1, 11, 8515, 0),
-(12, 1, 12, 8515, 0);
+(12, 1, 12, 8515, 0),
+(13, 1, 13, 10118, 0),
+(14, 1, 14, 10118, 0),
+(15, 1, 15, 10118, 0),
+(16, 1, 16, 10118, 0),
+(17, 1, 17, 8002, 0),
+(18, 1, 18, 8002, 0),
+(19, 1, 19, 8002, 0),
+(20, 1, 20, 8002, 0);
 
 -- --------------------------------------------------------
 
@@ -184,7 +196,15 @@ INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `colo
 (9, 'rsn001', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:08', NULL, 1, 0),
 (10, 'rsn002', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:18', NULL, 1, 0),
 (11, 'rsn003', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:24', NULL, 1, 0),
-(12, 'rsn004', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:32', NULL, 1, 0);
+(12, 'rsn004', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:32', NULL, 1, 0),
+(13, 'rdna001', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:56:52', NULL, 1, 0),
+(14, 'rdna002', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:56:59', NULL, 1, 0),
+(15, 'rdna003', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:57:06', NULL, 1, 0),
+(16, 'rdna004', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:57:13', NULL, 1, 0),
+(17, 'rsv001', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:40', NULL, 1, 0),
+(18, 'rsv002', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:48', NULL, 1, 0),
+(19, 'rsv003', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:56', NULL, 1, 0),
+(20, 'rsv004', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:12:16', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -416,7 +436,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `devices`
@@ -428,13 +448,13 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `item_update`
