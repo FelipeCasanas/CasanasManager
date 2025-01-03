@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 02, 2025 at 08:14 PM
+-- Generation Time: Jan 03, 2025 at 02:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -157,7 +157,15 @@ INSERT INTO `income` (`id`, `business_id`, `item_id`, `buy_price`, `sell_price`)
 (17, 1, 17, 8002, 0),
 (18, 1, 18, 8002, 0),
 (19, 1, 19, 8002, 0),
-(20, 1, 20, 8002, 0);
+(20, 1, 20, 8002, 0),
+(21, 1, 21, 7931, 0),
+(22, 1, 22, 7931, 0),
+(23, 1, 23, 7931, 0),
+(24, 1, 24, 7931, 0),
+(25, 1, 25, 8002, 0),
+(26, 1, 26, 8002, 0),
+(27, 1, 27, 8002, 0),
+(28, 1, 28, 8002, 0);
 
 -- --------------------------------------------------------
 
@@ -193,7 +201,7 @@ INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `colo
 (6, 'rdn002', 5, 1, 3, '1112388257', 5, 0, '2024-12-28 19:29:05', NULL, 1, 0),
 (7, 'rdn003', 5, 1, 3, '1112388257', 5, 0, '2024-12-28 19:29:44', NULL, 1, 0),
 (8, 'rdn004', 5, 1, 3, '1112388257', 5, 0, '2024-12-28 19:29:50', NULL, 1, 0),
-(9, 'rsn001', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:08', NULL, 1, 0),
+(9, 'rsn001', 4, 1, 3, '1112388257', 8, 0, '2024-12-28 19:31:08', NULL, 1, 0),
 (10, 'rsn002', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:18', NULL, 1, 0),
 (11, 'rsn003', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:24', NULL, 1, 0),
 (12, 'rsn004', 4, 1, 3, '1112388257', 5, 0, '2024-12-28 19:31:32', NULL, 1, 0),
@@ -202,9 +210,17 @@ INSERT INTO `item` (`id`, `item_identifiquer`, `item_type`, `business_id`, `colo
 (15, 'rdna003', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:57:06', NULL, 1, 0),
 (16, 'rdna004', 5, 1, 5, '1112388257', 5, 0, '2024-12-31 19:57:13', NULL, 1, 0),
 (17, 'rsv001', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:40', NULL, 1, 0),
-(18, 'rsv002', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:48', NULL, 1, 0),
+(18, 'rsv002', 4, 1, 6, '1112388257', 8, 0, '2025-01-02 19:11:48', NULL, 1, 0),
 (19, 'rsv003', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:11:56', NULL, 1, 0),
-(20, 'rsv004', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:12:16', NULL, 1, 0);
+(20, 'rsv004', 4, 1, 6, '1112388257', 5, 0, '2025-01-02 19:12:16', NULL, 1, 0),
+(21, 'rsrd001', 4, 1, 7, '1112388257', 5, 0, '2025-01-03 00:38:45', NULL, 1, 0),
+(22, 'rsrd002', 4, 1, 7, '1112388257', 5, 0, '2025-01-03 00:52:12', NULL, 1, 0),
+(23, 'rsrd003', 4, 1, 7, '1112388257', 5, 0, '2025-01-03 00:52:21', NULL, 1, 0),
+(24, 'rsrd004', 4, 1, 7, '1112388257', 5, 0, '2025-01-03 00:52:36', NULL, 1, 0),
+(25, 'rsr001', 4, 1, 4, '1112388257', 5, 0, '2025-01-03 00:59:07', NULL, 1, 0),
+(26, 'rsr002', 4, 1, 4, '1112388257', 5, 0, '2025-01-03 00:59:13', NULL, 1, 0),
+(27, 'rsr003', 4, 1, 4, '1112388257', 5, 0, '2025-01-03 00:59:24', NULL, 1, 0),
+(28, 'rsr004', 4, 1, 4, '1112388257', 5, 0, '2025-01-03 00:59:36', NULL, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -292,7 +308,9 @@ INSERT INTO `state` (`id`, `state_name`, `category_id`) VALUES
 (4, 'desconocido', 1),
 (5, 'nuevo', 2),
 (6, 'usado', 2),
-(7, 'reacondicionado', 2);
+(7, 'reacondicionado', 2),
+(8, 'defectuoso', 2),
+(9, 'dañado', 2);
 
 -- --------------------------------------------------------
 
@@ -448,13 +466,13 @@ ALTER TABLE `devices`
 -- AUTO_INCREMENT for table `income`
 --
 ALTER TABLE `income`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `item_update`
@@ -478,7 +496,7 @@ ALTER TABLE `price`
 -- AUTO_INCREMENT for table `state`
 --
 ALTER TABLE `state`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `type`
